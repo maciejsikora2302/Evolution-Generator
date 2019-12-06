@@ -1,14 +1,15 @@
 package mainPackage;
 
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
-public class Animal extends AbstractWorldMapElement {
+public class Animal extends AbstractWorldMapElement{
     private MapDirection Direction;
     private Oasis map;
-    private int energy;
-    private int[] moveGen;
+    private Integer energy;
+    private ArrayList<Integer> moveGen;
 
     public int getEnergy() {
         return this.energy;
@@ -45,7 +46,7 @@ public class Animal extends AbstractWorldMapElement {
     }
 
     private int getTurnValue() {
-        return this.moveGen[new Random().nextInt(32)];
+        return this.moveGen.get(new Random().nextInt(32));
     }
 
     public int compareTo(Animal animal) {
@@ -83,11 +84,11 @@ public class Animal extends AbstractWorldMapElement {
 
 
     //TODO:getMoveGen powinno być usunięte po stworzeniu generowania genów
-    public int[] getMoveGen() {
+    public ArrayList<Integer> getMoveGen() {
         return moveGen;
     }
 
-    public Animal(Oasis map, Vector2d initialPosition, int energy, int[] moveGen) {
+    public Animal(Oasis map, Vector2d initialPosition, int energy, ArrayList<Integer> moveGen) {
         this.map = map;
         this.Direction = MapDirection.NORTH;
         int rand = new Random().nextInt(8);
