@@ -65,7 +65,7 @@ public class MapVisualizer {
         StringBuilder builder = new StringBuilder();
         builder.append(" y\\x ");
         for (int j = lowerLeft.x; j < upperRight.x + 1; j++) {
-            builder.append(String.format("%2d", j));
+            builder.append(String.format("%2d ", j));
         }
         builder.append(System.lineSeparator());
         return builder.toString();
@@ -77,11 +77,11 @@ public class MapVisualizer {
             Object object = this.map.objectAt(currentPosition);
             if (object != null) {
                 if (object instanceof ArrayList && ((ArrayList) object).size()>1 ){
-                    result = "# ";
+                    result = "⚤"; //இ, ∰, ⛧
                 }else if(object instanceof ArrayList && ((ArrayList) object).size() == 1){
                     result = ((ArrayList) object).get(0).toString();
                 }else if(object instanceof Grass){
-                    result = "% ";
+                    result = "Ӂ ";
                 }else {
                     result = object.toString();
                 }

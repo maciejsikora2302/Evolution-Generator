@@ -53,60 +53,37 @@ public class Animal extends AbstractWorldMapElement {
     }
 
     public void move(MoveDirection direction) {
-//        switch (direction) {
-//            case RIGHT:
-//                this.Direction = this.Direction.next();
-//                break;
-//            case LEFT:
-//                this.Direction = this.Direction.previous();
-//                break;
-//            case FORWARD:
-//                if (this.map.canMoveTo(this.Position.add(this.Direction.toUnitVector()))) {
-////                        Vector2d oldPosition = this.getPosition();
-//                    this.Position = this.Position.add(this.Direction.toUnitVector());
-////                        positionChanged(oldPosition,this.getPosition());
-//                }
-//                break;
-//            case BACKWARD:
-//                if (this.map.canMoveTo(this.Position.subtract(this.Direction.toUnitVector()))) {
-////                        Vector2d oldPosition = this.getPosition();
-//                    this.Position = this.Position.subtract(this.Direction.toUnitVector());
-////                        positionChanged(oldPosition,this.getPosition());
-//                }
-//                break;
-//        }
-        if (this.map.canMoveTo(this.Position.add(this.Direction.toUnitVector()))){
-            this.map.removeAnimalFromGivenPosition(this.Position,this);
-            this.Position = this.Position.add(this.Direction.toUnitVector());
-            this.map.moveAnimalToGivenPosition(this.Position,this);
-        }
+        this.map.removeAnimalFromGivenPosition(this.Position, this);
+        this.Position = this.map.proccesPositionInWrappingOasis(this.Position);
+        this.Position = this.Position.add(this.Direction.toUnitVector());
+        this.map.moveAnimalToGivenPosition(this.Position, this);
     }
 
-    public void turnAccordingToGene(){
+    public void turnAccordingToGene() {
         int turnValue = this.getTurnValue();
-        for (int i=0;i<turnValue;i++){
+        for (int i = 0; i < turnValue; i++) {
             this.Direction = this.Direction.next();
         }
     }
 
-    public void eat(int energy){
+    public void eat(int energy) {
         this.energy += energy;
-        if (this.energy > this.map.maxAnimalEnergy){
+        if (this.energy > this.map.maxAnimalEnergy) {
             this.energy = this.map.maxAnimalEnergy;
         }
     }
 
-    public void decreaseEnergyByMoveValue(int moveEnergy){
+    public void decreaseEnergyByMoveValue(int moveEnergy) {
         this.energy -= moveEnergy;
     }
 
-    public void giveBirth(){
-        this.energy -= this.energy/4;
+    public void giveBirth() {
+        this.energy -= this.energy / 4;
     }
 
 
     //TODO:getMoveGen powinno być usunięte po stworzeniu generowania genów
-    public int[] getMoveGen(){
+    public int[] getMoveGen() {
         return moveGen;
     }
 

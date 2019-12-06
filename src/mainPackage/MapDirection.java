@@ -34,48 +34,35 @@ public enum MapDirection{
         }
     }
     public MapDirection next(){
-        switch (this){
-            case NORTH:
-                return NORTHWEST;
-            case NORTHWEST:
-                return WEST;
-            case WEST:
-                return SOUTHWEST;
-            case SOUTHWEST:
-                return SOUTH;
-            case SOUTH:
-                return SOUTHEAST;
-            case SOUTHEAST:
-                return EAST;
-            case EAST:
-                return NORTHEAST;
-            case NORTHEAST:
-                return NORTH;
-            default:return SKIP;
-        }
+        return getMapDirection(NORTHWEST, WEST, SOUTHWEST, SOUTH, SOUTHEAST, EAST, NORTHEAST, NORTH);
 
     }
     public MapDirection previous(){
+        return getMapDirection(NORTHEAST, NORTH, NORTHWEST, WEST, SOUTHWEST, SOUTH, SOUTHEAST, EAST);
+    }
+
+    private MapDirection getMapDirection(MapDirection northeast, MapDirection north, MapDirection northwest, MapDirection west, MapDirection southwest, MapDirection south, MapDirection southeast, MapDirection east) {
         switch (this){
             case NORTH:
-                return NORTHEAST;
+                return northeast;
             case NORTHWEST:
-                return NORTH;
+                return north;
             case WEST:
-                return NORTHWEST;
+                return northwest;
             case SOUTHWEST:
-                return WEST;
+                return west;
             case SOUTH:
-                return SOUTHWEST;
+                return southwest;
             case SOUTHEAST:
-                return SOUTH;
+                return south;
             case EAST:
-                return SOUTHEAST;
+                return southeast;
             case NORTHEAST:
-                return EAST;
+                return east;
             default:return SKIP;
         }
     }
+
     public Vector2d toUnitVector(){
         switch (this){
             case NORTH:

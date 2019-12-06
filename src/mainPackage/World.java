@@ -1,27 +1,36 @@
 package mainPackage;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class World {
     public static void main(String[] args) {
+        //TODO: operowanie na jsonie
         int width = 10;
         int height = 10;
-        Oasis map = new Oasis(width, height, 20, 100, 2);
+        double jungleRatio = 0.15;
+        Oasis map = new Oasis(width, height, 20, 100, 3, jungleRatio);
         int[] genes = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 7};
         map.placeAnimal(new Animal(map, new Vector2d(0, 3), 100, genes));
-        map.placeAnimal(new Animal(map, new Vector2d(4, 7), 100, genes));//TODO: losowanie pozycja
+        map.placeAnimal(new Animal(map, new Vector2d(4, 7), 100, genes));
+        //TODO: losowanie pozycji tak, żeby nie postawić zwierząt na sobie
         for (int i = 0; i < 30; i++) {
             map.placeAnimal(new Animal(map, new Vector2d(new Random().nextInt(width), new Random().nextInt(height)), 100, genes));
         }
 
 //        map.testFunction();
-        int numberOfDays = 30;
+        int numberOfDays = 100;
         for (int i = 0; i < numberOfDays; i++) {
             map.nextDay();
-//            System.out.println(map.toString());
+            System.out.println(map.toString());
             System.out.println(map.getNumberOfAnimalsAtMap());
         }
+
+
+
 //        System.out.println(map.toString());
     }
 }
