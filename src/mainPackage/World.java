@@ -1,14 +1,29 @@
 package mainPackage;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.google.gson.*;
+
+
 public class World {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //TODO: operowanie na jsonie
+        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\admin\\Documents\\Studia\\Semestr III\\Programowanie obiektowe\\Evolution-Generator\\src\\mainPackage\\settings.json"));
+        Gson gson = new Gson();
+        Parameters parameters = new Parameters();
+        parameters = gson.fromJson(reader,parameters.getClass());
+
+
         int width = 10;
         int height = 10;
         double jungleRatio = 0.15;
@@ -22,7 +37,7 @@ public class World {
         }
 
 //        map.testFunction();
-        int numberOfDays = 100;
+        int numberOfDays = 0;
         for (int i = 0; i < numberOfDays; i++) {
             map.nextDay();
             System.out.println(map.toString());
