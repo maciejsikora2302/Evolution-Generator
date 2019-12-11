@@ -2,7 +2,7 @@ package mainPackage.map.oasis;
 
 import mainPackage.map.AbstractWorldMap;
 import mainPackage.map.MapVisualizer;
-import mainPackage.mapElement.Animal;
+import mainPackage.mapElement.animal.Animal;
 import mainPackage.mapElement.Grass;
 import mainPackage.unused.Vector2d;
 
@@ -14,17 +14,16 @@ import static java.lang.Math.floor;
 import static java.lang.Math.sqrt;
 
 public class Oasis extends AbstractWorldMap {
-    public HashMap<Vector2d, Grass> grassHashMap = new HashMap<>();
-    public HashMap<Vector2d, Vector2d> innerOasisPositionHashMap = new HashMap<>();
-    public ArrayList<Vector2d> innerOasisPositionList;
-    public List<Integer> indexList;
+    HashMap<Vector2d, Grass> grassHashMap = new HashMap<>();
+    private HashMap<Vector2d, Vector2d> innerOasisPositionHashMap = new HashMap<>();
+    private ArrayList<Vector2d> innerOasisPositionList;
+    private List<Integer> indexList;
     private final int width;
     private final int height;
-    public final int plantEnergy;
-    public final int maxAnimalEnergy;
     private double jungleRatio;
     private NextDayOperator nextDayOperator;
-
+    final int plantEnergy;
+    public final int maxAnimalEnergy;
 
     public int getWidth() {
         return width;
@@ -51,20 +50,16 @@ public class Oasis extends AbstractWorldMap {
         return position;
     }
 
-    public boolean placeAnimal(Animal animal) {
+    public void placeAnimal(Animal animal) {
         if (!isOccupied(animal.getPosition())) {
             ArrayList<Animal> tmp = new ArrayList<>();
             tmp.add(animal);
             animals.put(animal.getPosition(), tmp);
-            return true;
         }
-        return false;
     }
 
     public void removeAnimalFromGivenPosition(Vector2d position, Animal animal) {
         ArrayList<Animal> tmp = animals.get(position);
-//        System.out.println(position);
-//        System.out.println("tmp: " + tmp);
         if (tmp == null) return;
         if (tmp.size() > 0) { //powinno być zawsze prawdą
             tmp.remove(animal);
@@ -85,7 +80,7 @@ public class Oasis extends AbstractWorldMap {
         }
     }
 
-    public void removeAnimalsWithNoEnergyAtGivenPosition(Vector2d position) {
+    void removeAnimalsWithNoEnergyAtGivenPosition(Vector2d position) {
         ArrayList<Animal> tmp = animals.get(position);
         ArrayList<Animal> toDelete = new ArrayList<>();
         for (Animal animal : tmp) {
@@ -103,16 +98,11 @@ public class Oasis extends AbstractWorldMap {
         }
     }
 
-    public void placeGrass(Grass grass) {
+    private void placeGrass(Grass grass) {
         if (!isOccupied(grass.getPosition())) {
             grassHashMap.put(grass.getPosition(), grass);
         }
     }
-
-    public void testFunction() {
-        System.out.println(isPerfectSquare(250));
-    }
-
 
     public void nextDay() {
         this.nextDayOperator.makeNextDayHappen();
@@ -127,7 +117,7 @@ public class Oasis extends AbstractWorldMap {
         return numberOfAnimals;
     }
 
-    public void addGrassInTheOasis() {
+    void addGrassInTheOasis() {
         //sprawdza czy losowo wybrane miejsce jest przez coś zajęte
 
         for (Integer index : this.indexList) {
@@ -139,7 +129,7 @@ public class Oasis extends AbstractWorldMap {
         }
     }
 
-    public void addGrassOutsideOfTheOasis() {
+    void addGrassOutsideOfTheOasis() {
         boolean grassCanBePlaced = false;
         int i = 0;
         while (!grassCanBePlaced) {

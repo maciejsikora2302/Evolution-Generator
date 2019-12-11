@@ -1,4 +1,6 @@
-package mainPackage.mapElement;
+package mainPackage.mapElement.animal;
+
+import mainPackage.mapElement.animal.Animal;
 
 import java.util.*;
 import java.util.stream.Collectors;

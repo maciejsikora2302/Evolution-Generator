@@ -1,35 +1,28 @@
 package mainPackage.map.oasis;
 
 import mainPackage.unused.Vector2d;
-import mainPackage.mapElement.Animal;
-import mainPackage.mapElement.BabyGenesOperator;
+import mainPackage.mapElement.animal.Animal;
+import mainPackage.mapElement.animal.BabyGenesOperator;
 import mainPackage.moveAndDirection.MoveDirection;
 
 import java.util.*;
 
 import static java.util.Comparator.comparingInt;
 
-public class NextDayOperator {
+class NextDayOperator {
     private Oasis map;
     private int moveEnergy;
     private BabyGenesOperator babyGenesOperator = new BabyGenesOperator();
+    private AnimalRemover animalRemover;
 
 
 
-    public void makeNextDayHappen(){
-        this.removeAllDeadAniamls();
+    void makeNextDayHappen(){
+        this.animalRemover.removeAllDeadAniamls();
         this.turnAndMoveAnimals();
         this.makeAnimalsEatGrassThatTheyAreStandingOnTopOf();
         this.breedValidAnimals();
         this.atTheEndOfTheDayNewGrassGrows();
-    }
-
-    private void removeAllDeadAniamls(){
-        HashMap<Vector2d, ArrayList<Animal>> copy1 = (HashMap<Vector2d, ArrayList<Animal>>) this.map.animals.clone();
-        for (Map.Entry<Vector2d, ArrayList<Animal>> element : copy1.entrySet()) {
-            Vector2d position = element.getKey();
-            this.map.removeAnimalsWithNoEnergyAtGivenPosition(position);
-        }
     }
 
     private void turnAndMoveAnimals(){
@@ -119,9 +112,6 @@ public class NextDayOperator {
             secondAnimal.giveBirth();
 
 
-
-            //TODO: generowanie nowych genów dziecka, obecnie kopiuje geny rodzica
-
             ArrayList<Integer> babyGenes = babyGenesOperator.craftGenesForBaby(firstAnimal,secondAnimal);
 
 
@@ -133,23 +123,13 @@ public class NextDayOperator {
     }
 
     private void atTheEndOfTheDayNewGrassGrows(){
-//        for (int i = 0; i < 2; i++) {
-//            boolean canPlaceGrass = false;
-//            while (!canPlaceGrass) {
-//                Grass grass = new Grass(
-//                        new Vector2d(
-//                                new Random().nextInt(this.map.getWidth()),
-//                                new Random().nextInt(this.map.getHeight())));
-//                canPlaceGrass = this.map.placeGrass(grass);
-//            }
-//        }
         this.map.addGrassInTheOasis();
         this.map.addGrassOutsideOfTheOasis();
     }
 
-    public NextDayOperator(Oasis map, int moveEnergy){
+    NextDayOperator(Oasis map, int moveEnergy){
         this.map = map;
         this.moveEnergy = moveEnergy;
-
+        this.animalRemover = new AnimalRemover(map);
     }
 }

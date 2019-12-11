@@ -2,7 +2,7 @@ package mainPackage.map;
 
 import mainPackage.interfaces.IPositionChangeObserver;
 import mainPackage.interfaces.IWorldMap;
-import mainPackage.mapElement.Animal;
+import mainPackage.mapElement.animal.Animal;
 import mainPackage.moveAndDirection.MoveDirection;
 import mainPackage.unused.Vector2d;
 

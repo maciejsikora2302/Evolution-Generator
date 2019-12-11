@@ -1,7 +1,7 @@
 package mainPackage.unused;
 
 import mainPackage.map.MapVisualizer;
-import mainPackage.mapElement.Animal;
+import mainPackage.mapElement.animal.Animal;
 import mainPackage.map.AbstractWorldMap;
 
 import java.util.List;

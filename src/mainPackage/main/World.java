@@ -6,15 +6,14 @@ import java.io.IOException;
 import java.util.*;
 
 import com.google.gson.*;
-import mainPackage.main.Parameters;
-import mainPackage.mapElement.Animal;
+import mainPackage.mapElement.animal.Animal;
 import mainPackage.map.oasis.Oasis;
 import mainPackage.unused.Vector2d;
 
 
 public class World {
     public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\admin\\Documents\\Studia\\Semestr III\\Programowanie obiektowe\\Evolution-Generator\\src\\mainPackage\\parameters.json"));
+        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\admin\\Documents\\Studia\\Semestr III\\Programowanie obiektowe\\Evolution-Generator\\src\\mainPackage\\main\\parameters.json"));
         Gson gson = new Gson();
         Parameters parameters = new Parameters();
         parameters = gson.fromJson(reader,parameters.getClass());
@@ -44,42 +43,8 @@ public class World {
         int numberOfDays = 30;
         for (int i = 0; i < numberOfDays; i++) {
             map.nextDay();
-//            System.out.println(map.toString());
+            System.out.println(map.toString());
             System.out.println(map.getNumberOfAnimalsAtMap());
         }
-
-
-
-//        System.out.println(map.toString());
     }
 }
-
-//        try{
-//            MoveDirection[] directions = new OptionParser().parse(args);
-//        } catch (IllegalArgumentException ex){
-//            System.out.println(ex.getMessage());
-//            return;
-//        }
-
-//        try{
-//            ArrayList<Rock> rocks = new ArrayList<>();
-//            rocks.add(new Rock(new Vector2d(-4,-4)));
-//            rocks.add(new Rock(new Vector2d(7,7)));
-//            rocks.add(new Rock(new Vector2d(3,6)));
-//            rocks.add(new Rock(new Vector2d(2,0)));
-//            IWorldMap map = new UnboundedMap(rocks);
-//            map.place(new Animal(map));
-//            map.place(new Animal(map,new Vector2d(3,4)));
-//        } catch (IllegalArgumentException ex){
-//            System.out.println(ex.getMessage());
-//            return;
-//        }
-//        MoveDirection[] directions = new OptionParser().parse(args);
-//        ArrayList<Rock> rocks = new ArrayList<>();
-//        rocks.add(new Rock(new Vector2d(-4,-4)));
-//        rocks.add(new Rock(new Vector2d(7,7)));
-//        rocks.add(new Rock(new Vector2d(3,6)));
-//        rocks.add(new Rock(new Vector2d(2,0)));
-//        IWorldMap map = new UnboundedMap(rocks);
-//        map.place(new Animal(map));
-//        map.place(new Animal(map,new Vector2d(3,4)));

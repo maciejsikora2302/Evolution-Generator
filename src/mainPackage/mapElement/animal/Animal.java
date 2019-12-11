@@ -1,6 +1,7 @@
-package mainPackage.mapElement;
+package mainPackage.mapElement.animal;
 
 
+import mainPackage.mapElement.AbstractWorldMapElement;
 import mainPackage.moveAndDirection.MapDirection;
 import mainPackage.moveAndDirection.MoveDirection;
 import mainPackage.unused.Vector2d;
@@ -86,9 +87,7 @@ public class Animal extends AbstractWorldMapElement {
         this.energy -= this.energy / 4;
     }
 
-
-    //TODO:getMoveGen powinno być usunięte po stworzeniu generowania genów
-    public ArrayList<Integer> getMoveGen() {
+    ArrayList<Integer> getMoveGen() {
         return moveGen;
     }
 
