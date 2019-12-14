@@ -84,8 +84,33 @@ public class Animal extends AbstractWorldMapElement {
         this.energy -= this.energy / 4;
     }
 
-    ArrayList<Integer> getMoveGen() {
-        return moveGen;
+    public ArrayList<Integer> getMoveGen() {
+        return this.moveGen;
+    }
+
+    public String getGenotypeAsString(){
+        ArrayList<Integer> arrList = this.moveGen;
+        StringBuilder sb = new StringBuilder();
+        for (int i = arrList.size() - 1; i >= 0; i--) {
+            int num = arrList.get(i);
+            sb.append(num);
+        }
+        return sb.toString();
+    }
+
+    private void addGenotypeToMap(){
+        String result = this.getGenotypeAsString();
+
+        System.out.print("Creating animal. Genotype: " + result + " ");
+
+        if(this.map.dominatingGenotype.get(result) == null){
+            this.map.dominatingGenotype.put(result,1);
+            System.out.println(1);
+        }else{
+            Integer val = this.map.dominatingGenotype.remove(result);
+            System.out.println(val + 1);
+            this.map.dominatingGenotype.put(result,val+1);
+        }
     }
 
     public Animal(Oasis map, Vector2d initialPosition, int energy, ArrayList<Integer> moveGen) {
@@ -98,7 +123,9 @@ public class Animal extends AbstractWorldMapElement {
         this.Position = initialPosition;
         this.energy = energy;
         this.moveGen = moveGen;
+//        this.addGenotypeToMap();
     }
+
 }
 
 

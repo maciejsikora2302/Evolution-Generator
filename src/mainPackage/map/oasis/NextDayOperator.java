@@ -25,7 +25,31 @@ class NextDayOperator {
         for(int i=0;i<this.map.numberOfGrassThatGrowsPerDay/2;i++){
             this.atTheEndOfTheDayNewGrassGrows();
         }
+        this.calculateGenotype();
+    }
 
+    private void calculateGenotype() {
+
+        HashMap<String,Integer> domGenes = new HashMap<>();
+
+        for(ArrayList<Animal> animalArrayList: this.map.animals.values()){
+            for(Animal animal: animalArrayList){
+                String result = animal.getGenotypeAsString();
+
+                System.out.print(result + " ");
+
+                if(domGenes.get(result) == null){
+                    domGenes.put(result,1);
+                    System.out.println(1);
+                }else{
+                    Integer val = domGenes.remove(result);
+                    System.out.println(val);
+                    domGenes.put(result,val+1);
+                }
+            }
+        }
+
+        this.map.dominatingGenotype = domGenes;
     }
 
     private void turnAndMoveAnimals(){
@@ -35,9 +59,6 @@ class NextDayOperator {
             Vector2d position = element.getKey();
             ArrayList<Animal> allAnimalsAtPosition = this.map.animals.get(position);
             for (int i = 0; i < allAnimalsAtPosition.size(); i++) {
-                if(allAnimalsAtPosition.get(i) == null){
-                    System.out.println("null lol");
-                }
                 allAnimalsAtPosition.get(i).turnAccordingToGene();
                 allAnimalsAtPosition.get(i).decreaseEnergyByMoveValue(this.moveEnergy);
                 allAnimalsAtPosition.get(i).move(MoveDirection.FORWARD);
@@ -116,7 +137,7 @@ class NextDayOperator {
 
 
             ArrayList<Integer> babyGenes = babyGenesOperator.craftGenesForBaby(firstAnimal,secondAnimal);
-
+            Collections.sort(babyGenes);
 
             Animal baby = new Animal(this.map, babyPosition, babyEnergy, babyGenes);
             if (babyAnimalSuccessfullyPlaced)

@@ -38,7 +38,7 @@ public class World extends Application {
 
     private int statisticsInnerWidowHeight = windowHeight / 2;
     private int statisticsButtonsInnerWidowHeight = windowHeight / 2;
-    private int statisticsWidth = 250;
+    private int statisticsWidth = 400;
 
     private AnimationTimer animationTimer = new AnimationTimer() {
         @Override
@@ -57,8 +57,6 @@ public class World extends Application {
     private Parent createStats(){
         statsRootPane.setPrefSize(statisticsWidth,windowHeight);
 
-        Text animalsOnMap = new Text("Animals currenty alive on map: " + map1.getNumberOfAnimalsAtMap());
-
         Button pauseButton = new Button("Pause");
         pauseButton.setOnAction(e -> {
             animationTimer.stop();
@@ -68,26 +66,12 @@ public class World extends Application {
             animationTimer.start();
         });
 
-        HBox buttons = new HBox(10);
-        buttons.getChildren().addAll(pauseButton,resumeButton);
-        buttons.setAlignment(Pos.CENTER);
-
-        VBox statisticsBox = new VBox(20);
-        statisticsBox.setPrefWidth(statisticsWidth);
-        statisticsBox.setPrefHeight(statisticsInnerWidowHeight);
-
         HBox buttonsBox = new HBox(10);
         buttonsBox.setPrefWidth(statisticsWidth);
         buttonsBox.setPrefHeight(statisticsButtonsInnerWidowHeight);
-
-
-        statisticsBox.setAlignment(Pos.CENTER);
-        statisticsBox.getChildren().addAll(animalsOnMap);
-
         buttonsBox.setAlignment(Pos.CENTER);
         buttonsBox.getChildren().addAll(pauseButton, resumeButton);
 
-        statsPane.getChildren().add(statisticsBox);
         buttonsPane.getChildren().add(buttonsBox);
         buttonsPane.setTranslateY(statisticsInnerWidowHeight);
 
@@ -99,15 +83,16 @@ public class World extends Application {
     private void statsUpdate(){
         statsPane.getChildren().clear();
 
-        Text animalsOnMap = new Text("Animals currenty alive on map: " + map1.getNumberOfAnimalsAtMap());
-
+        Text animalsOnMap = new Text("Animals currenty alive: " + map1.getNumberOfAnimalsAtMap());// + " numberOfGenotypes: " + map2.getNumberOfGenotypes());
+        Text grassOnMap = new Text("Current amount of grass: " + map1.getNumberOfGrassAtMap());
+        Text mostCommonGenotype = new Text("Most common genotype: " + map1.getMostCommonGenotype() + " " + map1.getMostCommonGenotypeQuantity());
 
         VBox statisticsBox = new VBox(20);
         statisticsBox.setPrefWidth(statisticsWidth);
         statisticsBox.setPrefHeight(statisticsInnerWidowHeight);
 
         statisticsBox.setAlignment(Pos.CENTER);
-        statisticsBox.getChildren().addAll(animalsOnMap);
+        statisticsBox.getChildren().addAll(animalsOnMap,grassOnMap,mostCommonGenotype);
 
         statsPane.getChildren().add(statisticsBox);
 

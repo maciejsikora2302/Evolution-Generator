@@ -10,10 +10,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static java.lang.Math.floor;
-import static java.lang.Math.sqrt;
+import static java.lang.Math.*;
 
 public class Oasis extends AbstractWorldMap {
+    public HashMap<String, Integer> dominatingGenotype = new HashMap<>();
     HashMap<Vector2d, Grass> grassHashMap = new HashMap<>();
     private HashMap<Vector2d, Vector2d> innerOasisPositionHashMap = new HashMap<>();
     private ArrayList<Vector2d> innerOasisPositionList;
@@ -51,8 +51,10 @@ public class Oasis extends AbstractWorldMap {
         return position;
     }
 
-    public void placeAnimal(Animal animal) {
+    void placeAnimal(Animal animal) {
         if (!isOccupied(animal.getPosition())) {
+
+//            this.dominatingGenotype.put(animal.getGenotypeAsString(), 1);
             ArrayList<Animal> tmp = new ArrayList<>();
             tmp.add(animal);
             animals.put(animal.getPosition(), tmp);
@@ -90,6 +92,15 @@ public class Oasis extends AbstractWorldMap {
             }
         }
         for (Animal animal : toDelete) {
+
+//            String result = animal.getGenotypeAsString();
+//
+//            Integer val = this.dominatingGenotype.remove(result);
+//            System.out.println("Removing animal with genotype: " + result + " " + val);
+//            if(val != null && val > 1){
+//                this.dominatingGenotype.put(result,val-1);
+//            }
+
             tmp.remove(animal);
         }
 
@@ -115,6 +126,41 @@ public class Oasis extends AbstractWorldMap {
             numberOfAnimals += list.size();
         }
         return numberOfAnimals;
+    }
+
+    public int getNumberOfGrassAtMap(){
+        return this.grassHashMap.size();
+    }
+
+    public int getNumberOfGenotypes(){
+        int sum = 0;
+        for(Integer val : dominatingGenotype.values()){
+            sum += val.intValue();
+        }
+        return sum;
+    }
+
+    public String getMostCommonGenotype(){
+        String genotype = "brak";
+        Integer maxNumber = 0;
+        for(String gene:dominatingGenotype.keySet()){
+            Integer val = dominatingGenotype.get(gene);
+            if(val > maxNumber){
+                genotype = gene;
+                maxNumber = val;
+            }
+        }
+        return genotype;
+    }
+
+    public int getMostCommonGenotypeQuantity(){
+        Integer maxNumber = 0;
+        for(Integer val: dominatingGenotype.values()){
+            if(val>maxNumber){
+                maxNumber = val;
+            }
+        }
+        return maxNumber;
     }
 
     void addGrassInTheOasis() {

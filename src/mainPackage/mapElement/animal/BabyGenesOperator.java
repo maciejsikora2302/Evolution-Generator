@@ -81,7 +81,7 @@ public class BabyGenesOperator {
         Collections.sort(babyGenes);
 
 //        System.out.println(babyGenes);
-        return babyGenes;
+        return (ArrayList<Integer>) babyGenes.clone();
     }
 
     private Integer mostCommon(ArrayList<Integer> list) {
