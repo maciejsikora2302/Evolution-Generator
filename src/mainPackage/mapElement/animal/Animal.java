@@ -74,9 +74,6 @@ public class Animal extends AbstractWorldMapElement {
 
     public void eat(int energy) {
         this.energy += energy;
-        if (this.energy > this.map.maxAnimalEnergy) {
-            this.energy = this.map.maxAnimalEnergy;
-        }
     }
 
     public void decreaseEnergyByMoveValue(int moveEnergy) {

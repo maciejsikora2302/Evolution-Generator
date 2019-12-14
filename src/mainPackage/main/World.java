@@ -21,6 +21,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import mainPackage.map.MapObject;
+import mainPackage.map.oasis.Tile;
 import mainPackage.mapElement.Grass;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.map.oasis.Oasis;
@@ -31,7 +33,6 @@ public class World extends Application {
 
     private Oasis map;
     private Pane root = new Pane();
-
 
     private int windowWidth = 600;
     private int windowHeight = 600;
@@ -52,19 +53,6 @@ public class World extends Application {
         return root;
     }
 
-    private class Tile extends StackPane {
-        public Tile(int width, int height, String innerText) {
-            Rectangle border = new Rectangle(width, height);
-            border.setFill(null);
-            border.setStroke(Color.BLACK);
-
-            Text text = new Text(innerText);
-
-            setAlignment(Pos.CENTER);
-            getChildren().addAll(border, text);
-        }
-    }
-
     private void onUpdate(){
         this.map.nextDay();
 
@@ -81,28 +69,36 @@ public class World extends Application {
                 //filling board with tiles
 
                 String innerText;
+                MapObject mapObject;
+
                 Vector2d currentPosition = new Vector2d(j,i);
                 if(this.map.isOccupied(currentPosition)){
                     Object object = this.map.objectAt(currentPosition);
                     if (object != null) {
                         if (object instanceof ArrayList && ((ArrayList) object).size()>1 ){
                             innerText = "⚤"; //இ, ∰, ⛧
+                            mapObject = MapObject.MULTIPLEANIMALS;
                         }else if(object instanceof ArrayList && ((ArrayList) object).size() == 1){
                             innerText = ((ArrayList) object).get(0).toString();
+                            mapObject = MapObject.ANIMAL;
                         }else if(object instanceof Grass){
                             innerText = "Ӂ ";
+                            mapObject = MapObject.GRASS;
                         }else {
                             innerText = object.toString();
+                            mapObject = MapObject.EMPTY;
                         }
                     } else {
                         innerText = " ";
+                        mapObject = MapObject.EMPTY;
                     }
                 }else{
                     innerText = " ";
+                    mapObject = MapObject.EMPTY;
                 }
 
 
-                Tile tile = new Tile(tileWidth, tileHeight, innerText);
+                Tile tile = new Tile(tileWidth, tileHeight, innerText, mapObject);
                 tile.setTranslateX(j * tileWidth);
                 tile.setTranslateY(i * tileHeight);
 
