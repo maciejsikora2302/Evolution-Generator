@@ -23,7 +23,7 @@ public class Oasis extends AbstractWorldMap {
     private double jungleRatio;
     private NextDayOperator nextDayOperator;
     final int plantEnergy;
-    public final int maxAnimalEnergy;
+    public final int startAnimalEnergy;
 
     public int getWidth() {
         return width;
@@ -85,7 +85,6 @@ public class Oasis extends AbstractWorldMap {
         ArrayList<Animal> toDelete = new ArrayList<>();
         for (Animal animal : tmp) {
             if (animal.getEnergy() <= 0) {
-//                tmp.remove(animal);
                 toDelete.add(animal);
             }
         }
@@ -187,6 +186,26 @@ public class Oasis extends AbstractWorldMap {
         this.innerOasisPositionList = new ArrayList<>(this.innerOasisPositionHashMap.values());
     }
 
+    private void placeInitialAnimals(int numberOfInitialAnimals, ArrayList<Integer> startingGenes){
+        for(int i=0;i<numberOfInitialAnimals;i++){
+            Vector2d placeVector = new Vector2d(
+                    new Random().nextInt(this.width),
+                    new Random().nextInt(this.height));
+            while(this.isOccupied(placeVector)){
+                placeVector = new Vector2d(
+                    new Random().nextInt(this.width),
+                    new Random().nextInt(this.height));
+            }
+            this.placeAnimal(new Animal(this, placeVector, this.startAnimalEnergy, startingGenes));
+        }
+    }
+
+    private void placeInitialGrass(int numberOfInitialGrass){
+        for(int i=0; i<numberOfInitialGrass;i++){
+            this.nextDayOperator.atTheEndOfTheDayNewGrassGrows();
+        }
+    }
+
     @Override
     public String toString() {
         MapVisualizer visualizer = new MapVisualizer(this);
@@ -213,7 +232,9 @@ public class Oasis extends AbstractWorldMap {
         return super.isOccupied(position);
     }
 
-    public Oasis(int width, int height, int plantEnergy, int maxAnimalEnergy, int moveEnergy, double jungleRatio) {
+    public Oasis(int width, int height, int plantEnergy, int maxAnimalEnergy, int moveEnergy,
+                 double jungleRatio, int numberOnInitialAnimals, int numberOfInitialGrass,
+                 ArrayList<Integer> startingGenes) {
         if (width > height) {
             this.width = width;
             this.height = height;
@@ -223,10 +244,12 @@ public class Oasis extends AbstractWorldMap {
         }
 
         this.plantEnergy = plantEnergy;
-        this.maxAnimalEnergy = maxAnimalEnergy;
+        this.startAnimalEnergy = maxAnimalEnergy;
         this.nextDayOperator = new NextDayOperator(this, moveEnergy);
         this.jungleRatio = jungleRatio;
 
         this.generateZones();
+        this.placeInitialAnimals(numberOnInitialAnimals, startingGenes);
+        this.placeInitialGrass(numberOfInitialGrass);
     }
 }

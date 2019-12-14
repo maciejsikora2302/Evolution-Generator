@@ -82,8 +82,8 @@ class NextDayOperator {
             Animal firstAnimal = allAnimals.get(0);
             Animal secondAnimal = allAnimals.get(1);
 
-            if (firstAnimal.getEnergy() < (this.map.maxAnimalEnergy / 2) ||
-                    secondAnimal.getEnergy() < (this.map.maxAnimalEnergy / 2)) continue;
+            if (firstAnimal.getEnergy() < (this.map.startAnimalEnergy / 2) ||
+                    secondAnimal.getEnergy() < (this.map.startAnimalEnergy / 2)) continue;
 
             //wyznaczanie pozycji dziecka
             Vector2d babyPosition = firstAnimal.getPosition();
@@ -122,7 +122,7 @@ class NextDayOperator {
         }
     }
 
-    private void atTheEndOfTheDayNewGrassGrows(){
+    void atTheEndOfTheDayNewGrassGrows(){
         this.map.addGrassInTheOasis();
         this.map.addGrassOutsideOfTheOasis();
     }

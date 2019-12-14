@@ -3,7 +3,7 @@ package mainPackage.main;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Parameters {
+class oasisParameters {
     @Override
     public String toString() {
         return "Parameters{" +
@@ -23,34 +23,44 @@ public class Parameters {
     private int startEnergy;
     private int moveEnergy;
     private int plantEnergy;
+    private int numberOfStartingAnimals;
+    private int numberOfStartingGrass;
+
+    public int getNumberOfStartingGrass() {
+        return numberOfStartingGrass;
+    }
+
     private double jungleRatio;
 
-    public int getWidth() {
+    int getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    int getHeight() {
         return height;
     }
 
-    public ArrayList<Integer> getStartingGenes() {
+    ArrayList<Integer> getStartingGenes() {
         return startingGenes;
     }
 
-    public int getStartEnergy() {
+    int getStartEnergy() {
         return startEnergy;
     }
 
-    public int getMoveEnergy() {
+    int getMoveEnergy() {
         return moveEnergy;
     }
 
-    public int getPlantEnergy() {
+    int getPlantEnergy() {
         return plantEnergy;
     }
 
-    public double getJungleRatio() {
+    double getJungleRatio() {
         return jungleRatio;
     }
 
+    public int getNumberOfStartingAnimals() {
+        return numberOfStartingAnimals;
+    }
 }
