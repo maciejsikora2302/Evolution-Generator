@@ -22,7 +22,10 @@ class NextDayOperator {
         this.turnAndMoveAnimals();
         this.makeAnimalsEatGrassThatTheyAreStandingOnTopOf();
         this.breedValidAnimals();
-        this.atTheEndOfTheDayNewGrassGrows();
+        for(int i=0;i<this.map.numberOfGrassThatGrowsPerDay/2;i++){
+            this.atTheEndOfTheDayNewGrassGrows();
+        }
+
     }
 
     private void turnAndMoveAnimals(){

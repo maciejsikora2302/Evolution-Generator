@@ -2,7 +2,6 @@ package mainPackage.main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 class oasisParameters {
     @Override
     public String toString() {
@@ -25,6 +24,12 @@ class oasisParameters {
     private int plantEnergy;
     private int numberOfStartingAnimals;
     private int numberOfStartingGrass;
+
+    public int getNumberOfGrassThatGrowsPerDay() {
+        return numberOfGrassThatGrowsPerDay;
+    }
+
+    private int numberOfGrassThatGrowsPerDay;
 
     public int getNumberOfStartingGrass() {
         return numberOfStartingGrass;

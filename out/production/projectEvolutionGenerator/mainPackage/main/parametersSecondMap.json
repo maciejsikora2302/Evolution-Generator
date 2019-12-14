@@ -7,6 +7,6 @@
   "plantEnergy": 20,
   "numberOfStartingAnimals": 10,
   "numberOfStartingGrass": 50,
-  "jungleRation":  0.2,
+  "jungleRation":  0.3,
   "numberOfGrassThatGrowsPerDay": 10
 }

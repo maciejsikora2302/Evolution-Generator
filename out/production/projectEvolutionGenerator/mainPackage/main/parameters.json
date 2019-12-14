@@ -3,9 +3,10 @@
   "height": 20,
   "startingGenes": [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 7 ],
   "startEnergy": 100,
-  "moveEnergy": 1,
+  "moveEnergy": 2,
   "plantEnergy": 20,
-  "numberOfStartingAnimals": 30,
-  "numberOfStartingGrass": 400,
-  "jungleRation":  0.2
+  "numberOfStartingAnimals": 10,
+  "numberOfStartingGrass": 50,
+  "jungleRation":  0.2,
+  "numberOfGrassThatGrowsPerDay": 10
 }
