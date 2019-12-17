@@ -15,6 +15,7 @@ public class Animal extends AbstractWorldMapElement {
     private Oasis map;
     private Integer energy;
     private ArrayList<Integer> moveGen;
+    private int age;
 
     public int getEnergy() {
         return this.energy;
@@ -24,41 +25,11 @@ public class Animal extends AbstractWorldMapElement {
         return Position;
     }
 
-    public MapDirection getDirection() {
-        return Direction;
-    }
-
-    public String toString() {
-        switch (Direction) {
-            case NORTH:
-                return "N ";
-            case NORTHWEST:
-                return "NW";
-            case WEST:
-                return "W ";
-            case SOUTHWEST:
-                return "SW";
-            case SOUTH:
-                return "S ";
-            case SOUTHEAST:
-                return "SE";
-            case EAST:
-                return "E ";
-            case NORTHEAST:
-                return "NE";
-        }
-        return "+";
-    }
-
     private int getTurnValue() {
         return this.moveGen.get(new Random().nextInt(32));
     }
 
-    public int compareTo(Animal animal) {
-        return (Integer.compare(this.getEnergy(), animal.getEnergy()));
-    }
-
-    public void move(MoveDirection direction) {
+    public void move() {
         this.map.removeAnimalFromGivenPosition(this.Position, this);
         this.Position = this.map.proccesPositionInWrappingOasis(this.Position);
         this.Position = this.Position.add(this.Direction.toUnitVector());
@@ -84,11 +55,11 @@ public class Animal extends AbstractWorldMapElement {
         this.energy -= this.energy / 4;
     }
 
-    public ArrayList<Integer> getMoveGen() {
+    ArrayList<Integer> getMoveGen() {
         return this.moveGen;
     }
 
-    public String getGenotypeAsString(){
+    public String getGenotypeAsString() {
         ArrayList<Integer> arrList = this.moveGen;
         StringBuilder sb = new StringBuilder();
         for (int i = arrList.size() - 1; i >= 0; i--) {
@@ -98,19 +69,34 @@ public class Animal extends AbstractWorldMapElement {
         return sb.toString();
     }
 
-    private void addGenotypeToMap(){
-        String result = this.getGenotypeAsString();
+    public int getAge() {
+        return this.age;
+    }
 
-        System.out.print("Creating animal. Genotype: " + result + " ");
+    public void incementAge() {
+        this.age += 1;
+    }
 
-        if(this.map.dominatingGenotype.get(result) == null){
-            this.map.dominatingGenotype.put(result,1);
-            System.out.println(1);
-        }else{
-            Integer val = this.map.dominatingGenotype.remove(result);
-            System.out.println(val + 1);
-            this.map.dominatingGenotype.put(result,val+1);
+    public String toString() {
+        switch (Direction) {
+            case NORTH:
+                return "N ";
+            case NORTHWEST:
+                return "NW";
+            case WEST:
+                return "W ";
+            case SOUTHWEST:
+                return "SW";
+            case SOUTH:
+                return "S ";
+            case SOUTHEAST:
+                return "SE";
+            case EAST:
+                return "E ";
+            case NORTHEAST:
+                return "NE";
         }
+        return "+";
     }
 
     public Animal(Oasis map, Vector2d initialPosition, int energy, ArrayList<Integer> moveGen) {
@@ -123,8 +109,10 @@ public class Animal extends AbstractWorldMapElement {
         this.Position = initialPosition;
         this.energy = energy;
         this.moveGen = moveGen;
+        this.age = 1;
 //        this.addGenotypeToMap();
     }
+
 
 }
 
@@ -140,5 +128,19 @@ public class Animal extends AbstractWorldMapElement {
 //    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
 //        for(IPositionChangeObserver observer: observers){
 //            observer.positionChanged(oldPosition, newPosition);
+//        }
+//    }
+//private void addGenotypeToMap(){
+//        String result = this.getGenotypeAsString();
+//
+//        System.out.print("Creating animal. Genotype: " + result + " ");
+//
+//        if(this.map.dominatingGenotype.get(result) == null){
+//            this.map.dominatingGenotype.put(result,1);
+//            System.out.println(1);
+//        }else{
+//            Integer val = this.map.dominatingGenotype.remove(result);
+//            System.out.println(val + 1);
+//            this.map.dominatingGenotype.put(result,val+1);
 //        }
 //    }

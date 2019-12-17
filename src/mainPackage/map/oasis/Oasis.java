@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
 import static java.lang.Math.*;
 
 public class Oasis extends AbstractWorldMap {
-    public HashMap<String, Integer> dominatingGenotype = new HashMap<>();
+    HashMap<String, Integer> dominatingGenotype = new HashMap<>();
     HashMap<Vector2d, Grass> grassHashMap = new HashMap<>();
     private HashMap<Vector2d, Vector2d> innerOasisPositionHashMap = new HashMap<>();
     private ArrayList<Vector2d> innerOasisPositionList;
@@ -25,6 +25,8 @@ public class Oasis extends AbstractWorldMap {
     final int plantEnergy;
     final int startAnimalEnergy;
     final int numberOfGrassThatGrowsPerDay;
+    int averageOdAnimalsEnergy;
+    int averageOfAnimalsLifespan;
 
     public int getWidth() {
         return width;
@@ -163,6 +165,14 @@ public class Oasis extends AbstractWorldMap {
         return maxNumber;
     }
 
+    public int getAverageOdAnimalsEnergy(){
+        return this.averageOdAnimalsEnergy;
+    }
+
+    public int getAverageOfAnimalsLifespan() {
+        return averageOfAnimalsLifespan;
+    }
+
     void addGrassInTheOasis() {
         //sprawdza czy losowo wybrane miejsce jest przez coś zajęte
 
@@ -299,5 +309,6 @@ public class Oasis extends AbstractWorldMap {
         this.generateZones();
         this.placeInitialAnimals(numberOnInitialAnimals, startingGenes);
         this.placeInitialGrass(numberOfInitialGrass);
+        this.averageOdAnimalsEnergy = maxAnimalEnergy;
     }
 }

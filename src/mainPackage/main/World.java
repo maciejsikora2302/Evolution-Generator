@@ -33,8 +33,8 @@ public class World extends Application {
     private Pane statsPane = new Pane();
     private Pane buttonsPane = new Pane();
 
-    private int windowWidth = 500;
-    private int windowHeight = 500;
+    private int windowWidth = 900;
+    private int windowHeight = 900;
 
     private int statisticsInnerWidowHeight = windowHeight / 2;
     private int statisticsButtonsInnerWidowHeight = windowHeight / 2;
@@ -54,8 +54,8 @@ public class World extends Application {
         return root;
     }
 
-    private Parent createStats(){
-        statsRootPane.setPrefSize(statisticsWidth,windowHeight);
+    private Parent createStats() {
+        statsRootPane.setPrefSize(statisticsWidth, windowHeight);
 
         Button pauseButton = new Button("Pause");
         pauseButton.setOnAction(e -> {
@@ -80,26 +80,31 @@ public class World extends Application {
         return statsRootPane;
     }
 
-    private void statsUpdate(){
+    private void statsUpdate() {
         statsPane.getChildren().clear();
 
         Text animalsOnMap = new Text("Animals currenty alive: " + map1.getNumberOfAnimalsAtMap());// + " numberOfGenotypes: " + map2.getNumberOfGenotypes());
         Text grassOnMap = new Text("Current amount of grass: " + map1.getNumberOfGrassAtMap());
-        Text mostCommonGenotype = new Text("Most common genotype: " + map1.getMostCommonGenotype() + " " + map1.getMostCommonGenotypeQuantity());
+        Text mostCommonGenotype = new Text("Most common genotype: " + map1.getMostCommonGenotype());
+        Text numberOfAnimalsWithMostCommonGenotype = new Text("Number of animals with most common genotype: " + map1.getMostCommonGenotypeQuantity());
+        Text averageOfAnimalsEnergy = new Text("Average of animals energy: " + map1.getAverageOdAnimalsEnergy());
+        Text averageOfAnimalLifespan = new Text("Average of animals lifespan: " + map1.getAverageOfAnimalsLifespan());
 
         VBox statisticsBox = new VBox(20);
         statisticsBox.setPrefWidth(statisticsWidth);
         statisticsBox.setPrefHeight(statisticsInnerWidowHeight);
 
         statisticsBox.setAlignment(Pos.CENTER);
-        statisticsBox.getChildren().addAll(animalsOnMap,grassOnMap,mostCommonGenotype);
+        statisticsBox.getChildren().addAll(animalsOnMap, grassOnMap,
+                mostCommonGenotype, numberOfAnimalsWithMostCommonGenotype,
+                averageOfAnimalsEnergy, averageOfAnimalLifespan);
 
         statsPane.getChildren().add(statisticsBox);
 
 
     }
 
-    private void onUpdate(){
+    private void onUpdate() {
         this.map1.nextDay();
 
         statsUpdate();
@@ -107,8 +112,8 @@ public class World extends Application {
         int mapWidth = this.map1.getWidth();
         int mapHeight = this.map1.getHeight();
 
-        int tileWidth = windowWidth/mapWidth;
-        int tileHeight = windowHeight/mapHeight;
+        int tileWidth = windowWidth / mapWidth;
+        int tileHeight = windowHeight / mapHeight;
 
         for (int i = 0; i < mapWidth; i++) {
             for (int j = 0; j < mapHeight; j++) {
@@ -117,20 +122,20 @@ public class World extends Application {
                 String innerText;
                 MapObject mapObject;
 
-                Vector2d currentPosition = new Vector2d(j,i);
-                if(this.map1.isOccupied(currentPosition)){
+                Vector2d currentPosition = new Vector2d(j, i);
+                if (this.map1.isOccupied(currentPosition)) {
                     Object object = this.map1.objectAt(currentPosition);
                     if (object != null) {
-                        if (object instanceof ArrayList && ((ArrayList) object).size()>1 ){
+                        if (object instanceof ArrayList && ((ArrayList) object).size() > 1) {
                             innerText = "⚤"; //இ, ∰, ⛧
                             mapObject = MapObject.MULTIPLEANIMALS;
-                        }else if(object instanceof ArrayList && ((ArrayList) object).size() == 1){
+                        } else if (object instanceof ArrayList && ((ArrayList) object).size() == 1) {
                             innerText = ((ArrayList) object).get(0).toString();
                             mapObject = MapObject.ANIMAL;
-                        }else if(object instanceof Grass){
+                        } else if (object instanceof Grass) {
                             innerText = "Ӂ ";
                             mapObject = MapObject.GRASS;
-                        }else {
+                        } else {
                             innerText = object.toString();
                             mapObject = MapObject.EMPTY;
                         }
@@ -138,7 +143,7 @@ public class World extends Application {
                         innerText = " ";
                         mapObject = MapObject.EMPTY;
                     }
-                }else{
+                } else {
                     innerText = " ";
                     mapObject = MapObject.EMPTY;
                 }
@@ -176,9 +181,6 @@ public class World extends Application {
                 parameters.getNumberOfGrassThatGrowsPerDay());
 
 
-
-
-
 //        BufferedReader reader2 = new BufferedReader(new FileReader("C:\\Users\\admin\\Documents\\Studia\\Semestr III\\Programowanie obiektowe\\Evolution-Generator\\src\\mainPackage\\main\\parametersSecondMap.json"));
 //        Gson gson2 = new Gson();
 //        oasisParameters parametersSecondMap = new oasisParameters();
@@ -200,7 +202,6 @@ public class World extends Application {
 //        secondaryStage.setScene(new Scene(createContent()));
 
 
-
         primaryStage.setTitle("First Map");
         primaryStage.setScene(new Scene(createContent()));
         primaryStage.show();
@@ -217,7 +218,6 @@ public class World extends Application {
         statStage.setTitle("Statstics");
         statStage.setScene(new Scene(createStats()));
         statStage.show();
-
 
 
         statStage.setX(screenSize.getWidth() / dividerX - statisticsWidth - 5);

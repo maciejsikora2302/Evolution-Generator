@@ -11,7 +11,7 @@ public class Tile extends StackPane {
     public Tile(int width, int height, String innerText, MapObject mapObject) {
         Rectangle border = new Rectangle(width, height);
         border.setFill(null);
-        border.setStroke(Color.BLACK);
+        border.setStroke(null);
 
         Text text = new Text(innerText);
 
