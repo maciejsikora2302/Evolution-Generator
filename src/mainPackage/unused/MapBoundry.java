@@ -32,14 +32,6 @@ public class MapBoundry implements IPositionChangeObserver {
 //        }
 //    }
 
-    @Override
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        elementsAtXAxis.remove(oldPosition);
-        elementsAtYAxis.remove(oldPosition);
-        elementsAtXAxis.add(newPosition);
-        elementsAtYAxis.add(newPosition);
-    }
-
     public Vector2d getLowerLeft() {
         return elementsAtXAxis.first().lowerLeft(elementsAtYAxis.first());
     }

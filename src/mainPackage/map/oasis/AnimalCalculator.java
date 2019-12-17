@@ -40,7 +40,6 @@ class AnimalCalculator {
                 sumOfEnergy += animal.getEnergy();
             }
             quantityOfAnimals += animalArrayList.size();
-            System.out.println(sumOfEnergy);
         }
         nextDayOperator.getMap().averageOdAnimalsEnergy = sumOfEnergy / quantityOfAnimals;
     }
@@ -50,7 +49,7 @@ class AnimalCalculator {
         int quantityOfAnimals = 0;
         for (ArrayList<Animal> animalArrayList : nextDayOperator.getMap().animals.values()) {
             for (Animal animal : animalArrayList) {
-                animal.incementAge();
+                animal.incrementAge();
                 sumOfAge += animal.getAge();
             }
             quantityOfAnimals += animalArrayList.size();

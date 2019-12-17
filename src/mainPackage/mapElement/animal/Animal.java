@@ -73,7 +73,7 @@ public class Animal extends AbstractWorldMapElement {
         return this.age;
     }
 
-    public void incementAge() {
+    public void incrementAge() {
         this.age += 1;
     }
 

@@ -1,6 +1,7 @@
 package mainPackage.mapElement.animal;
 
 import mainPackage.mapElement.animal.Animal;
+import scala.Int;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -27,6 +28,17 @@ public class BabyGenesOperator {
 
 
         return this.combineGenes(firstParent, secondParent, firstSeparator, secondSeparator);
+    }
+
+    private boolean babyGenesContainsAtLeastTwoCopiesOfThisGene(int gene, ArrayList<Integer> babyGenes){
+        int sum = 0;
+        for(int i=0; i< 32;i++){
+            if(babyGenes.get(i) == gene){
+                sum++;
+            }
+            if(sum==2) return true;
+        }
+        return false;
     }
 
     private ArrayList<Integer> combineGenes(Animal firstParent, Animal secondParent, int firstSeparator, int secondSeparator) {
@@ -68,14 +80,31 @@ public class BabyGenesOperator {
         }
 
 
+//        boolean[] genesThatNeedToBeAdded = new boolean[8];
+//        for (int i = 0; i < 8; i++) {
+//            genesThatNeedToBeAdded[i] = true;
+//        }
+//        for (int i = 0; i < 32; i++) {
+//            genesThatNeedToBeAdded[babyGenes.get(i)] = false;
+//        }
+//        for (int i = 0; i < 8; i++) {
+//            Random rand = new Random();
+//            while(genesThatNeedToBeAdded[i]){
+//                int position = rand.nextInt(32);
+//                if(!genesThatNeedToBeAdded[babyGenes.get(position)] &&
+//                        babyGenesContainsAtLeastTwoCopiesOfThisGene(babyGenes.get(i), babyGenes)){
+//                    babyGenes.set(position, i);
+//                }
+//            }
+//        }
 
-        for(int i =0; i<8;i++){
+
+        for (int i = 0; i < 8; i++) {
             babyGenes.remove(this.mostCommon(babyGenes));
         }
-        for(int i=0;i<8;i++){
+        for (int i = 0; i < 8; i++) {
             babyGenes.add(i);
         }
-
 
 
         Collections.sort(babyGenes);

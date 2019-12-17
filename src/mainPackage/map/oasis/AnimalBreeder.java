@@ -18,7 +18,6 @@ class AnimalBreeder {
             ArrayList<Animal> allAnimals = element.getValue();
             if (allAnimals.size() == 1) continue;
 
-
             allAnimals.sort(Comparator.comparingInt(Animal::getEnergy).reversed());
 
             boolean babyAnimalSuccessfullyPlaced = false;
