@@ -33,11 +33,6 @@ public class UnboundedMap extends AbstractWorldMap {
 
 
     @Override
-    public boolean canMoveTo(Vector2d position) {
-        return (!isOccupied(position));
-    }
-
-    @Override
     public boolean place(Animal animal) {
         if (!isOccupied(animal.getPosition())) {
             if(animal.getPosition().x > this.xMax) this.xMax = animal.getPosition().x;

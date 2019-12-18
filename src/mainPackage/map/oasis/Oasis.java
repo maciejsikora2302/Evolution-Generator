@@ -5,6 +5,7 @@ import mainPackage.map.MapVisualizer;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.mapElement.Grass;
 import mainPackage.unused.Vector2d;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,20 +14,34 @@ import java.util.stream.IntStream;
 import static java.lang.Math.*;
 
 public class Oasis extends AbstractWorldMap {
-    HashMap<String, Integer> dominatingGenotype = new HashMap<>();
-    HashMap<Vector2d, Grass> grassHashMap = new HashMap<>();
-    private HashMap<Vector2d, Vector2d> innerOasisPositionHashMap = new HashMap<>();
-    private ArrayList<Vector2d> innerOasisPositionList;
-    private List<Integer> indexList;
-    private final int width;
-    private final int height;
-    private double jungleRatio;
-    private NextDayOperator nextDayOperator;
     final int plantEnergy;
     final int startAnimalEnergy;
     final int numberOfGrassThatGrowsPerDay;
     int averageOdAnimalsEnergy;
     int averageOfAnimalsLifespan;
+    HashMap<Vector2d, Grass> grassHashMap = new HashMap<>();
+    HashMap<String, Integer> dominatingGenotype = new HashMap<>();
+    private HashMap<Vector2d, Vector2d> innerOasisPositionHashMap = new HashMap<>();
+    private ArrayList<Vector2d> innerOasisPositionList;
+    private List<Integer> indexList;
+    private final int width;
+    private final int height;
+    private final double jungleRatio;
+    private final NextDayOperator nextDayOperator;
+    private int day = 0;
+
+    public void nextDay() {
+        this.nextDayOperator.makeNextDayHappen();
+        this.incrementDay();
+    }
+
+    public int getDay(){
+        return this.day;
+    }
+
+    public HashMap<Vector2d, Vector2d> getInnerOasisPositionHashMap() {
+        return innerOasisPositionHashMap;
+    }
 
     public int getWidth() {
         return width;
@@ -36,7 +51,7 @@ public class Oasis extends AbstractWorldMap {
         return height;
     }
 
-    public Vector2d proccesPositionInWrappingOasis(Vector2d position) {
+    public Vector2d proccessPositionInWrappingOasis(@NotNull Vector2d position) {
         if (position.x < 0) {
             position = new Vector2d(this.width, position.y);
         }
@@ -51,16 +66,6 @@ public class Oasis extends AbstractWorldMap {
         }
 
         return position;
-    }
-
-    void placeAnimal(Animal animal) {
-        if (!isOccupied(animal.getPosition())) {
-
-//            this.dominatingGenotype.put(animal.getGenotypeAsString(), 1);
-            ArrayList<Animal> tmp = new ArrayList<>();
-            tmp.add(animal);
-            animals.put(animal.getPosition(), tmp);
-        }
     }
 
     public void removeAnimalFromGivenPosition(Vector2d position, Animal animal) {
@@ -83,42 +88,6 @@ public class Oasis extends AbstractWorldMap {
             ArrayList<Animal> tmp = animals.get(position);
             tmp.add(animal);
         }
-    }
-
-    void removeAnimalsWithNoEnergyAtGivenPosition(Vector2d position) {
-        ArrayList<Animal> tmp = animals.get(position);
-        ArrayList<Animal> toDelete = new ArrayList<>();
-        for (Animal animal : tmp) {
-            if (animal.getEnergy() <= 0) {
-                toDelete.add(animal);
-            }
-        }
-        for (Animal animal : toDelete) {
-
-//            String result = animal.getGenotypeAsString();
-//
-//            Integer val = this.dominatingGenotype.remove(result);
-//            System.out.println("Removing animal with genotype: " + result + " " + val);
-//            if(val != null && val > 1){
-//                this.dominatingGenotype.put(result,val-1);
-//            }
-
-            tmp.remove(animal);
-        }
-
-        if (tmp.size() == 0) {
-            animals.remove(position);
-        }
-    }
-
-    private void placeGrass(Grass grass) {
-        if (!isOccupied(grass.getPosition())) {
-            grassHashMap.put(grass.getPosition(), grass);
-        }
-    }
-
-    public void nextDay() {
-        this.nextDayOperator.makeNextDayHappen();
     }
 
     public int getNumberOfAnimalsAtMap() {
@@ -173,13 +142,48 @@ public class Oasis extends AbstractWorldMap {
         return averageOfAnimalsLifespan;
     }
 
+    void placeAnimal(@NotNull Animal animal) {
+        if (!isOccupied(animal.getPosition())) {
+
+//            this.dominatingGenotype.put(animal.getGenotypeAsString(), 1);
+            ArrayList<Animal> tmp = new ArrayList<>();
+            tmp.add(animal);
+            animals.put(animal.getPosition(), tmp);
+        }
+    }
+
+    void removeAnimalsWithNoEnergyAtGivenPosition(Vector2d position) {
+        ArrayList<Animal> tmp = animals.get(position);
+        ArrayList<Animal> toDelete = new ArrayList<>();
+        for (Animal animal : tmp) {
+            if (animal.getEnergy() <= 0) {
+                toDelete.add(animal);
+            }
+        }
+        for (Animal animal : toDelete) {
+
+//            String result = animal.getGenotypeAsString();
+//
+//            Integer val = this.dominatingGenotype.remove(result);
+//            System.out.println("Removing animal with genotype: " + result + " " + val);
+//            if(val != null && val > 1){
+//                this.dominatingGenotype.put(result,val-1);
+//            }
+
+            tmp.remove(animal);
+        }
+
+        if (tmp.size() == 0) {
+            animals.remove(position);
+        }
+    }
+
     void addGrassInTheOasis() {
         //sprawdza czy losowo wybrane miejsce jest przez coś zajęte
 
         for (Integer index : this.indexList) {
             if (!isOccupied(this.innerOasisPositionHashMap.get(this.innerOasisPositionList.get(index)))) {
                 this.placeGrass(new Grass(this.innerOasisPositionHashMap.get(this.innerOasisPositionList.get(index))));
-                System.out.println(this.innerOasisPositionHashMap.get(this.innerOasisPositionList.get(index)));
                 break;
             }
         }
@@ -206,6 +210,16 @@ public class Oasis extends AbstractWorldMap {
 
     }
 
+    boolean doesInnerOasisExistsAtGivenPosition(Vector2d position){
+        return innerOasisPositionHashMap.containsKey(position);
+    }
+
+    private void placeGrass(@NotNull Grass grass) {
+        if (!isOccupied(grass.getPosition())) {
+            grassHashMap.put(grass.getPosition(), grass);
+        }
+    }
+
     private boolean isPerfectSquare(double x) {
         double sr = sqrt(x);
         return ((sr - floor(sr)) == 0);
@@ -214,6 +228,7 @@ public class Oasis extends AbstractWorldMap {
     private void generateZones() {
         int numberOfFieldNeededToBeDeclaredAsInnerOasis = (int) (this.jungleRatio * this.width * this.height);
         int boundy = (int) sqrt(numberOfFieldNeededToBeDeclaredAsInnerOasis);
+
         Vector2d middlePointOfInnerOasis;
         Vector2d middlePointOfMap = new Vector2d(this.width/2, this.height/2);
         if (!isPerfectSquare(numberOfFieldNeededToBeDeclaredAsInnerOasis)) {
@@ -263,6 +278,10 @@ public class Oasis extends AbstractWorldMap {
         }
     }
 
+    private void incrementDay(){
+        this.day++;
+    }
+
     @Override
     public String toString() {
         MapVisualizer visualizer = new MapVisualizer(this);
@@ -275,12 +294,6 @@ public class Oasis extends AbstractWorldMap {
     public Object objectAt(Vector2d position) {
         if (grassHashMap.get(position) != null) return grassHashMap.get(position);
         return super.objectAt(position);
-    }
-
-    @Override
-    public boolean canMoveTo(Vector2d position) {
-        System.out.println("Cos chce korzystac z canMoveTo");
-        return true;
     }
 
     @Override

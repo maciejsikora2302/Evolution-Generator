@@ -1,8 +1,5 @@
 package mainPackage.mapElement.animal;
 
-import mainPackage.mapElement.animal.Animal;
-import scala.Int;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -15,119 +12,65 @@ public class BabyGenesOperator {
     }
 
     public ArrayList<Integer> craftGenesForBaby(Animal firstParent, Animal secondParent) {
-        int firstSeparator = new Random().nextInt(32);
-        int secondSeparator = new Random().nextInt(32);
-        while (firstSeparator == secondSeparator) {
-            secondSeparator = new Random().nextInt(32);
-        }
-        if (firstSeparator > secondSeparator) {
-            int p = firstSeparator;
-            firstSeparator = secondSeparator;
-            secondSeparator = p;
-        }
-
-
-        return this.combineGenes(firstParent, secondParent, firstSeparator, secondSeparator);
+        HashMap<Integer, Integer> genesMap = getGeneMapOfBothParentsCombinedGenesInRandomOrder(firstParent, secondParent);
+        addMissingGenesToMap(genesMap);
+        return createArrayListOfGenesForBabyAccordingToGeneMap(genesMap);
     }
 
-    private boolean babyGenesContainsAtLeastTwoCopiesOfThisGene(int gene, ArrayList<Integer> babyGenes){
-        int sum = 0;
-        for(int i=0; i< 32;i++){
-            if(babyGenes.get(i) == gene){
-                sum++;
+    private HashMap<Integer, Integer> getGeneMapOfBothParentsCombinedGenesInRandomOrder(Animal firstParent, Animal secondParent) {
+        Random randomIntGenerator = new Random();
+        ArrayList<Integer> firstParentGenesShuffled = firstParent.getCopyOfGenotypeShuffled();
+        ArrayList<Integer> secondParentGenesShuffled = secondParent.getCopyOfGenotypeShuffled();
+
+        HashMap<Integer, Integer> genesMap = new HashMap<>();
+        for (int i = 0; i < 32; i++) {
+            if (randomIntGenerator.nextInt() % 2 == 0) {
+                genesMap.merge(firstParentGenesShuffled.get(i), 1, Integer::sum);
+            } else {
+                genesMap.merge(secondParentGenesShuffled.get(i), 1, Integer::sum);
             }
-            if(sum==2) return true;
         }
-        return false;
+        return genesMap;
     }
 
-    private ArrayList<Integer> combineGenes(Animal firstParent, Animal secondParent, int firstSeparator, int secondSeparator) {
+    private void addMissingGenesToMap(HashMap<Integer, Integer> genesMap) {
+        Random random = new Random();
+        ArrayList<Integer> keySet = new ArrayList<>(genesMap.keySet());
+
+        for (Integer i = 0; i < 8; i++) {
+            Integer genCount = genesMap.get(i);
+            if (genCount == null) {
+                int randomGene = keySet.get(random.nextInt(keySet.size()));
+                Integer randomGeneValue = genesMap.get(randomGene);
+
+                if (randomGeneValue != 1) {
+                    genesMap.remove(randomGene);
+                    genesMap.put(i, 1);
+                    genesMap.put(randomGene, randomGeneValue - 1);
+                } else {
+
+                    while (randomGeneValue == 1) {
+                        randomGene = keySet.get(random.nextInt(keySet.size()));
+                        randomGeneValue = genesMap.get(randomGene);
+                    }
+                    genesMap.remove(randomGene);
+                    genesMap.put(i, 1);
+                    genesMap.put(randomGene, randomGeneValue - 1);
+
+                }
+
+            }
+        }
+    }
+
+    private ArrayList<Integer> createArrayListOfGenesForBabyAccordingToGeneMap(HashMap<Integer, Integer> genesMap) {
         ArrayList<Integer> babyGenes = new ArrayList<>();
-//        System.out.println("babyGenes: " + babyGenes);
-        int combinationSequence = new Random().nextInt(3);
-        ArrayList<Integer> firstParentGenes = firstParent.getMoveGen();
-        ArrayList<Integer> secondParentGenes = (ArrayList<Integer>) secondParent.getMoveGen().clone();
-        Collections.shuffle(firstParentGenes);
-        Collections.shuffle(secondParentGenes);
-        switch (combinationSequence) {
-            case 0:
-                for (int i = 0; i < secondSeparator; i++) {
-                    babyGenes.add(firstParentGenes.get(i));
-                }
-                for (int i = secondSeparator; i < 32; i++) {
-                    babyGenes.add(secondParentGenes.get(i));
-                }
-                break;
-            case 1:
-                for (int i = firstSeparator; i < 32; i++) {
-                    babyGenes.add(firstParentGenes.get(i));
-                }
-                for (int i = 0; i < firstSeparator; i++) {
-                    babyGenes.add(secondParentGenes.get(i));
-                }
-                break;
-            case 2:
-                for (int i = 0; i < firstSeparator; i++) {
-                    babyGenes.add(firstParentGenes.get(i));
-                }
-                for (int i = firstSeparator; i < secondSeparator; i++) {
-                    babyGenes.add(secondParentGenes.get(i));
-                }
-                for (int i = secondSeparator; i < 32; i++) {
-                    babyGenes.add(firstParentGenes.get(i));
-                }
-                break;
+        for(Integer gene:genesMap.keySet()){
+            Integer geneCount =genesMap.get(gene);
+            for(int i=0; i <geneCount;i++){
+                babyGenes.add(gene);
+            }
         }
-
-
-//        boolean[] genesThatNeedToBeAdded = new boolean[8];
-//        for (int i = 0; i < 8; i++) {
-//            genesThatNeedToBeAdded[i] = true;
-//        }
-//        for (int i = 0; i < 32; i++) {
-//            genesThatNeedToBeAdded[babyGenes.get(i)] = false;
-//        }
-//        for (int i = 0; i < 8; i++) {
-//            Random rand = new Random();
-//            while(genesThatNeedToBeAdded[i]){
-//                int position = rand.nextInt(32);
-//                if(!genesThatNeedToBeAdded[babyGenes.get(position)] &&
-//                        babyGenesContainsAtLeastTwoCopiesOfThisGene(babyGenes.get(i), babyGenes)){
-//                    babyGenes.set(position, i);
-//                }
-//            }
-//        }
-
-
-        for (int i = 0; i < 8; i++) {
-            babyGenes.remove(this.mostCommon(babyGenes));
-        }
-        for (int i = 0; i < 8; i++) {
-            babyGenes.add(i);
-        }
-
-
-        Collections.sort(babyGenes);
-
-//        System.out.println(babyGenes);
-        return (ArrayList<Integer>) babyGenes.clone();
-    }
-
-    private Integer mostCommon(ArrayList<Integer> list) {
-        Map<Integer, Integer> map = new HashMap<>();
-
-        for (Integer t : list) {
-            Integer val = map.get(t);
-            map.put(t, val == null ? 1 : val + 1);
-        }
-
-        Map.Entry<Integer, Integer> max = null;
-
-        for (Map.Entry<Integer, Integer> e : map.entrySet()) {
-            if (max == null || e.getValue() > max.getValue())
-                max = e;
-        }
-
-        return max.getKey();
+        return babyGenes;
     }
 }

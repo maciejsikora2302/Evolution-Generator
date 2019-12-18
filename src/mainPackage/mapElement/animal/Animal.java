@@ -3,19 +3,33 @@ package mainPackage.mapElement.animal;
 
 import mainPackage.mapElement.AbstractWorldMapElement;
 import mainPackage.moveAndDirection.MapDirection;
-import mainPackage.moveAndDirection.MoveDirection;
 import mainPackage.unused.Vector2d;
 import mainPackage.map.oasis.Oasis;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Animal extends AbstractWorldMapElement {
     private MapDirection Direction;
     private Oasis map;
     private Integer energy;
-    private ArrayList<Integer> moveGen;
+    private ArrayList<Integer> genotype;
     private int age;
+
+    public Animal(Oasis map, Vector2d initialPosition, int energy, ArrayList<Integer> genotype) {
+        this.map = map;
+        this.Direction = MapDirection.NORTH;
+        int rand = new Random().nextInt(8);
+        for (int i = 0; i < rand; i++) {
+            this.Direction = this.Direction.next();
+        }
+        this.Position = initialPosition;
+        this.energy = energy;
+        this.genotype = genotype;
+        this.age = 1;
+//        this.addGenotypeToMap();
+    }
 
     public int getEnergy() {
         return this.energy;
@@ -26,12 +40,12 @@ public class Animal extends AbstractWorldMapElement {
     }
 
     private int getTurnValue() {
-        return this.moveGen.get(new Random().nextInt(32));
+        return this.genotype.get(new Random().nextInt(32));
     }
 
     public void move() {
         this.map.removeAnimalFromGivenPosition(this.Position, this);
-        this.Position = this.map.proccesPositionInWrappingOasis(this.Position);
+        this.Position = this.map.proccessPositionInWrappingOasis(this.Position);
         this.Position = this.Position.add(this.Direction.toUnitVector());
         this.map.moveAnimalToGivenPosition(this.Position, this);
     }
@@ -55,12 +69,18 @@ public class Animal extends AbstractWorldMapElement {
         this.energy -= this.energy / 4;
     }
 
-    ArrayList<Integer> getMoveGen() {
-        return this.moveGen;
+    public ArrayList<Integer> getGenotype() {
+        return this.genotype;
+    }
+
+    public ArrayList<Integer> getCopyOfGenotypeShuffled(){
+        ArrayList<Integer> copyOfGenotype = new ArrayList<>(this.genotype);
+        Collections.shuffle(copyOfGenotype);
+        return copyOfGenotype;
     }
 
     public String getGenotypeAsString() {
-        ArrayList<Integer> arrList = this.moveGen;
+        ArrayList<Integer> arrList = this.genotype;
         StringBuilder sb = new StringBuilder();
         for (int i = arrList.size() - 1; i >= 0; i--) {
             int num = arrList.get(i);
@@ -97,20 +117,6 @@ public class Animal extends AbstractWorldMapElement {
                 return "NE";
         }
         return "+";
-    }
-
-    public Animal(Oasis map, Vector2d initialPosition, int energy, ArrayList<Integer> moveGen) {
-        this.map = map;
-        this.Direction = MapDirection.NORTH;
-        int rand = new Random().nextInt(8);
-        for (int i = 0; i < rand; i++) {
-            this.Direction = this.Direction.next();
-        }
-        this.Position = initialPosition;
-        this.energy = energy;
-        this.moveGen = moveGen;
-        this.age = 1;
-//        this.addGenotypeToMap();
     }
 
 

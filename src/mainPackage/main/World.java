@@ -33,8 +33,8 @@ public class World extends Application {
     private Pane statsPane = new Pane();
     private Pane buttonsPane = new Pane();
 
-    private int windowWidth = 900;
-    private int windowHeight = 900;
+    private int windowWidth = 700;
+    private int windowHeight = 700;
 
     private int statisticsInnerWidowHeight = windowHeight / 2;
     private int statisticsButtonsInnerWidowHeight = windowHeight / 2;
@@ -83,12 +83,13 @@ public class World extends Application {
     private void statsUpdate() {
         statsPane.getChildren().clear();
 
-        Text animalsOnMap = new Text("Animals currenty alive: " + map1.getNumberOfAnimalsAtMap());// + " numberOfGenotypes: " + map2.getNumberOfGenotypes());
+        Text animalsOnMap = new Text("Animals currently alive: " + map1.getNumberOfAnimalsAtMap());// + " numberOfGenotypes: " + map2.getNumberOfGenotypes());
         Text grassOnMap = new Text("Current amount of grass: " + map1.getNumberOfGrassAtMap());
         Text mostCommonGenotype = new Text("Most common genotype: " + map1.getMostCommonGenotype());
         Text numberOfAnimalsWithMostCommonGenotype = new Text("Number of animals with most common genotype: " + map1.getMostCommonGenotypeQuantity());
         Text averageOfAnimalsEnergy = new Text("Average of animals energy: " + map1.getAverageOdAnimalsEnergy());
         Text averageOfAnimalLifespan = new Text("Average of animals lifespan: " + map1.getAverageOfAnimalsLifespan());
+        Text currentDay = new Text("Current day: " + map1.getDay());
 
         VBox statisticsBox = new VBox(20);
         statisticsBox.setPrefWidth(statisticsWidth);
@@ -97,7 +98,8 @@ public class World extends Application {
         statisticsBox.setAlignment(Pos.CENTER);
         statisticsBox.getChildren().addAll(animalsOnMap, grassOnMap,
                 mostCommonGenotype, numberOfAnimalsWithMostCommonGenotype,
-                averageOfAnimalsEnergy, averageOfAnimalLifespan);
+                averageOfAnimalsEnergy, averageOfAnimalLifespan,
+                currentDay);
 
         statsPane.getChildren().add(statisticsBox);
 
@@ -119,37 +121,10 @@ public class World extends Application {
             for (int j = 0; j < mapHeight; j++) {
                 //filling board with tiles
 
-                String innerText;
-                MapObject mapObject;
-
-                Vector2d currentPosition = new Vector2d(j, i);
-                if (this.map1.isOccupied(currentPosition)) {
-                    Object object = this.map1.objectAt(currentPosition);
-                    if (object != null) {
-                        if (object instanceof ArrayList && ((ArrayList) object).size() > 1) {
-                            innerText = "⚤"; //இ, ∰, ⛧
-                            mapObject = MapObject.MULTIPLEANIMALS;
-                        } else if (object instanceof ArrayList && ((ArrayList) object).size() == 1) {
-                            innerText = ((ArrayList) object).get(0).toString();
-                            mapObject = MapObject.ANIMAL;
-                        } else if (object instanceof Grass) {
-                            innerText = "Ӂ ";
-                            mapObject = MapObject.GRASS;
-                        } else {
-                            innerText = object.toString();
-                            mapObject = MapObject.EMPTY;
-                        }
-                    } else {
-                        innerText = " ";
-                        mapObject = MapObject.EMPTY;
-                    }
-                } else {
-                    innerText = " ";
-                    mapObject = MapObject.EMPTY;
-                }
 
 
-                Tile tile = new Tile(tileWidth, tileHeight, innerText, mapObject);
+
+                Tile tile = new Tile(tileWidth, tileHeight, this.map1, j ,i);
                 tile.setTranslateX(j * tileWidth);
                 tile.setTranslateY(i * tileHeight);
 
@@ -166,7 +141,7 @@ public class World extends Application {
 
         BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\admin\\Documents\\Studia\\Semestr III\\Programowanie obiektowe\\Evolution-Generator\\src\\mainPackage\\main\\parameters.json"));
         Gson gson = new Gson();
-        oasisParameters parameters = new oasisParameters();
+        OasisParameters parameters = new OasisParameters();
         parameters = gson.fromJson(reader, parameters.getClass());
 
         this.map1 = new Oasis(
@@ -200,6 +175,11 @@ public class World extends Application {
 //        Stage secondaryStage = new Stage();
 //        secondaryStage.setTitle("Second Map");
 //        secondaryStage.setScene(new Scene(createContent()));
+
+        int startingDay = parameters.getSkipToGivenDay();
+        for(int i=0;i<startingDay;i++){
+            map1.nextDay();
+        }
 
 
         primaryStage.setTitle("First Map");

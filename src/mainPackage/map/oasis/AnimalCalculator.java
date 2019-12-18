@@ -32,7 +32,7 @@ class AnimalCalculator {
         nextDayOperator.getMap().dominatingGenotype = domGenes;
     }
 
-    void calculateMedianOfAnimalsEnergy() {
+    void calculateAverageOfAnimalsEnergy() {
         int sumOfEnergy = 0;
         int quantityOfAnimals = 0;
         for (ArrayList<Animal> animalArrayList : nextDayOperator.getMap().animals.values()) {
@@ -41,6 +41,7 @@ class AnimalCalculator {
             }
             quantityOfAnimals += animalArrayList.size();
         }
+        if (quantityOfAnimals == 0) quantityOfAnimals = 1;
         nextDayOperator.getMap().averageOdAnimalsEnergy = sumOfEnergy / quantityOfAnimals;
     }
 
@@ -54,6 +55,7 @@ class AnimalCalculator {
             }
             quantityOfAnimals += animalArrayList.size();
         }
+        if (quantityOfAnimals == 0) quantityOfAnimals = 1;
         nextDayOperator.getMap().averageOfAnimalsLifespan = sumOfAge / quantityOfAnimals;
     }
 }

@@ -22,7 +22,7 @@ class NextDayOperator {
             this.atTheEndOfTheDayNewGrassGrows();
         }
         animalCalculator.calculateGenotype();
-        animalCalculator.calculateMedianOfAnimalsEnergy();
+        animalCalculator.calculateAverageOfAnimalsEnergy();
         this.animalCalculator.makeAnimalsOneDayOlderAndCalculateTheirMedianLifespan(this);
     }
 

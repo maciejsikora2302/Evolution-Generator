@@ -40,7 +40,7 @@ class AnimalBreeder {
                 if (nextDayOperator.getMap().isOccupied(babyPosition)) {
                     babyPosition = babyPosition.subtract(additionVector);
                 } else {
-                    babyPosition = nextDayOperator.getMap().proccesPositionInWrappingOasis(babyPosition);
+                    babyPosition = nextDayOperator.getMap().proccessPositionInWrappingOasis(babyPosition);
                     babyAnimalSuccessfullyPlaced = true;
                 }
                 if (i == 100) {

@@ -14,16 +14,6 @@ public class RectangularMap extends AbstractWorldMap {
         this.height = height;
     }
 
-    @Override
-    public boolean canMoveTo(Vector2d position) {
-        if (!isOccupied(position))
-            return position.x < this.width && position.x >= 0
-                    &&
-                    position.y < this.height && position.y >= 0;
-        return false;
-    }
-
-
 
     @Override
     public String toString() {
