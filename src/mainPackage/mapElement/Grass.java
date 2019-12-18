@@ -1,6 +1,6 @@
 package mainPackage.mapElement;
 
-import mainPackage.unused.Vector2d;
+import mainPackage.main.Vector2d;
 
 public class Grass extends AbstractWorldMapElement {
 

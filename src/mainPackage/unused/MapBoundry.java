@@ -1,6 +1,7 @@
 package mainPackage.unused;
 
 import mainPackage.interfaces.IPositionChangeObserver;
+import mainPackage.main.Vector2d;
 
 import java.util.Comparator;
 import java.util.SortedSet;

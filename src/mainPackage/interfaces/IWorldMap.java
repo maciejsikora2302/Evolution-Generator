@@ -1,7 +1,6 @@
 package mainPackage.interfaces;
 
-import mainPackage.moveAndDirection.MoveDirection;
-import mainPackage.unused.Vector2d;
+import mainPackage.main.Vector2d;
 import mainPackage.mapElement.animal.Animal;
 
 public interface IWorldMap {

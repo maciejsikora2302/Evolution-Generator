@@ -7,7 +7,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import mainPackage.map.MapObject;
 import mainPackage.mapElement.Grass;
-import mainPackage.unused.Vector2d;
+import mainPackage.mapElement.animal.Animal;
+import mainPackage.main.Vector2d;
 
 import java.util.ArrayList;
 
@@ -62,6 +63,7 @@ public class Tile extends StackPane {
                 break;
             case ANIMAL:
                 border.setFill(Color.ORANGE);
+//                Animal animal = map1.animals.get(currentPosition);
                 break;
             case MULTIPLEANIMALS:
                 border.setFill(Color.RED);

@@ -1,10 +1,8 @@
 package mainPackage.map;
 
-import mainPackage.interfaces.IPositionChangeObserver;
 import mainPackage.interfaces.IWorldMap;
 import mainPackage.mapElement.animal.Animal;
-import mainPackage.moveAndDirection.MoveDirection;
-import mainPackage.unused.Vector2d;
+import mainPackage.main.Vector2d;
 
 import java.util.*;
 

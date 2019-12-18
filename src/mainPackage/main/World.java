@@ -4,7 +4,6 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
 
 import com.google.gson.*;
 import javafx.animation.AnimationTimer;
@@ -16,11 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import mainPackage.map.MapObject;
 import mainPackage.map.oasis.Tile;
-import mainPackage.mapElement.Grass;
 import mainPackage.map.oasis.Oasis;
-import mainPackage.unused.Vector2d;
 
 
 public class World extends Application {

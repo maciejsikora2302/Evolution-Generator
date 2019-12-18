@@ -3,7 +3,7 @@ package mainPackage.mapElement.animal;
 
 import mainPackage.mapElement.AbstractWorldMapElement;
 import mainPackage.moveAndDirection.MapDirection;
-import mainPackage.unused.Vector2d;
+import mainPackage.main.Vector2d;
 import mainPackage.map.oasis.Oasis;
 
 import java.util.ArrayList;

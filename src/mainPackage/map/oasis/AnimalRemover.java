@@ -1,7 +1,7 @@
 package mainPackage.map.oasis;
 
 import mainPackage.mapElement.animal.Animal;
-import mainPackage.unused.Vector2d;
+import mainPackage.main.Vector2d;
 
 import java.util.ArrayList;
 import java.util.HashMap;

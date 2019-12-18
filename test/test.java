@@ -3,7 +3,7 @@ import mainPackage.main.OasisParameters;
 import mainPackage.map.oasis.Oasis;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.mapElement.animal.BabyGenesOperator;
-import mainPackage.unused.Vector2d;
+import mainPackage.main.Vector2d;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,10 +11,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 
 public class test {
     private Oasis map;

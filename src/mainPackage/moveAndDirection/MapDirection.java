@@ -1,6 +1,6 @@
 package mainPackage.moveAndDirection;
 
-import mainPackage.unused.Vector2d;
+import mainPackage.main.Vector2d;
 
 public enum MapDirection{
     NORTH,

@@ -2,6 +2,7 @@ package mainPackage.unused;
 
 import mainPackage.map.AbstractWorldMap;
 import mainPackage.map.MapVisualizer;
+import mainPackage.main.Vector2d;
 
 public class RectangularMap extends AbstractWorldMap {
     private int width;

@@ -1,4 +1,4 @@
-package mainPackage.unused;
+package mainPackage.main;
 
 import java.util.Objects;
 

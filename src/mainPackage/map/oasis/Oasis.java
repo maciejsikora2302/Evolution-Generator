@@ -4,7 +4,7 @@ import mainPackage.map.AbstractWorldMap;
 import mainPackage.map.MapVisualizer;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.mapElement.Grass;
-import mainPackage.unused.Vector2d;
+import mainPackage.main.Vector2d;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;

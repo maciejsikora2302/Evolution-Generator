@@ -1,6 +1,6 @@
 package mainPackage.map;
 
-import mainPackage.unused.Vector2d;
+import mainPackage.main.Vector2d;
 import mainPackage.interfaces.IWorldMap;
 import mainPackage.mapElement.Grass;
 

@@ -1,6 +1,7 @@
 package mainPackage.unused;
 
 import mainPackage.map.MapVisualizer;
+import mainPackage.main.Vector2d;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.map.AbstractWorldMap;
 
