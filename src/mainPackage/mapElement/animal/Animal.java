@@ -28,7 +28,6 @@ public class Animal extends AbstractWorldMapElement {
         this.energy = energy;
         this.genotype = genotype;
         this.age = 1;
-//        this.addGenotypeToMap();
     }
 
     public int getEnergy() {
@@ -57,8 +56,8 @@ public class Animal extends AbstractWorldMapElement {
         }
     }
 
-    public void eat(int energy) {
-        this.energy += energy;
+    public void eat(int howManyAnimalsAreEating) {
+        this.energy += this.map.getPlantEnergy() /howManyAnimalsAreEating;
     }
 
     public void decreaseEnergyByMoveValue(int moveEnergy) {
@@ -80,7 +79,7 @@ public class Animal extends AbstractWorldMapElement {
     }
 
     public String getGenotypeAsString() {
-        ArrayList<Integer> arrList = this.genotype;
+        ArrayList<Integer> arrList = new ArrayList<>(this.genotype);
         StringBuilder sb = new StringBuilder();
         for (int i = arrList.size() - 1; i >= 0; i--) {
             int num = arrList.get(i);

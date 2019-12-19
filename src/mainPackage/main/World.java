@@ -15,7 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import mainPackage.map.oasis.Tile;
+import mainPackage.map.oasis.TileVisualizer;
 import mainPackage.map.oasis.Oasis;
 
 
@@ -120,7 +120,7 @@ public class World extends Application {
 
 
 
-                Tile tile = new Tile(tileWidth, tileHeight, this.map1, j ,i);
+                TileVisualizer tile = new TileVisualizer(tileWidth, tileHeight, this.map1, j ,i);
                 tile.setTranslateX(j * tileWidth);
                 tile.setTranslateY(i * tileHeight);
 

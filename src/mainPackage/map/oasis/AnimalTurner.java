@@ -15,15 +15,12 @@ public class AnimalTurner {
     }
 
     void turnAndMoveAnimals(){
-        HashMap<Vector2d, ArrayList<Animal>> copy2 = (HashMap<Vector2d, ArrayList<Animal>>) this.nextDayOperator.getMap().animals.clone();
-        //ArrayList<Vector2d> keys = (ArrayList<Vector2d>) animals.keySet();
-        for (Map.Entry<Vector2d, ArrayList<Animal>> element : copy2.entrySet()) {
-            Vector2d position = element.getKey();
-            ArrayList<Animal> allAnimalsAtPosition = this.nextDayOperator.getMap().animals.get(position);
-            for (int i = 0; i < allAnimalsAtPosition.size(); i++) {
-                allAnimalsAtPosition.get(i).turnAccordingToGene();
-                allAnimalsAtPosition.get(i).decreaseEnergyByMoveValue(this.nextDayOperator.getMoveEnergy());
-                allAnimalsAtPosition.get(i).move();
+        ArrayList<Vector2d> positionList = new ArrayList<>(this.nextDayOperator.getMap().animals.keySet());
+        for (Vector2d position : positionList) {
+            Tile tile = this.nextDayOperator.getMap().animals.get(position);
+            for (int i = 0; i < tile.getNumberOfAnimalsAtTile(); i++) {
+                tile.turnAllAnimalsAndDecreaseTheirEnergy(this.nextDayOperator.getMoveEnergy());
+                tile.moveAllAnimals();
             }
         }
     }

@@ -14,7 +14,7 @@ class NextDayOperator {
 
 
     void makeNextDayHappen() {
-        animalRemover.removeAllDeadAniamls();
+        animalRemover.removeAllDeadAnimals();
         animalTurner.turnAndMoveAnimals();
         animalFeeder.makeAnimalsEatGrassThatTheyAreStandingOnTopOf();
         animalBreeder.breedValidAnimals();

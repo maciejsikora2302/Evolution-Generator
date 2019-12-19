@@ -1,6 +1,7 @@
 import com.google.gson.Gson;
 import mainPackage.main.OasisParameters;
 import mainPackage.map.oasis.Oasis;
+import mainPackage.map.oasis.Tile;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.mapElement.animal.BabyGenesOperator;
 import mainPackage.main.Vector2d;
@@ -62,21 +63,44 @@ public class test {
     }
 
     @Test
-    public void jungleTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Oasis testOasis = new Oasis(
-                parameters.getWidth(), parameters.getHeight(),
-                parameters.getPlantEnergy(),
-                parameters.getStartEnergy(),
-                parameters.getMoveEnergy(),
-                parameters.getJungleRatio(),
-                parameters.getNumberOfStartingAnimals(),
-                parameters.getNumberOfStartingGrass(),
-                parameters.getStartingGenes(),
-                parameters.getNumberOfGrassThatGrowsPerDay());
+    public void testArrayHashing(){
+        ArrayList<Integer> genotype = new ArrayList<>(this.parameters.getStartingGenes());
+//        map.addGenotypeToHashMap();
+        genotype.sort(Integer::compareTo);
+        System.out.println(genotype);
+    }
 
-//        Method method = testOasis.getClass().getDeclaredMethod("generateZones");
-//        method.setAccessible(true);
-//        method.invoke(testOasis);
+    @Test
+    public void tileTests(){
+        Animal animal100 = new Animal(this.map, new Vector2d(1,2), 100, this.parameters.getStartingGenes());
+        Animal animal70 = new Animal(this.map, new Vector2d(2,2), 70, this.parameters.getStartingGenes());
+        Animal animal48 = new Animal(this.map, new Vector2d(4,2), 48, this.parameters.getStartingGenes());
+        Animal animal25 = new Animal(this.map, new Vector2d(10,2), 25, this.parameters.getStartingGenes());
+        Animal animalN12 = new Animal(this.map, new Vector2d(20,2), -12, this.parameters.getStartingGenes());
+        Animal animal0 = new Animal(this.map, new Vector2d(70,2), 0, this.parameters.getStartingGenes());
+
+        Tile testTile = new Tile(animal25);
+        testTile.addAnimal(animal70);
+        testTile.addAnimal(animal48);
+        testTile.addAnimal(animal100);
+        testTile.addAnimal(animalN12);
+        testTile.addAnimal(animal0);
+
+        Assert.assertEquals("Asserting if top Animal has 100 energy has failed",
+                testTile.getAnimalWithHighestEnergy().getEnergy(), animal100.getEnergy());
+        Assert.assertEquals("Asserting if second highest animal has 70 energy",
+                testTile.getAnimalWithSecondHighestEnergy().getEnergy(), animal70.getEnergy());
+
+        testTile.removeAnimal(animal100);
+        Assert.assertNotEquals("Removing failed. Removed animal with highest energy",
+                testTile.getAnimalWithSecondHighestEnergy().getEnergy(), animal100.getEnergy());
+
+        testTile.removeAnimalsWithNoEnergyAndGetTheirGenotypes();
+        Assert.assertTrue("Removing all animals with noe energy failed", testTile.getAnimalWithLowestEnergy().getEnergy() > 0);
+
+
+        System.out.println(testTile);
+
 
     }
 

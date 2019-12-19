@@ -1,11 +1,8 @@
 package mainPackage.map.oasis;
 
-import mainPackage.mapElement.animal.Animal;
 import mainPackage.main.Vector2d;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 class AnimalRemover{
     private NextDayOperator nextDayOperator;
@@ -14,10 +11,9 @@ class AnimalRemover{
         this.nextDayOperator = nextDayOperator;
     }
 
-    void removeAllDeadAniamls(){
-        HashMap<Vector2d, ArrayList<Animal>> copy1 = (HashMap<Vector2d, ArrayList<Animal>>) this.nextDayOperator.getMap().animals.clone();
-        for (Map.Entry<Vector2d, ArrayList<Animal>> element : copy1.entrySet()) {
-            Vector2d position = element.getKey();
+    void removeAllDeadAnimals(){
+        ArrayList<Vector2d> positionList = new ArrayList<>(this.nextDayOperator.getMap().animals.keySet());
+        for (Vector2d position : positionList) {
             this.nextDayOperator.getMap().removeAnimalsWithNoEnergyAtGivenPosition(position);
         }
     }

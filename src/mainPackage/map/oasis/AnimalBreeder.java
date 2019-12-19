@@ -13,21 +13,21 @@ class AnimalBreeder {
     }
 
     void breedValidAnimals() {
-        HashMap<Vector2d, ArrayList<Animal>> copy3 = (HashMap<Vector2d, ArrayList<Animal>>) nextDayOperator.getMap().animals.clone();
-        for (Map.Entry<Vector2d, ArrayList<Animal>> element : copy3.entrySet()) {
-            ArrayList<Animal> allAnimals = element.getValue();
-            if (allAnimals.size() == 1) continue;
+        ArrayList<Vector2d> positionList = new ArrayList<>(this.nextDayOperator.getMap().animals.keySet());
 
-            allAnimals.sort(Comparator.comparingInt(Animal::getEnergy).reversed());
+        for (Vector2d position: positionList) {
+            Tile tile = this.nextDayOperator.getMap().animals.get(position);
+            if (tile.getNumberOfAnimalsAtTile() == 1) continue;
 
-            boolean babyAnimalSuccessfullyPlaced = false;
-            Animal firstAnimal = allAnimals.get(0);
-            Animal secondAnimal = allAnimals.get(1);
+
+            Animal firstAnimal = tile.getAnimalWithHighestEnergy();
+            Animal secondAnimal = tile.getAnimalWithSecondHighestEnergy();
 
             if (firstAnimal.getEnergy() < (nextDayOperator.getMap().startAnimalEnergy / 2) ||
                     secondAnimal.getEnergy() < (nextDayOperator.getMap().startAnimalEnergy / 2)) continue;
 
             //wyznaczanie pozycji dziecka
+            boolean babyAnimalSuccessfullyPlaced = false;
             Vector2d babyPosition = firstAnimal.getPosition();
 
             int i = 0;
@@ -55,12 +55,11 @@ class AnimalBreeder {
 
 
             ArrayList<Integer> babyGenes = nextDayOperator.getBabyGenesOperator().craftGenesForBaby(firstAnimal, secondAnimal);
-            Collections.sort(babyGenes);
+
 
             Animal baby = new Animal(nextDayOperator.getMap(), babyPosition, babyEnergy, babyGenes);
             if (babyAnimalSuccessfullyPlaced)
                 nextDayOperator.getMap().placeAnimal(baby);
-
         }
     }
 }
