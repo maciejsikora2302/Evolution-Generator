@@ -6,11 +6,6 @@ import java.util.stream.IntStream;
 
 public class BabyGenesOperator {
 
-    public BabyGenesOperator() {
-        List<Integer> randomGenesOrder = IntStream.rangeClosed(0, 32).boxed().collect(Collectors.toList());
-        Collections.shuffle(randomGenesOrder);
-    }
-
     public ArrayList<Integer> craftGenesForBaby(Animal firstParent, Animal secondParent) {
         HashMap<Integer, Integer> genesMap = getGeneMapOfBothParentsCombinedGenesInRandomOrder(firstParent, secondParent);
         addMissingGenesToMap(genesMap);

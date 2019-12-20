@@ -8,6 +8,7 @@ import mainPackage.map.oasis.Oasis;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Animal extends AbstractWorldMapElement {
@@ -16,6 +17,8 @@ public class Animal extends AbstractWorldMapElement {
     private Integer energy;
     private ArrayList<Integer> genotype;
     private int age;
+    private int numberOfChildren = 0;
+    private AnimalObserver animalObserver = null;
 
     public Animal(Oasis map, Vector2d initialPosition, int energy, ArrayList<Integer> genotype) {
         this.map = map;
@@ -66,13 +69,12 @@ public class Animal extends AbstractWorldMapElement {
 
     public void giveBirth() {
         this.energy -= this.energy / 4;
+        this.numberOfChildren++;
     }
 
-    public ArrayList<Integer> getGenotype() {
-        return this.genotype;
-    }
 
-    public ArrayList<Integer> getCopyOfGenotypeShuffled(){
+
+    ArrayList<Integer> getCopyOfGenotypeShuffled(){
         ArrayList<Integer> copyOfGenotype = new ArrayList<>(this.genotype);
         Collections.shuffle(copyOfGenotype);
         return copyOfGenotype;
@@ -86,6 +88,44 @@ public class Animal extends AbstractWorldMapElement {
             sb.append(num);
         }
         return sb.toString();
+    }
+
+    public String getStatisticalGenotypeValuesAsString(){
+        HashMap<Integer, Integer> genesMap = new HashMap<>();
+        for (int i = 0; i < 32; i++) {
+            genesMap.merge(this.genotype.get(i),1,Integer::sum);
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        ArrayList<Integer> values = new ArrayList<>(genesMap.values());
+        for(int i=0;i<genesMap.keySet().size();i++){
+            //"{0}: 70%"
+            stringBuilder.append("{").append(i).append("}: ").append((int) (((double)values.get(i)/32) * 100)).append("% ");
+            if(i==3){
+                stringBuilder.append("\n");
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+    public AnimalObserver getObserver(){
+        return this.animalObserver;
+    }
+
+    public void attachObserver(AnimalObserver animalObserver){
+        this.animalObserver = animalObserver;
+        this.animalObserver.addDescendant(this);
+    }
+
+    public int getNumberOfChildren(){
+        return this.numberOfChildren;
+    }
+
+    public void removeObserver(){
+        this.animalObserver = null;
+    }
+
+    public MapDirection getDirection() {
+        return Direction;
     }
 
     public int getAge() {
@@ -117,35 +157,4 @@ public class Animal extends AbstractWorldMapElement {
         }
         return "+";
     }
-
-
 }
-
-
-//    private LinkedList<IPositionChangeObserver> observers = new LinkedList<>();
-//
-//    public void addObserver(IPositionChangeObserver observer){
-//        observers.add(observer);
-//    }
-//    public void removeObserver(IPositionChangeObserver observer){
-//        observers.remove(observer);
-//    }
-//    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
-//        for(IPositionChangeObserver observer: observers){
-//            observer.positionChanged(oldPosition, newPosition);
-//        }
-//    }
-//private void addGenotypeToMap(){
-//        String result = this.getGenotypeAsString();
-//
-//        System.out.print("Creating animal. Genotype: " + result + " ");
-//
-//        if(this.map.dominatingGenotype.get(result) == null){
-//            this.map.dominatingGenotype.put(result,1);
-//            System.out.println(1);
-//        }else{
-//            Integer val = this.map.dominatingGenotype.remove(result);
-//            System.out.println(val + 1);
-//            this.map.dominatingGenotype.put(result,val+1);
-//        }
-//    }

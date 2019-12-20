@@ -9,136 +9,58 @@ import com.google.gson.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import mainPackage.map.oasis.TileVisualizer;
+import javafx.stage.Window;
 import mainPackage.map.oasis.Oasis;
+import mainPackage.map.oasis.TileVisualizer;
 
 
 public class World extends Application {
-
+    private final Updater updater = new Updater(this);
+    private final WindowsCreator windowsCreator = new WindowsCreator(this);
     private Oasis map1;
     private Oasis map2;
+    private boolean canNormallyStartSimulation = false;
     private Pane root = new Pane();
+        private Pane mapPane = new Pane();
+        private Pane statisticsPane = new Pane();
+            private Pane textWithStatisticsPane = new Pane();
+            private Pane buttonsPane = new Pane();
 
-    private Pane statsRootPane = new Pane();
-    private Pane statsPane = new Pane();
-    private Pane buttonsPane = new Pane();
+    private int windowWidth;
+    private int windowHeight;
 
-    private int windowWidth = 700;
-    private int windowHeight = 700;
-
-    private int statisticsInnerWidowHeight = windowHeight / 2;
-    private int statisticsButtonsInnerWidowHeight = windowHeight / 2;
-    private int statisticsWidth = 400;
+    private int statisticsInnerWidowHeight;
+    private int statisticsButtonsInnerWidowHeight;
+    private int statisticsWidth;
 
     private AnimationTimer animationTimer = new AnimationTimer() {
         @Override
         public void handle(long l) {
-            root.getChildren().clear();
-            onUpdate();
+            updater.onUpdate();
         }
     };
 
-    private Parent createContent() {
-        root.setPrefSize(windowWidth, windowHeight);
-        onUpdate();
-        return root;
-    }
-
-    private Parent createStats() {
-        statsRootPane.setPrefSize(statisticsWidth, windowHeight);
-
-        Button pauseButton = new Button("Pause");
-        pauseButton.setOnAction(e -> {
-            animationTimer.stop();
-        });
-        Button resumeButton = new Button("Resume");
-        resumeButton.setOnAction(e -> {
-            animationTimer.start();
-        });
-
-        HBox buttonsBox = new HBox(10);
-        buttonsBox.setPrefWidth(statisticsWidth);
-        buttonsBox.setPrefHeight(statisticsButtonsInnerWidowHeight);
-        buttonsBox.setAlignment(Pos.CENTER);
-        buttonsBox.getChildren().addAll(pauseButton, resumeButton);
-
-        buttonsPane.getChildren().add(buttonsBox);
-        buttonsPane.setTranslateY(statisticsInnerWidowHeight);
-
-        statsRootPane.getChildren().addAll(statsPane, buttonsPane);
-
-        return statsRootPane;
-    }
-
-    private void statsUpdate() {
-        statsPane.getChildren().clear();
-
-        Text animalsOnMap = new Text("Animals currently alive: " + map1.getNumberOfAnimalsAtMap());// + " numberOfGenotypes: " + map2.getNumberOfGenotypes());
-        Text grassOnMap = new Text("Current amount of grass: " + map1.getNumberOfGrassAtMap());
-        Text mostCommonGenotype = new Text("Most common genotype: " + map1.getMostCommonGenotype());
-        Text numberOfAnimalsWithMostCommonGenotype = new Text("Number of animals with most common genotype: " + map1.getMostCommonGenotypeQuantity());
-        Text averageOfAnimalsEnergy = new Text("Average of animals energy: " + map1.getAverageOdAnimalsEnergy());
-        Text averageOfAnimalLifespan = new Text("Average of animals lifespan: " + map1.getAverageOfAnimalsLifespan());
-        Text currentDay = new Text("Current day: " + map1.getDay());
-
-        VBox statisticsBox = new VBox(20);
-        statisticsBox.setPrefWidth(statisticsWidth);
-        statisticsBox.setPrefHeight(statisticsInnerWidowHeight);
-
-        statisticsBox.setAlignment(Pos.CENTER);
-        statisticsBox.getChildren().addAll(animalsOnMap, grassOnMap,
-                mostCommonGenotype, numberOfAnimalsWithMostCommonGenotype,
-                averageOfAnimalsEnergy, averageOfAnimalLifespan,
-                currentDay);
-
-        statsPane.getChildren().add(statisticsBox);
-
-
-    }
-
-    private void onUpdate() {
-        this.map1.nextDay();
-
-        statsUpdate();
-
-        int mapWidth = this.map1.getWidth();
-        int mapHeight = this.map1.getHeight();
-
-        int tileWidth = windowWidth / mapWidth;
-        int tileHeight = windowHeight / mapHeight;
-
-        for (int i = 0; i < mapWidth; i++) {
-            for (int j = 0; j < mapHeight; j++) {
-                //filling board with tiles
-
-
-
-
-                TileVisualizer tile = new TileVisualizer(tileWidth, tileHeight, this.map1, j ,i);
-                tile.setTranslateX(j * tileWidth);
-                tile.setTranslateY(i * tileHeight);
-
-                root.getChildren().add(tile);
-            }
-        }
-    }
-    //============================================
-
-    //============================================
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        TileVisualizer.setUpdater(this.updater);
 
         BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\admin\\Documents\\Studia\\Semestr III\\Programowanie obiektowe\\Evolution-Generator\\src\\mainPackage\\main\\parameters.json"));
         Gson gson = new Gson();
         OasisParameters parameters = new OasisParameters();
         parameters = gson.fromJson(reader, parameters.getClass());
+
+        this.windowHeight = parameters.getMapWindowHeight();
+        this.windowWidth = parameters.getMapWindowWidth();
+        this.statisticsWidth = parameters.getStatsWindowWidth();
+
+        this.statisticsInnerWidowHeight = this.windowWidth / 2;
+        this.statisticsButtonsInnerWidowHeight = this.windowHeight / 2;
 
         this.map1 = new Oasis(
                 parameters.getWidth(), parameters.getHeight(),
@@ -151,56 +73,146 @@ public class World extends Application {
                 parameters.getStartingGenes(),
                 parameters.getNumberOfGrassThatGrowsPerDay());
 
+        this.updater.setMapHeight(parameters.getHeight());
+        this.updater.setMapWidth(parameters.getWidth());
+        this.updater.setTileHeight(this.windowWidth / parameters.getWidth());
+        this.updater.setTileWidth(this.windowHeight / parameters.getHeight());
 
-//        BufferedReader reader2 = new BufferedReader(new FileReader("C:\\Users\\admin\\Documents\\Studia\\Semestr III\\Programowanie obiektowe\\Evolution-Generator\\src\\mainPackage\\main\\parametersSecondMap.json"));
-//        Gson gson2 = new Gson();
-//        oasisParameters parametersSecondMap = new oasisParameters();
-//        parametersSecondMap = gson2.fromJson(reader2, parametersSecondMap.getClass());
-//        this.map2 = new Oasis(
-//                parametersSecondMap.getWidth(), parametersSecondMap.getHeight(),
-//                parametersSecondMap.getPlantEnergy(),
-//                parametersSecondMap.getStartEnergy(),
-//                parametersSecondMap.getMoveEnergy(),
-//                parametersSecondMap.getJungleRatio(),
-//                parametersSecondMap.getNumberOfStartingAnimals(),
-//                parametersSecondMap.getNumberOfStartingGrass(),
-//                parametersSecondMap.getStartingGenes(),
-//                parametersSecondMap.getNumberOfGrassThatGrowsPerDay());
-//
-//
-//        Stage secondaryStage = new Stage();
-//        secondaryStage.setTitle("Second Map");
-//        secondaryStage.setScene(new Scene(createContent()));
+        createStartingWindow();
+
+        if(!canNormallyStartSimulation){
+            System.out.println("Window was not closed normally.");
+            return;
+        }
 
         int startingDay = parameters.getSkipToGivenDay();
         for(int i=0;i<startingDay;i++){
             map1.nextDay();
         }
 
-
+        //MapWindow
         primaryStage.setTitle("First Map");
-        primaryStage.setScene(new Scene(createContent()));
+        primaryStage.setScene(new Scene(windowsCreator.createContent()));
         primaryStage.show();
-
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int dividerX = 3;
+        int dividerX = 5    ;
         int dividerY = 2;
-
         primaryStage.setX(screenSize.getWidth() / dividerX);
         primaryStage.setY(screenSize.getHeight() / dividerY - windowHeight / 2);
+    }
+
+    private void createStartingWindow() {
+        Stage startingWindow = new Stage();
+        startingWindow.setTitle("Main menu");
+        Pane startingWindowPane = new Pane();
+
+        int startingWindowWidth = 500;
+        int startingWindowHeight = 600;
+        int numberOfElementsAtStartingWindow = 2;
+
+        startingWindowPane.setPrefSize(startingWindowWidth,startingWindowHeight);
+        HBox horizontalButtons = new HBox();
 
 
-        Stage statStage = new Stage();
-        statStage.setTitle("Statstics");
-        statStage.setScene(new Scene(createStats()));
-        statStage.show();
+
+        HBox boxForClosing = new HBox();
+        boxForClosing.setAlignment(Pos.CENTER);
+        boxForClosing.setPrefSize(startingWindowWidth,startingWindowHeight/numberOfElementsAtStartingWindow);
+        Text textForClosing = new Text("Click here to close this window and start simulation -> ");
+        Button closeButton = new Button("Close");
+        closeButton.setOnAction(event ->{
+            Window window = closeButton.getScene().getWindow();
+            this.canNormallyStartSimulation = true;
+            window.hide();
+        });
+//        closeButton.setAlignment(Pos.CENTER);
+        boxForClosing.getChildren().addAll(textForClosing,closeButton);
 
 
-        statStage.setX(screenSize.getWidth() / dividerX - statisticsWidth - 5);
-        statStage.setY(screenSize.getHeight() / dividerY - windowHeight / 2);
+        HBox boxForNDayStats = new HBox();
+        boxForNDayStats.setAlignment(Pos.CENTER);
+        Button generateStatisticsAfterNDaysButton = new Button("Generate");
+        generateStatisticsAfterNDaysButton.setOnAction(actionEvent -> {
+
+        });
+        Text generateStatisticsAfterNDaysText = new Text("Press here to generate stats after N days -> ");
+        boxForNDayStats.getChildren().addAll(generateStatisticsAfterNDaysText,generateStatisticsAfterNDaysButton);
+        boxForNDayStats.setPrefSize(startingWindowWidth,startingWindowHeight / numberOfElementsAtStartingWindow);
+
+
+        VBox allElements = new VBox();
+        allElements.setAlignment(Pos.CENTER);
+        allElements.getChildren().addAll(boxForNDayStats,boxForClosing);
+
+
+
+
+        startingWindowPane.getChildren().add(allElements);
+        Scene startingWindowScene = new Scene(startingWindowPane);
+        startingWindow.setScene(startingWindowScene);
+        startingWindow.showAndWait();
     }
 
     public static void main(String[] args) throws IOException {
         launch(args);
+    }
+
+    public int getStatisticsWidth() {
+        return statisticsWidth;
+    }
+
+    public Pane getRoot() {
+        return root;
+    }
+
+    public Oasis getMap1() {
+        return map1;
+    }
+
+    public int getStatisticsInnerWidowHeight() {
+        return statisticsInnerWidowHeight;
+    }
+
+    public int getWindowWidth() {
+        return windowWidth;
+    }
+
+    public int getWindowHeight() {
+        return windowHeight;
+    }
+
+    public Updater getUpdater() {
+        return updater;
+    }
+
+    public int getStatisticsButtonsInnerWidowHeight() {
+        return statisticsButtonsInnerWidowHeight;
+    }
+
+
+//    public Pane getStatsRootPane() {
+//        return statsRootPane;
+//    }
+
+
+
+    public AnimationTimer getAnimationTimer() {
+        return animationTimer;
+    }
+
+    public Pane getMapPane() {
+        return mapPane;
+    }
+
+    public Pane getStatisticsPane() {
+        return statisticsPane;
+    }
+
+    public Pane getTextWithStatisticsPane() {
+        return textWithStatisticsPane;
+    }
+
+    public Pane getButtonsPane() {
+        return buttonsPane;
     }
 }

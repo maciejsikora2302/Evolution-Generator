@@ -1,13 +1,16 @@
 {
-  "width": 25,
-  "height": 25,
+  "width": 10,
+  "height": 10,
   "startingGenes": [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 7 ],
   "startEnergy": 100,
-  "moveEnergy": 2,
+  "moveEnergy": 4,
   "plantEnergy": 20,
-  "numberOfStartingAnimals": 60,
-  "numberOfStartingGrass": 100,
+  "numberOfStartingAnimals": 30,
+  "numberOfStartingGrass": 80,
   "jungleRatio":  0.3,
-  "numberOfGrassThatGrowsPerDay": 2,
-  "skipToGivenDay": 0
+  "numberOfGrassThatGrowsPerDay": 4,
+  "skipToGivenDay": 0,
+  "mapWindowWidth": 700,
+  "mapWindowHeight": 700,
+  "statsWindowWidth": 400
 }

@@ -27,9 +27,21 @@ public class OasisParameters {
     private int skipToGivenDay;
     private int numberOfGrassThatGrowsPerDay;
     private double jungleRatio;
+    private int mapWindowWidth;
+    private int mapWindowHeight;
+    private int statsWindowWidth;
 
+    public int getMapWindowWidth() {
+        return mapWindowWidth;
+    }
 
+    public int getMapWindowHeight() {
+        return mapWindowHeight;
+    }
 
+    public int getStatsWindowWidth() {
+        return statsWindowWidth;
+    }
 
     public int getSkipToGivenDay() {
         return skipToGivenDay;

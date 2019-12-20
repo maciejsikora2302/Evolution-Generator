@@ -15,7 +15,7 @@ class AnimalBreeder {
     void breedValidAnimals() {
         ArrayList<Vector2d> positionList = new ArrayList<>(this.nextDayOperator.getMap().animals.keySet());
 
-        for (Vector2d position: positionList) {
+        for (Vector2d position : positionList) {
             Tile tile = this.nextDayOperator.getMap().animals.get(position);
             if (tile.getNumberOfAnimalsAtTile() == 1) continue;
 
@@ -44,7 +44,7 @@ class AnimalBreeder {
                     babyAnimalSuccessfullyPlaced = true;
                 }
                 if (i == 100) {
-                    System.out.println("Nie udało się stworzyć dziecka");
+                    System.out.println("New cute Animal was not strong enough to survive :( | [There were no space for it]");
                     break;
                 }
             }
@@ -56,8 +56,10 @@ class AnimalBreeder {
 
             ArrayList<Integer> babyGenes = nextDayOperator.getBabyGenesOperator().craftGenesForBaby(firstAnimal, secondAnimal);
 
-
             Animal baby = new Animal(nextDayOperator.getMap(), babyPosition, babyEnergy, babyGenes);
+            if (firstAnimal.getObserver() != null) baby.attachObserver(firstAnimal.getObserver());
+            else if (secondAnimal.getObserver() != null) baby.attachObserver(secondAnimal.getObserver());
+
             if (babyAnimalSuccessfullyPlaced)
                 nextDayOperator.getMap().placeAnimal(baby);
         }

@@ -1,13 +1,12 @@
 package mainPackage.unused;
 
-import mainPackage.interfaces.IPositionChangeObserver;
 import mainPackage.main.Vector2d;
 
 import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class MapBoundry implements IPositionChangeObserver {
+public class MapBoundry {
     private SortedSet<Vector2d> elementsAtXAxis = new TreeSet<>(new comparatorX());
     private SortedSet<Vector2d> elementsAtYAxis = new TreeSet<>(new comparatorY());
 
