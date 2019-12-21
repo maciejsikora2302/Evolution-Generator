@@ -1,8 +1,10 @@
 package mainPackage.mapElement.animal;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 public class BabyGenesOperator {
 
@@ -12,6 +14,7 @@ public class BabyGenesOperator {
         return createArrayListOfGenesForBabyAccordingToGeneMap(genesMap);
     }
 
+    @NotNull
     private HashMap<Integer, Integer> getGeneMapOfBothParentsCombinedGenesInRandomOrder(Animal firstParent, Animal secondParent) {
         Random randomIntGenerator = new Random();
         ArrayList<Integer> firstParentGenesShuffled = firstParent.getCopyOfGenotypeShuffled();
@@ -28,7 +31,7 @@ public class BabyGenesOperator {
         return genesMap;
     }
 
-    private void addMissingGenesToMap(HashMap<Integer, Integer> genesMap) {
+    private void addMissingGenesToMap(@NotNull HashMap<Integer, Integer> genesMap) {
         Random random = new Random();
         ArrayList<Integer> keySet = new ArrayList<>(genesMap.keySet());
 
@@ -58,6 +61,7 @@ public class BabyGenesOperator {
         }
     }
 
+    @NotNull
     private ArrayList<Integer> createArrayListOfGenesForBabyAccordingToGeneMap(HashMap<Integer, Integer> genesMap) {
         ArrayList<Integer> babyGenes = new ArrayList<>();
         for (Integer gene : genesMap.keySet()) {

@@ -10,7 +10,7 @@ public class AnimalObserver {
         this.pointAtChosenAnimal(animal);
     }
 
-    public void addDescendant(Animal animal) {
+    void addDescendant(Animal animal) {
         this.descendants.add(animal);
     }
 
@@ -18,11 +18,7 @@ public class AnimalObserver {
         return this.descendants.size();
     }
 
-    public int getNumberOfChildren() {
-        return chosenAnimal.getNumberOfChildren();
-    }
-
-    public void pointAtChosenAnimal(Animal animal) {
+    private void pointAtChosenAnimal(Animal animal) {
         chosenAnimal = animal;
         chosenAnimal.attachObserver(this);
     }

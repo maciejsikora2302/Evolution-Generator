@@ -6,7 +6,7 @@ import mainPackage.main.Vector2d;
 
 import java.util.*;
 
-public class AnimalBreeder {
+class AnimalBreeder {
     private final NextDayOperator nextDayOperator;
 
     AnimalBreeder(NextDayOperator nextDayOperator) {

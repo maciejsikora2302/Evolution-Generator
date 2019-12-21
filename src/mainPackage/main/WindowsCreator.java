@@ -10,13 +10,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import mainPackage.main.json.StatisticsGeneratorToJSONFile;
 import mainPackage.map.oasis.Oasis;
 import mainPackage.map.oasis.tile.TileVisualizer;
-
 
 import java.io.IOException;
 
@@ -68,10 +66,12 @@ class WindowsCreator {
         stopResumeButtonsBox.setPrefWidth(world.getStatisticsWidth());
         stopResumeButtonsBox.setAlignment(Pos.CENTER);
         stopResumeButtonsBox.getChildren().addAll(pauseButton, resumeButton);
+
         HBox highlightButtonsBox = new HBox(10);
         highlightButtonsBox.setPrefWidth(world.getStatisticsWidth());
         highlightButtonsBox.setAlignment(Pos.CENTER);
-        highlightButtonsBox.getChildren().addAll(showAnimalsWithMostCommonGenotypeButton, stopHighlighting);
+        highlightButtonsBox.getChildren().addAll(stopHighlighting, showAnimalsWithMostCommonGenotypeButton);
+
         VBox moreButtonsBox = new VBox(10);
         moreButtonsBox.setPrefWidth(world.getStatisticsWidth());
         moreButtonsBox.setPrefHeight(world.getStatisticsButtonsInnerWidowHeight());
@@ -96,10 +96,8 @@ class WindowsCreator {
 
         int startingWindowWidth = 900;
         int startingWindowHeight = 600;
-        int numberOfElementsAtStartingWindow = 2;
 
         startingWindowPane.setPrefSize(startingWindowWidth, startingWindowHeight);
-        //HBox horizontalButtons = new HBox();
 
 
         HBox boxForClosing = new HBox();

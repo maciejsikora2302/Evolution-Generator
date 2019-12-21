@@ -4,7 +4,7 @@ import mainPackage.main.Vector2d;
 
 import java.util.ArrayList;
 
-public class AnimalRemover {
+class AnimalRemover {
     private NextDayOperator nextDayOperator;
 
     AnimalRemover(NextDayOperator nextDayOperator) {

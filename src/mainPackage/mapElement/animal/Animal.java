@@ -51,7 +51,7 @@ public class Animal {
         this.turnAccordingToGene();
     }
 
-    public void turnAccordingToGene() {
+    private void turnAccordingToGene() {
         int turnValue = this.getTurnValue();
         for (int i = 0; i < turnValue; i++) {
             this.Direction = this.Direction.next();
@@ -117,7 +117,7 @@ public class Animal {
         return this.numberOfChildren;
     }
 
-    public void removeObserver() {
+    void removeObserver() {
         this.animalObserver = null;
     }
 

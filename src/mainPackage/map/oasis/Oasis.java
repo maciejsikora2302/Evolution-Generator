@@ -272,31 +272,27 @@ public class Oasis {
         this.averageOdAnimalsEnergy = maxAnimalEnergy;
     }
 
-    public NextDayOperator getNextDayOperator() {
+    NextDayOperator getNextDayOperator() {
         return nextDayOperator;
     }
 
-    public double getJungleRatio() {
+    double getJungleRatio() {
         return jungleRatio;
     }
 
-    public ArrayList<Vector2d> getInnerOasisPositionList() {
+    private ArrayList<Vector2d> getInnerOasisPositionList() {
         return innerOasisPositionList;
-    }
-
-    public List<Integer> getIndexList() {
-        return indexList;
     }
 
     public int getStartAnimalEnergy() {
         return startAnimalEnergy;
     }
 
-    public void setInnerOasisPositionList(ArrayList<Vector2d> innerOasisPositionList) {
+    void setInnerOasisPositionList(ArrayList<Vector2d> innerOasisPositionList) {
         this.innerOasisPositionList = innerOasisPositionList;
     }
 
-    public void setIndexList(List<Integer> indexList) {
+    void setIndexList(List<Integer> indexList) {
         this.indexList = indexList;
     }
 
@@ -312,7 +308,4 @@ public class Oasis {
         return grasses;
     }
 
-    public HashMap<String, Integer> getDominatingGenotype() {
-        return dominatingGenotype;
-    }
 }

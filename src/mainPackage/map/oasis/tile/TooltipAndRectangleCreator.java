@@ -25,7 +25,7 @@ class TooltipAndRectangleCreator {
     private Text text;
     private boolean highlightAnimalsWithMostCommonGenotype;
 
-    public TooltipAndRectangleCreator(TileVisualizer tileVisualizer, int width, int height, Oasis map, int j, int i, int extraWidthVector, StringBuilder textWithStatisticsForTooltip, Rectangle border, Vector2d currentPosition, boolean highlightAnimalsWithMostCommonGenotype) {
+    TooltipAndRectangleCreator(TileVisualizer tileVisualizer, int width, int height, Oasis map, int j, int i, int extraWidthVector, StringBuilder textWithStatisticsForTooltip, Rectangle border, Vector2d currentPosition, boolean highlightAnimalsWithMostCommonGenotype) {
         this.tileVisualizer = tileVisualizer;
         this.width = width;
         this.height = height;
@@ -39,15 +39,15 @@ class TooltipAndRectangleCreator {
         this.highlightAnimalsWithMostCommonGenotype = highlightAnimalsWithMostCommonGenotype;
     }
 
-    public MapObject getMapObject() {
+    MapObject getMapObject() {
         return mapObject;
     }
 
-    public Text getText() {
+    Text getText() {
         return text;
     }
 
-    public TooltipAndRectangleCreator invoke() {
+    TooltipAndRectangleCreator invoke() {
         String innerText;
         if (map.isOccupied(currentPosition)) {
             Object object = map.objectAt(currentPosition);
@@ -119,7 +119,7 @@ class TooltipAndRectangleCreator {
 
         border.setStroke(null);
         text = new Text(innerText);
-        if (innerText == "\uD83D\uDC80") {
+        if (innerText.equals("\uD83D\uDC80")) {
             text.setFill(Color.WHITE);
         }
         if (mapObject == MapObject.EMPTY) {

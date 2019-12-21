@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class AnimalCalculator {
+class AnimalCalculator {
     private final NextDayOperator nextDayOperator;
 
     AnimalCalculator(NextDayOperator nextDayOperator) {

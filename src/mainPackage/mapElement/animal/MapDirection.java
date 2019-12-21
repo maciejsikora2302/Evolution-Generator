@@ -39,32 +39,23 @@ public enum MapDirection {
     }
 
     public MapDirection next() {
-        return getMapDirection(NORTHWEST, WEST, SOUTHWEST, SOUTH, SOUTHEAST, EAST, NORTHEAST, NORTH);
-
-    }
-
-    public MapDirection previous() {
-        return getMapDirection(NORTHEAST, NORTH, NORTHWEST, WEST, SOUTHWEST, SOUTH, SOUTHEAST, EAST);
-    }
-
-    private MapDirection getMapDirection(MapDirection northeast, MapDirection north, MapDirection northwest, MapDirection west, MapDirection southwest, MapDirection south, MapDirection southeast, MapDirection east) {
         switch (this) {
             case NORTH:
-                return northeast;
+                return MapDirection.NORTHWEST;
             case NORTHWEST:
-                return north;
+                return MapDirection.WEST;
             case WEST:
-                return northwest;
+                return MapDirection.SOUTHWEST;
             case SOUTHWEST:
-                return west;
+                return MapDirection.SOUTH;
             case SOUTH:
-                return southwest;
+                return MapDirection.SOUTHEAST;
             case SOUTHEAST:
-                return south;
+                return MapDirection.EAST;
             case EAST:
-                return southeast;
+                return MapDirection.NORTHEAST;
             case NORTHEAST:
-                return east;
+                return MapDirection.NORTH;
             default:
                 return SKIP;
         }
