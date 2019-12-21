@@ -15,9 +15,9 @@ When animals breed they pass their genotype which determines how likely they are
     1. Statistics field where you cas see live stats for attached map.
     2. Buttons for stopping, resuming simulation as well highlighting animals with most common genotype (they are pink).
     3. Map on which you can see how animals are acting.
-        - Animal energy is displayed as color as RED (low) -> ORANGE (medium) -> GREEN (high)
-        - The day then animals die they are marked as BLACK
-        - When animals meet they are marked as PINK and are preparing to give birth to new cute animal. After clicking on them with LMB you can see statistics of both parent that matter then reproducing (energy and genotype)
+        - Animal energy is displayed as color as RED (low) -> ORANGE (medium) -> GREEN (high) :smile_cat:
+        - The day then animals die they are marked as BLACK :skull:
+        - When animals meet they are marked as PINK and are preparing to give birth to new cute animal. :two_hearts: After clicking on them with LMB you can see statistics of both parent that matter then reproducing (energy and genotype)
         - LMB allows you to view tooltip with explanation what tile is what.
         - RMB on single animal allows you to pick animal to follow. It is marked as blue and his statistics are viewed in separate window. \
             It's highly recommended it close that window with created button.
@@ -28,7 +28,7 @@ When animals breed they pass their genotype which determines how likely they are
     - Tile
     - Jungle Tile
     - Grass
-    - Animal
+    - Animal :smile_cat:
 
 ### Requirements:
 1. Program show animation showing position and direction of animals and position of grass.
