@@ -74,27 +74,27 @@ class TooltipAndRectangleCreator {
                     textWithStatisticsForTooltip.append("Age: ").append(animal.getAge()).append("\n");
                     textWithStatisticsForTooltip.append("Number of children: ").append(animal.getNumberOfChildren()).append("\n");
                     textWithStatisticsForTooltip.append("Currently being observed: ");
-                    if(animal.getObserver() == null){
+                    if (animal.getObserver() == null) {
                         textWithStatisticsForTooltip.append("no\n");
-                    }else{
+                    } else {
                         textWithStatisticsForTooltip.append("yes\n");
                     }
                     int animalEnergy = animal.getEnergy();
-                    if(animalEnergy<=0){
+                    if (animalEnergy <= 0) {
                         border.setFill(Color.BLACK);
                         innerText = "\uD83D\uDC80";
-                    }else if(animalEnergy <= 255){
-                        border.setFill(Color.rgb(255,animalEnergy,0));
-                    }else if(animalEnergy <= 510){
-                        border.setFill(Color.rgb(255-(animalEnergy-255),255,0));
-                    }else {
-                        border.setFill(Color.rgb(0,255,0));
+                    } else if (animalEnergy <= 255) {
+                        border.setFill(Color.rgb(255, animalEnergy, 0));
+                    } else if (animalEnergy <= 510) {
+                        border.setFill(Color.rgb(255 - (animalEnergy - 255), 255, 0));
+                    } else {
+                        border.setFill(Color.rgb(0, 255, 0));
                     }
-                    if(animal == AnimalObserver.chosenAnimal){
+                    if (animal == AnimalObserver.chosenAnimal) {
                         border.setFill(Color.BLUE);
                     }
 
-                    if(highlightAnimalsWithMostCommonGenotype && animal.getGenotypeAsString().equals(map.getMostCommonGenotype())){
+                    if (highlightAnimalsWithMostCommonGenotype && animal.getGenotypeAsString().equals(map.getMostCommonGenotype())) {
                         border.setFill(Color.VIOLET);
                     }
 
@@ -119,7 +119,7 @@ class TooltipAndRectangleCreator {
 
         border.setStroke(null);
         text = new Text(innerText);
-        if(innerText == "\uD83D\uDC80"){
+        if (innerText == "\uD83D\uDC80") {
             text.setFill(Color.WHITE);
         }
         if (mapObject == MapObject.EMPTY) {

@@ -136,12 +136,12 @@ public class Oasis {
         return numberOfAnimals;
     }
 
-    public float getAverageOfNumberOfChildren(){
+    public float getAverageOfNumberOfChildren() {
         int sumOfChildren = 0;
-        for(Tile tile: animals.values()){
+        for (Tile tile : animals.values()) {
             sumOfChildren += tile.getSumOfAnimalChildren();
         }
-        return ((float )sumOfChildren / this.getNumberOfAnimalsAtMap());
+        return ((float) sumOfChildren / this.getNumberOfAnimalsAtMap());
     }
 
     public int getNumberOfGrassAtMap() {

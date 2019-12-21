@@ -1,7 +1,7 @@
 package mainPackage.main.json;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 public class OasisParameters {
     @Override
     public String toString() {

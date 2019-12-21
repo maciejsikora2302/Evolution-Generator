@@ -16,9 +16,9 @@ public class AnimalFeeder {
 
         ArrayList<Vector2d> grassPositionList = new ArrayList<>(this.nextDayOperator.getMap().getGrasses().keySet());
 
-        for(Vector2d position: grassPositionList){
+        for (Vector2d position : grassPositionList) {
             Tile tile = this.nextDayOperator.getMap().getAnimals().get(position);
-            if(tile == null) continue;
+            if (tile == null) continue;
             tile.animalsWithHighestEnergyEat();
             this.nextDayOperator.getMap().getGrasses().remove(position);
         }

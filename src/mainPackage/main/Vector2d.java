@@ -3,8 +3,8 @@ package mainPackage.main;
 import java.util.Objects;
 
 public class Vector2d {
-    public final int  x;
-    public final int  y;
+    public final int x;
+    public final int y;
 
     public Vector2d(int x, int y) {
         this.x = x;
@@ -25,19 +25,20 @@ public class Vector2d {
         return Objects.hash(x, y);
     }
 
-    public String toString(){
-        String answer="(";
+    public String toString() {
+        String answer = "(";
         String tmp = Integer.toString(x);
-        answer+=tmp+",";
+        answer += tmp + ",";
         tmp = Integer.toString(y);
-        answer+=tmp+")";
+        answer += tmp + ")";
         return answer;
     }
 
-    public Vector2d add(Vector2d other){
-        return new Vector2d(this.x+other.x,this.y+other.y);
+    public Vector2d add(Vector2d other) {
+        return new Vector2d(this.x + other.x, this.y + other.y);
     }
-    public Vector2d subtract(Vector2d other){
-        return new Vector2d(this.x-other.x,this.y-other.y);
+
+    public Vector2d subtract(Vector2d other) {
+        return new Vector2d(this.x - other.x, this.y - other.y);
     }
 }

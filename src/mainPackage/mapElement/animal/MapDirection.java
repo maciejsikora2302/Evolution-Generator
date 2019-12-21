@@ -2,7 +2,7 @@ package mainPackage.mapElement.animal;
 
 import mainPackage.main.Vector2d;
 
-public enum MapDirection{
+public enum MapDirection {
     NORTH,
     NORTHWEST,
     WEST,
@@ -13,8 +13,9 @@ public enum MapDirection{
     NORTHEAST,
 
     SKIP;
-    public String toString(){
-        switch (this){
+
+    public String toString() {
+        switch (this) {
             case NORTH:
                 return "North";
             case NORTHWEST:
@@ -32,19 +33,22 @@ public enum MapDirection{
             case NORTHEAST:
                 return "North-East";
 
-            default:return "";
+            default:
+                return "";
         }
     }
-    public MapDirection next(){
+
+    public MapDirection next() {
         return getMapDirection(NORTHWEST, WEST, SOUTHWEST, SOUTH, SOUTHEAST, EAST, NORTHEAST, NORTH);
 
     }
-    public MapDirection previous(){
+
+    public MapDirection previous() {
         return getMapDirection(NORTHEAST, NORTH, NORTHWEST, WEST, SOUTHWEST, SOUTH, SOUTHEAST, EAST);
     }
 
     private MapDirection getMapDirection(MapDirection northeast, MapDirection north, MapDirection northwest, MapDirection west, MapDirection southwest, MapDirection south, MapDirection southeast, MapDirection east) {
-        switch (this){
+        switch (this) {
             case NORTH:
                 return northeast;
             case NORTHWEST:
@@ -61,29 +65,31 @@ public enum MapDirection{
                 return southeast;
             case NORTHEAST:
                 return east;
-            default:return SKIP;
+            default:
+                return SKIP;
         }
     }
 
-    public Vector2d toUnitVector(){
-        switch (this){
+    public Vector2d toUnitVector() {
+        switch (this) {
             case NORTH:
-                return new Vector2d(0,1);
+                return new Vector2d(0, 1);
             case NORTHWEST:
-                return new Vector2d(1,1);
+                return new Vector2d(1, 1);
             case WEST:
-                return new Vector2d(1,0);
+                return new Vector2d(1, 0);
             case SOUTHWEST:
-                return new Vector2d(1,-1);
+                return new Vector2d(1, -1);
             case SOUTH:
-                return new Vector2d(0,-1);
+                return new Vector2d(0, -1);
             case SOUTHEAST:
-                return new Vector2d(-1,-1);
+                return new Vector2d(-1, -1);
             case EAST:
-                return new Vector2d(-1,0);
+                return new Vector2d(-1, 0);
             case NORTHEAST:
-                return new Vector2d(-1,1);
-            default:return new Vector2d(0,0);
+                return new Vector2d(-1, 1);
+            default:
+                return new Vector2d(0, 0);
         }
     }
 }

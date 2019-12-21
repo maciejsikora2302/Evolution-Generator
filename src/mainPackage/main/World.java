@@ -3,7 +3,6 @@ package mainPackage.main;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 
 import com.google.gson.*;
 import javafx.animation.AnimationTimer;
@@ -22,16 +21,16 @@ public class World extends Application {
     private OasisParameters oasisParameters = new OasisParameters();
     private Oasis map1;
     private Pane root = new Pane();
-        private Pane mapPane = new Pane();
-        private Pane statisticsPane = new Pane();
-            private Pane textWithStatisticsPane = new Pane();
-            private Pane buttonsPane = new Pane();
+    private Pane mapPane = new Pane();
+    private Pane statisticsPane = new Pane();
+    private Pane textWithStatisticsPane = new Pane();
+    private Pane buttonsPane = new Pane();
     private Oasis map2;
     private Pane secondRoot = new Pane();
-        private Pane secondMapPane = new Pane();
-        private Pane secondsStatisticsPane = new Pane();
-            private Pane secondTextWithStatisticsPane = new Pane();
-            private Pane secondButtonsPane = new Pane();
+    private Pane secondMapPane = new Pane();
+    private Pane secondsStatisticsPane = new Pane();
+    private Pane secondTextWithStatisticsPane = new Pane();
+    private Pane secondButtonsPane = new Pane();
 
     private boolean canNormallyStartSimulation = false;
     private boolean useTwoMaps = false;
@@ -47,7 +46,7 @@ public class World extends Application {
         @Override
         public void handle(long l) {
             updater.onUpdate(getMap1(), getMapPane(), getTextWithStatisticsPane());
-            if(canUseTwoMaps()){
+            if (canUseTwoMaps()) {
                 updater.onUpdate(map2, secondMapPane, secondTextWithStatisticsPane);
             }
         }
@@ -88,13 +87,13 @@ public class World extends Application {
         this.updater.setTileWidth(this.windowHeight / this.oasisParameters.getHeight());
 
         windowsCreator.createStartingWindow(this);
-        if(!canNormallyStartSimulation){
+        if (!canNormallyStartSimulation) {
             System.out.println("Window was not closed with button.");
             return;
         }
 
         int startingDay = this.oasisParameters.getSkipToGivenDay();
-        for(int i=0;i<startingDay;i++){
+        for (int i = 0; i < startingDay; i++) {
             map1.nextDay();
         }
 
@@ -113,7 +112,7 @@ public class World extends Application {
         primaryStage.setX(screenSize.getWidth() / dividerX);
         primaryStage.setY(screenSize.getHeight() / dividerY - windowHeight / 2);
 
-        if(this.canUseTwoMaps()){
+        if (this.canUseTwoMaps()) {
             this.map2 = new Oasis(
                     this.oasisParameters.getWidth(),
                     this.oasisParameters.getHeight(),
@@ -145,79 +144,63 @@ public class World extends Application {
 
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch(args);
     }
 
-    public int getStatisticsWidth() {
+    int getStatisticsWidth() {
         return statisticsWidth;
     }
 
-    public Pane getRoot() {
-        return root;
-    }
-
-    public Oasis getMap1() {
+    private Oasis getMap1() {
         return map1;
     }
 
-    public int getStatisticsInnerWidowHeight() {
+    int getStatisticsInnerWidowHeight() {
         return statisticsInnerWidowHeight;
     }
 
-    public int getWindowWidth() {
+    int getWindowWidth() {
         return windowWidth;
     }
 
-    public int getWindowHeight() {
+    int getWindowHeight() {
         return windowHeight;
     }
 
-    public Updater getUpdater() {
+    Updater getUpdater() {
         return updater;
     }
 
-    public int getStatisticsButtonsInnerWidowHeight() {
+    int getStatisticsButtonsInnerWidowHeight() {
         return statisticsButtonsInnerWidowHeight;
     }
 
-    public AnimationTimer getAnimationTimer() {
+    AnimationTimer getAnimationTimer() {
         return animationTimer;
     }
 
-    public Pane getMapPane() {
+    private Pane getMapPane() {
         return mapPane;
     }
 
-    public Pane getStatisticsPane() {
-        return statisticsPane;
-    }
-
-    public Pane getTextWithStatisticsPane() {
+    private Pane getTextWithStatisticsPane() {
         return textWithStatisticsPane;
     }
 
-    public Pane getButtonsPane() {
-        return buttonsPane;
-    }
-
-    public boolean canNormallyStartSimulation() {
-        return canNormallyStartSimulation;
-    }
-
-    public OasisParameters getOasisParameters() {
+    OasisParameters getOasisParameters() {
         return oasisParameters;
     }
 
-    public void setCanNormallyStartSimulation(boolean canNormallyStartSimulation) {
-        this.canNormallyStartSimulation = canNormallyStartSimulation;
+    void setCanNormallyStartSimulationToTrue() {
+        this.canNormallyStartSimulation = true;
     }
 
-    public boolean canUseTwoMaps() {
+    private boolean canUseTwoMaps() {
         return useTwoMaps;
     }
 
-    public void setUseTwoMaps(boolean useTwoMaps) {
+    void setUseTwoMaps(boolean useTwoMaps) {
         this.useTwoMaps = useTwoMaps;
     }
 }

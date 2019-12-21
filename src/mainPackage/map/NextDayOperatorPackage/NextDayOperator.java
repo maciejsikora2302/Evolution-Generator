@@ -45,7 +45,7 @@ public class NextDayOperator {
         return this.map;
     }
 
-    int getMoveEnergy(){
+    int getMoveEnergy() {
         return this.moveEnergy;
     }
 }

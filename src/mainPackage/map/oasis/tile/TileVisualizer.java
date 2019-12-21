@@ -72,7 +72,7 @@ public class TileVisualizer extends StackPane {
         Pane buttonPane = new Pane();
         buttonPane.setPrefWidth(windowWidth);
         buttonPane.setPrefHeight(50);
-        buttonPane.setTranslateX(windowWidth/4);
+        buttonPane.setTranslateX(windowWidth / 4);
         VBox paneBox = new VBox(30);
         paneBox.setAlignment(Pos.CENTER);
         paneBox.setPrefWidth(windowWidth);
@@ -83,7 +83,7 @@ public class TileVisualizer extends StackPane {
 
         VBox boxForText = new VBox(30);
         boxForText.setAlignment(Pos.CENTER);
-        boxForText.setPrefSize(windowWidth,windowHeight-400);
+        boxForText.setPrefSize(windowWidth, windowHeight - 400);
 
         Text animalGenotype = new Text(animal.getGenotypeAsString());
         Text animalGenotypeStatistically = new Text(animal.getStatisticalGenotypeValuesAsString());
@@ -110,14 +110,14 @@ public class TileVisualizer extends StackPane {
         buttons.getChildren().addAll(closingButton);
 
 
-        paneToFollowChosenAnimal.getChildren().addAll(boxForText,buttons);
+        paneToFollowChosenAnimal.getChildren().addAll(boxForText, buttons);
         buttonPane.getChildren().addAll(buttons);
 
-        paneBox.getChildren().addAll(paneToFollowChosenAnimal,buttonPane);
+        paneBox.getChildren().addAll(paneToFollowChosenAnimal, buttonPane);
         rootPaneForFollowingChosenAnimal.getChildren().addAll(paneBox);
 
 
-        Scene sceneToFollowChosenAnimal = new Scene(rootPaneForFollowingChosenAnimal,windowWidth,windowHeight);
+        Scene sceneToFollowChosenAnimal = new Scene(rootPaneForFollowingChosenAnimal, windowWidth, windowHeight);
         updater.startUpdatingStatsOfSelectedAnimal(paneToFollowChosenAnimal);
 
         windowToFollowChosenAnimal.setTitle("Following Animal");

@@ -8,11 +8,11 @@ import java.util.ArrayList;
 public class AnimalTurner {
     private NextDayOperator nextDayOperator;
 
-    AnimalTurner(NextDayOperator nextDayOperator){
+    AnimalTurner(NextDayOperator nextDayOperator) {
         this.nextDayOperator = nextDayOperator;
     }
 
-    void turnAndMoveAnimals(){
+    void turnAndMoveAnimals() {
         ArrayList<Vector2d> positionList = new ArrayList<>(this.nextDayOperator.getMap().getAnimals().keySet());
         for (Vector2d position : positionList) {
             Tile tile = this.nextDayOperator.getMap().getAnimals().get(position);

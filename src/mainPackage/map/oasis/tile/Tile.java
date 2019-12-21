@@ -24,7 +24,7 @@ public class Tile {
         this.animals.sort(new SortByEnergy());
     }
 
-    public ArrayList<String > removeAnimalsWithNoEnergyAndGetTheirGenotypes() {
+    public ArrayList<String> removeAnimalsWithNoEnergyAndGetTheirGenotypes() {
         ArrayList<String> genotypes = new ArrayList<>();
         for (int i = animals.size() - 1; i >= 0; i--) {
             if (animals.get(i).getEnergy() <= 0) {
@@ -36,9 +36,9 @@ public class Tile {
         return genotypes;
     }
 
-    public ArrayList<String> getGenotypesOfAllAnimalsOnTile(){
+    public ArrayList<String> getGenotypesOfAllAnimalsOnTile() {
         ArrayList<String> genotypes = new ArrayList<>();
-        for(Animal animal:animals){
+        for (Animal animal : animals) {
             genotypes.add(animal.getGenotypeAsString());
         }
         return genotypes;
@@ -60,55 +60,55 @@ public class Tile {
     public void animalsWithHighestEnergyEat() {
         int numberOfAnimalsWithHighestEnergy = 1;
         for (int i = 1; i < animals.size(); i++) {
-            if(animals.get(i).getEnergy() == animals.get(i-1).getEnergy()){
+            if (animals.get(i).getEnergy() == animals.get(i - 1).getEnergy()) {
                 numberOfAnimalsWithHighestEnergy++;
             }
         }
-        for(int i=0; i<numberOfAnimalsWithHighestEnergy;i++){
+        for (int i = 0; i < numberOfAnimalsWithHighestEnergy; i++) {
             animals.get(i).eat(numberOfAnimalsWithHighestEnergy);
         }
     }
 
-    public Animal getAnimalWithHighestEnergy(){
+    public Animal getAnimalWithHighestEnergy() {
         return animals.get(0);
     }
 
-    public Animal getAnimalWithSecondHighestEnergy(){
-        if(animals.size() > 1){
+    public Animal getAnimalWithSecondHighestEnergy() {
+        if (animals.size() > 1) {
             return animals.get(1);
-        }else{
+        } else {
             System.out.println("I just tried to return animal with second highest energy but there was only one animal");
             return null;
         }
     }
 
-    public Animal getAnimalWithLowestEnergy(){
-        return this.animals.get(this.animals.size()-1);
+    public Animal getAnimalWithLowestEnergy() {
+        return this.animals.get(this.animals.size() - 1);
     }
 
     public int getNumberOfAnimalsAtTile() {
         return this.animals.size();
     }
 
-    public int getSumOfAnimalsEnergy(){
+    public int getSumOfAnimalsEnergy() {
         int sum = 0;
-        for(Animal animal:animals){
-            sum+=animal.getEnergy();
+        for (Animal animal : animals) {
+            sum += animal.getEnergy();
         }
         return sum;
     }
 
-    public int getSumOfAnimalChildren(){
+    public int getSumOfAnimalChildren() {
         int numberOfChildren = 0;
-        for(Animal animal:animals){
+        for (Animal animal : animals) {
             numberOfChildren += animal.getNumberOfChildren();
         }
         return numberOfChildren;
     }
 
-    public int incrementAgeOfEachAnimalAndGetSumOfTheirAge(){
+    public int incrementAgeOfEachAnimalAndGetSumOfTheirAge() {
         int sum = 0;
-        for(Animal animal:animals){
+        for (Animal animal : animals) {
             animal.incrementAge();
             sum += animal.getAge();
         }
@@ -118,7 +118,7 @@ public class Tile {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("I'm containing: ");
-        for(int i=0;i<animals.size();i++){
+        for (int i = 0; i < animals.size(); i++) {
             result.append(animals.get(i).getEnergy());
             result.append(" ");
         }

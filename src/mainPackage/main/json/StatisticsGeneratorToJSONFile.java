@@ -14,13 +14,13 @@ public class StatisticsGeneratorToJSONFile {
     private transient OasisParameters oasisParameters;
     private BigInteger allAnimals = new BigInteger("0");
     private BigInteger allGrass = new BigInteger("0");
-    private String mostCommonGenotype;
+    private String mostCommonGenotype = "";
     private BigInteger sumOfAverageAnimalEnergy = new BigInteger("0");
     private BigInteger sumOfAverageLifespan = new BigInteger("0");
     private BigDecimal sumOfAverageChildren = new BigDecimal("0");
 
 
-    public StatisticsGeneratorToJSONFile(int numberOfDays, OasisParameters oasisParameters){
+    public StatisticsGeneratorToJSONFile(int numberOfDays, OasisParameters oasisParameters) {
         this.numberOfDays = numberOfDays;
         this.oasisParameters = oasisParameters;
     }
@@ -36,7 +36,7 @@ public class StatisticsGeneratorToJSONFile {
                 this.oasisParameters.getNumberOfStartingGrass(),
                 this.oasisParameters.getStartingGenes(),
                 this.oasisParameters.getNumberOfGrassThatGrowsPerDay());
-        for(int i=0; i<numberOfDays ;i++){
+        for (int i = 0; i < numberOfDays; i++) {
             this.allAnimals = this.allAnimals.add(BigInteger.valueOf(map.getNumberOfAnimalsAtMap()));
             this.allGrass = this.allGrass.add(BigInteger.valueOf(map.getNumberOfGrassAtMap()));
             this.sumOfAverageAnimalEnergy = this.sumOfAverageAnimalEnergy.add(BigInteger.valueOf(map.getAverageOdAnimalsEnergy()));

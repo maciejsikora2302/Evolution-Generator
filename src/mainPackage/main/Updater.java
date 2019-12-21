@@ -18,7 +18,7 @@ public class Updater {
     private Pane updatePane = null;
     private boolean canUpdateStatsOfSelectedAnimal = false;
 
-    public Updater(World world) {
+    Updater(World world) {
         this.world = world;
     }
 
@@ -28,10 +28,9 @@ public class Updater {
         mapPane.getChildren().clear();
 
         statsUpdate(textStatisticsPane, map);
-        if(canUpdateStatsOfSelectedAnimal){
+        if (canUpdateStatsOfSelectedAnimal) {
             updateStatsOfSelectedAnimal();
         }
-
 
 
         for (int i = 0; i < mapWidth; i++) {
@@ -42,7 +41,7 @@ public class Updater {
         }
     }
 
-    void statsUpdate(Pane statsPane, Oasis map) {
+    private void statsUpdate(Pane statsPane, Oasis map) {
         statsPane.getChildren().clear();
 
         Text animalsOnMap = new Text("Animals currently alive: " + map.getNumberOfAnimalsAtMap());
@@ -74,17 +73,17 @@ public class Updater {
         statsPane.getChildren().add(statisticsBox);
     }
 
-    public void startUpdatingStatsOfSelectedAnimal(Pane updatePane){
+    public void startUpdatingStatsOfSelectedAnimal(Pane updatePane) {
         this.canUpdateStatsOfSelectedAnimal = true;
         this.updatePane = updatePane;
     }
 
-    public void stopUpdatingStatsOfSelectedAnimal(){
+    public void stopUpdatingStatsOfSelectedAnimal() {
         this.canUpdateStatsOfSelectedAnimal = false;
         this.updatePane = null;
     }
 
-    private void updateStatsOfSelectedAnimal(){
+    private void updateStatsOfSelectedAnimal() {
         this.updatePane.getChildren().clear();
         Animal animal = AnimalObserver.chosenAnimal;
         int windowWidth = 300;
@@ -92,7 +91,7 @@ public class Updater {
 
         VBox boxForText = new VBox(30);
         boxForText.setAlignment(Pos.CENTER);
-        boxForText.setPrefSize(windowWidth,windowHeight-400);
+        boxForText.setPrefSize(windowWidth, windowHeight - 400);
 
         Text animalGenotype = new Text(animal.getGenotypeAsString());
         Text animalGenotypeStatistically = new Text(animal.getStatisticalGenotypeValuesAsString());
@@ -100,9 +99,9 @@ public class Updater {
         Text numberOfDescendants = new Text("Number of descendants: " + animal.getObserver().getNumberOfDescendants());
         Text animalEnergy = new Text("Energy: " + animal.getEnergy());
         Text animalAge;
-        if(animal.getEnergy() > 0 ){
+        if (animal.getEnergy() > 0) {
             animalAge = new Text("Age: " + animal.getAge());
-        }else{
+        } else {
             animalAge = new Text("Died at age: " + animal.getAge());
             this.canUpdateStatsOfSelectedAnimal = false;
         }
@@ -116,35 +115,35 @@ public class Updater {
         this.updatePane.getChildren().addAll(boxForText);
     }
 
-    public void setTileHeight(int tileHeight) {
+    void setTileHeight(int tileHeight) {
         this.tileHeight = tileHeight;
     }
 
-    public void setMapWidth(int mapWidth) {
+    void setMapWidth(int mapWidth) {
         this.mapWidth = mapWidth;
     }
 
-    public void setMapHeight(int mapHeight) {
+    void setMapHeight(int mapHeight) {
         this.mapHeight = mapHeight;
     }
 
-    public void setTileWidth(int tileWidth) {
+    void setTileWidth(int tileWidth) {
         this.tileWidth = tileWidth;
     }
 
-    public int getTileWidth() {
+    int getTileWidth() {
         return tileWidth;
     }
 
-    public int getTileHeight() {
+    int getTileHeight() {
         return tileHeight;
     }
 
-    public int getMapWidth() {
+    int getMapWidth() {
         return mapWidth;
     }
 
-    public int getMapHeight() {
+    int getMapHeight() {
         return mapHeight;
     }
 }

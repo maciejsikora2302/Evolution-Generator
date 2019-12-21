@@ -2,7 +2,7 @@ package mainPackage.mapElement;
 
 import mainPackage.main.Vector2d;
 
-public class Grass{
+public class Grass {
     private Vector2d Position;
 
     public Vector2d getPosition() {
@@ -13,7 +13,7 @@ public class Grass{
         return "* ";
     }
 
-    public Grass(Vector2d position){
+    public Grass(Vector2d position) {
         this.Position = position;
     }
 }

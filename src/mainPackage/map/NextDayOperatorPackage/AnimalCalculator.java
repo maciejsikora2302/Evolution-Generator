@@ -19,7 +19,7 @@ public class AnimalCalculator {
 
         for (Tile tile : nextDayOperator.getMap().getAnimals().values()) {
             ArrayList<String> genotypes = tile.getGenotypesOfAllAnimalsOnTile();
-            for (String genotype: genotypes) {
+            for (String genotype : genotypes) {
                 if (domGenes.get(genotype) == null) {
                     domGenes.put(genotype, 1);
                 } else {
@@ -35,7 +35,7 @@ public class AnimalCalculator {
     void calculateAverageOfAnimalsEnergy() {
         int sumOfEnergy = 0;
         int quantityOfAnimals = 0;
-        for (Tile tile: this.nextDayOperator.getMap().getAnimals().values()) {
+        for (Tile tile : this.nextDayOperator.getMap().getAnimals().values()) {
             sumOfEnergy += tile.getSumOfAnimalsEnergy();
             quantityOfAnimals += tile.getNumberOfAnimalsAtTile();
         }

@@ -60,9 +60,9 @@ public class BabyGenesOperator {
 
     private ArrayList<Integer> createArrayListOfGenesForBabyAccordingToGeneMap(HashMap<Integer, Integer> genesMap) {
         ArrayList<Integer> babyGenes = new ArrayList<>();
-        for(Integer gene:genesMap.keySet()){
-            Integer geneCount =genesMap.get(gene);
-            for(int i=0; i <geneCount;i++){
+        for (Integer gene : genesMap.keySet()) {
+            Integer geneCount = genesMap.get(gene);
+            for (int i = 0; i < geneCount; i++) {
                 babyGenes.add(gene);
             }
         }

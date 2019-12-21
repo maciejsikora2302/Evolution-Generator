@@ -59,7 +59,7 @@ public class Animal {
     }
 
     public void eat(int howManyAnimalsAreEating) {
-        this.energy += this.map.getPlantEnergy() /howManyAnimalsAreEating;
+        this.energy += this.map.getPlantEnergy() / howManyAnimalsAreEating;
     }
 
     public void decreaseEnergyByMoveValue(int moveEnergy) {
@@ -72,8 +72,7 @@ public class Animal {
     }
 
 
-
-    ArrayList<Integer> getCopyOfGenotypeShuffled(){
+    ArrayList<Integer> getCopyOfGenotypeShuffled() {
         ArrayList<Integer> copyOfGenotype = new ArrayList<>(this.genotype);
         Collections.shuffle(copyOfGenotype);
         return copyOfGenotype;
@@ -89,36 +88,36 @@ public class Animal {
         return sb.toString();
     }
 
-    public String getStatisticalGenotypeValuesAsString(){
+    public String getStatisticalGenotypeValuesAsString() {
         HashMap<Integer, Integer> genesMap = new HashMap<>();
         for (int i = 0; i < 32; i++) {
-            genesMap.merge(this.genotype.get(i),1,Integer::sum);
+            genesMap.merge(this.genotype.get(i), 1, Integer::sum);
         }
         StringBuilder stringBuilder = new StringBuilder();
         ArrayList<Integer> values = new ArrayList<>(genesMap.values());
-        for(int i=0;i<genesMap.keySet().size();i++){
-            stringBuilder.append("{").append(i).append("}: ").append((int) (((double)values.get(i)/32) * 100)).append("% ");
-            if(i==3){
+        for (int i = 0; i < genesMap.keySet().size(); i++) {
+            stringBuilder.append("{").append(i).append("}: ").append((int) (((double) values.get(i) / 32) * 100)).append("% ");
+            if (i == 3) {
                 stringBuilder.append("\n");
             }
         }
         return stringBuilder.toString();
     }
 
-    public AnimalObserver getObserver(){
+    public AnimalObserver getObserver() {
         return this.animalObserver;
     }
 
-    public void attachObserver(AnimalObserver animalObserver){
+    public void attachObserver(AnimalObserver animalObserver) {
         this.animalObserver = animalObserver;
         this.animalObserver.addDescendant(this);
     }
 
-    public int getNumberOfChildren(){
+    public int getNumberOfChildren() {
         return this.numberOfChildren;
     }
 
-    public void removeObserver(){
+    public void removeObserver() {
         this.animalObserver = null;
     }
 
@@ -135,7 +134,7 @@ public class Animal {
     }
 
     public String toString() {
-        for(int i=0;i<4;i++)
+        for (int i = 0; i < 4; i++)
             this.Direction = this.Direction.next();
         String directionAsString = "+";
         switch (Direction) {
@@ -164,7 +163,7 @@ public class Animal {
                 directionAsString = "⇗";
                 break;
         }
-        for(int i=0;i<4;i++)
+        for (int i = 0; i < 4; i++)
             this.Direction = this.Direction.next();
         return directionAsString;
     }
