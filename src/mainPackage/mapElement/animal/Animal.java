@@ -122,7 +122,11 @@ public class Animal {
     }
 
     public MapDirection getDirection() {
-        return Direction;
+        MapDirection directionToReturnForTooltip = this.Direction;
+        for(int i =0; i<4 ;i++){
+            directionToReturnForTooltip = directionToReturnForTooltip.next();
+        }
+        return directionToReturnForTooltip;
     }
 
     public int getAge() {
