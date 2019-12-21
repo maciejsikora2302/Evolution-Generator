@@ -1,6 +1,6 @@
 {
-  "width": 50,
-  "height": 50,
+  "width": 25,
+  "height": 25,
   "startingGenes": [ 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 7 ],
   "startEnergy": 100,
   "moveEnergy": 8,

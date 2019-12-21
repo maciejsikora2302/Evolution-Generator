@@ -16,8 +16,7 @@ public class AnimalTurner {
         for (Vector2d position : positionList) {
             Tile tile = this.nextDayOperator.getMap().animals.get(position);
             for (int i = 0; i < tile.getNumberOfAnimalsAtTile(); i++) {
-                tile.moveAllAnimals();
-                tile.decreaseEnergyOfAnimals(this.nextDayOperator.getMoveEnergy());
+                tile.decreaseEnergyThenMoveTenTurn(this.nextDayOperator.getMoveEnergy());
             }
         }
     }

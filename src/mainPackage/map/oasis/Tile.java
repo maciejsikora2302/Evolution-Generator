@@ -50,12 +50,12 @@ public class Tile {
 
     public void decreaseEnergyOfAnimals(int moveEnergy) {
         for (Animal animal : animals) {
-            animal.turnAccordingToGene();
             animal.decreaseEnergyByMoveValue(moveEnergy);
         }
     }
 
-    public void moveAllAnimals() {
+    public void decreaseEnergyThenMoveTenTurn(int moveEnergy) {
+        this.decreaseEnergyOfAnimals(moveEnergy);
         for (int i = 0; i < animals.size(); i++) {
             animals.get(i).moveAndTurn();
         }
