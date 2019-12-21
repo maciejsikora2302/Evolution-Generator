@@ -45,11 +45,12 @@ public class Animal extends AbstractWorldMapElement {
         return this.genotype.get(new Random().nextInt(32));
     }
 
-    public void move() {
+    public void moveAndTurn() {
         this.map.removeAnimalFromGivenPosition(this.Position, this);
         this.Position = this.map.wrapPosition(this.Position);
         this.Position = this.Position.add(this.Direction.toUnitVector());
         this.map.moveAnimalToGivenPosition(this.Position, this);
+        this.turnAccordingToGene();
     }
 
     public void turnAccordingToGene() {
