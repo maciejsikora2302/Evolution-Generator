@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import mainPackage.main.Updater;
 import mainPackage.map.MapObject;
 import mainPackage.mapElement.animal.Animal;

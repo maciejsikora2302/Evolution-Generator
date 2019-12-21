@@ -11,6 +11,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -138,14 +139,25 @@ public class World extends Application {
         TextField fieldForInputOfNumberOfDaysToPass = new TextField("0");
         Button generateStatisticsAfterNDaysButton = new Button("Generate");
         generateStatisticsAfterNDaysButton.setOnAction(actionEvent -> {
-            Integer numberOfDays = Integer.valueOf(fieldForInputOfNumberOfDaysToPass.getText());
-            //todo nałożyć ograniczenie że tylko numerki mogą być wprowadzane
-            StatisticsGeneratorToJSONFile statisticsGeneratorToJSONFile = new StatisticsGeneratorToJSONFile(numberOfDays, this.oasisParameters);
-            try {
-                statisticsGeneratorToJSONFile.prepareStatisticsForJSONSerialization();
-            } catch (IOException e) {
-                e.printStackTrace();
+            try{
+                Integer numberOfDays = Integer.valueOf(fieldForInputOfNumberOfDaysToPass.getText());
+                if(numberOfDays == 0) throw new NumberFormatException();
+                //todo nałożyć ograniczenie że tylko numerki mogą być wprowadzane
+                StatisticsGeneratorToJSONFile statisticsGeneratorToJSONFile = new StatisticsGeneratorToJSONFile(numberOfDays, this.oasisParameters);
+                try {
+                    statisticsGeneratorToJSONFile.prepareStatisticsForJSONSerialization();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }catch (NumberFormatException ex){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Warning");
+                alert.setHeaderText(null);
+                alert.setContentText("Put an integer value different from 0 into text field");
+
+                alert.showAndWait();
             }
+
         });
 
 
