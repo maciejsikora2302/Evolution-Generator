@@ -1,4 +1,4 @@
-package mainPackage.map.oasis;
+package mainPackage.map.oasis.tile;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mainPackage.main.Updater;
+import mainPackage.map.oasis.Oasis;
 import mainPackage.mapElement.MapObject;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.main.Vector2d;

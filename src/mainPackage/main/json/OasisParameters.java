@@ -1,4 +1,4 @@
-package mainPackage.main;
+package mainPackage.main.json;
 
 import java.util.ArrayList;
 import java.util.Arrays;

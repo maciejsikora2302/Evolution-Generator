@@ -1,7 +1,7 @@
-package mainPackage.map.oasis.NextDayOperatorPackage;
+package mainPackage.map.NextDayOperatorPackage;
 
 import mainPackage.main.Vector2d;
-import mainPackage.map.oasis.Tile;
+import mainPackage.map.oasis.tile.Tile;
 
 import java.util.ArrayList;
 

@@ -1,13 +1,9 @@
-package mainPackage.map.oasis;
+package mainPackage.map.oasis.tile;
 
-import mainPackage.mapElement.Grass;
 import mainPackage.mapElement.animal.Animal;
-import mainPackage.main.Vector2d;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
 
 public class Tile {
     private ArrayList<Animal> animals;

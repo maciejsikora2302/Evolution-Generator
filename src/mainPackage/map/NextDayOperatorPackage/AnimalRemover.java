@@ -1,4 +1,4 @@
-package mainPackage.map.oasis.NextDayOperatorPackage;
+package mainPackage.map.NextDayOperatorPackage;
 
 import mainPackage.main.Vector2d;
 
@@ -13,7 +13,6 @@ public class AnimalRemover{
 
     void removeAllDeadAnimals(){
         ArrayList<Vector2d> positionList = new ArrayList<>(this.nextDayOperator.getMap().getAnimals().keySet());
-        System.out.println("removing animals");
         for (Vector2d position : positionList) {
             this.nextDayOperator.getMap().removeAnimalsWithNoEnergyAtGivenPosition(position);
         }

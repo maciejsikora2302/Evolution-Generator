@@ -1,4 +1,4 @@
-package mainPackage.map.oasis.NextDayOperatorPackage;
+package mainPackage.map.NextDayOperatorPackage;
 
 import mainPackage.map.oasis.Oasis;
 import mainPackage.mapElement.animal.BabyGenesOperator;

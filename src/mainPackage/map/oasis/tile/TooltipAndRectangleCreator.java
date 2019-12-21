@@ -1,9 +1,10 @@
-package mainPackage.map.oasis;
+package mainPackage.map.oasis.tile;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import mainPackage.main.Vector2d;
+import mainPackage.map.oasis.Oasis;
 import mainPackage.mapElement.MapObject;
 import mainPackage.mapElement.Grass;
 import mainPackage.mapElement.animal.Animal;
@@ -50,7 +51,7 @@ class TooltipAndRectangleCreator {
             Object object = map1.objectAt(currentPosition);
             if (object != null) {
                 if (object instanceof Tile && ((Tile) object).getNumberOfAnimalsAtTile() > 1) {
-                    innerText = "⚤"; //இ, ∰, ⛧
+                    innerText = "⚤";
                     border.setFill(Color.PINK);
                     textWithStatisticsForTooltip.append("On this tile there are multiple animals (").
                             append(((Tile) object).getNumberOfAnimalsAtTile()).append(") and are preparing to give birth to new cute animal\n").

@@ -20,7 +20,7 @@ class OasisInitialGenerator {
     private boolean isPerfectSquare(double x) {
         double sr = Math.sqrt(x);
         return ((sr - Math.floor(sr)) == 0);
-    }//todo extract initial generator to other class
+    }
 
     void generateZones() {
         int numberOfFieldNeededToBeDeclaredAsInnerOasis = (int) (oasis.getJungleRatio() * oasis.getWidth() * oasis.getHeight());

@@ -1,8 +1,7 @@
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import mainPackage.main.OasisParameters;
+import mainPackage.main.json.OasisParameters;
 import mainPackage.map.oasis.Oasis;
-import mainPackage.map.oasis.Tile;
+import mainPackage.map.oasis.tile.Tile;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.mapElement.animal.BabyGenesOperator;
 import mainPackage.main.Vector2d;
@@ -10,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 
@@ -103,7 +101,4 @@ public class test {
 
 
     }
-
-
-    //public Animal(Oasis map, Vector2d initialPosition, int energy, ArrayList<Integer> genotype) {
 }

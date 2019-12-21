@@ -4,7 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import mainPackage.map.oasis.TileVisualizer;
+import mainPackage.map.oasis.tile.TileVisualizer;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.mapElement.animal.AnimalObserver;
 
@@ -66,7 +66,7 @@ public class Updater {
     void statsUpdate() {
         world.getTextWithStatisticsPane().getChildren().clear();
 
-        Text animalsOnMap = new Text("Animals currently alive: " + world.getMap1().getNumberOfAnimalsAtMap());// + " numberOfGenotypes: " + map2.getNumberOfGenotypes());
+        Text animalsOnMap = new Text("Animals currently alive: " + world.getMap1().getNumberOfAnimalsAtMap());
         Text grassOnMap = new Text("Current amount of grass: " + world.getMap1().getNumberOfGrassAtMap());
         Text mostCommonGenotype = new Text("Most common genotype: " + world.getMap1().getMostCommonGenotype());
         Text numberOfAnimalsWithMostCommonGenotype = new Text("Number of animals with most common genotype: " + world.getMap1().getMostCommonGenotypeQuantity());
@@ -108,8 +108,6 @@ public class Updater {
 
         for (int i = 0; i < mapWidth; i++) {
             for (int j = 0; j < mapHeight; j++) {
-                //filling board with tiles
-
                 TileVisualizer tile = new TileVisualizer(tileWidth, tileHeight, world.getMap1(), j, i, world.getStatisticsWidth());
 
                 world.getMapPane().getChildren().add(tile);

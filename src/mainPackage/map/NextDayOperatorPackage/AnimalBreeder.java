@@ -1,6 +1,6 @@
-package mainPackage.map.oasis.NextDayOperatorPackage;
+package mainPackage.map.NextDayOperatorPackage;
 
-import mainPackage.map.oasis.Tile;
+import mainPackage.map.oasis.tile.Tile;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.main.Vector2d;
 
@@ -27,7 +27,6 @@ public class AnimalBreeder {
             if (firstAnimal.getEnergy() < (nextDayOperator.getMap().getStartAnimalEnergy() / 2) ||
                     secondAnimal.getEnergy() < (nextDayOperator.getMap().getStartAnimalEnergy() / 2)) continue;
 
-            //wyznaczanie pozycji dziecka
             boolean babyAnimalSuccessfullyPlaced = false;
             Vector2d babyPosition = firstAnimal.getPosition();
 

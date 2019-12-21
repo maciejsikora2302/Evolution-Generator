@@ -1,6 +1,6 @@
-package mainPackage.map.oasis.NextDayOperatorPackage;
+package mainPackage.map.NextDayOperatorPackage;
 
-import mainPackage.map.oasis.Tile;
+import mainPackage.map.oasis.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ public class AnimalCalculator {
     AnimalCalculator(NextDayOperator nextDayOperator) {
         this.nextDayOperator = nextDayOperator;
     }
-    //todo calculateGenotype
+
     void calculateGenotype() {
 
         HashMap<String, Integer> domGenes = new HashMap<>();

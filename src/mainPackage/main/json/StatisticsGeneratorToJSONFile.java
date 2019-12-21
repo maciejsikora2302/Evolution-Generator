@@ -1,10 +1,9 @@
-package mainPackage.main;
+package mainPackage.main.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import mainPackage.map.oasis.Oasis;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -53,7 +52,7 @@ public class StatisticsGeneratorToJSONFile {
         this.sumOfAverageChildren = this.sumOfAverageChildren.divide(BigDecimal.valueOf(numberOfDays), 6);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String pathToFileWithFilename = "src\\mainPackage\\main\\" +
+        String pathToFileWithFilename = "src\\mainPackage\\main\\json\\" +
                 "statisticsAfter" +
                 numberOfDays +
                 "Days.json";

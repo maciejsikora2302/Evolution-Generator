@@ -1,6 +1,7 @@
 package mainPackage.map.oasis;
 
-import mainPackage.map.oasis.NextDayOperatorPackage.NextDayOperator;
+import mainPackage.map.NextDayOperatorPackage.NextDayOperator;
+import mainPackage.map.oasis.tile.Tile;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.mapElement.Grass;
 import mainPackage.main.Vector2d;
@@ -110,7 +111,7 @@ public class Oasis {
             System.out.println("Something tried to remove Animals from position where it didn't existed");
             return;
         }
-        if (tile.getNumberOfAnimalsAtTile() > 0) { //powinno być zawsze prawdą
+        if (tile.getNumberOfAnimalsAtTile() > 0) {
             tile.removeAnimal(animal);
         }
         if (tile.getNumberOfAnimalsAtTile() == 0) {
@@ -194,14 +195,13 @@ public class Oasis {
     }
 
     public void addGrassInTheOasis() {
-        //sprawdza czy losowo wybrane miejsce jest przez coś zajęte
-        for (Integer index : this.indexList) {
-            if (!isOccupied(this.innerOasisPositionHashMap.get(this.innerOasisPositionList.get(index)))) {
-                this.placeGrass(new Grass(this.innerOasisPositionHashMap.get(this.innerOasisPositionList.get(index))));
+        for (Integer potentialPositionIndex : this.indexList) {
+            if (!isOccupied(this.innerOasisPositionHashMap.get(this.innerOasisPositionList.get(potentialPositionIndex)))) {
+                this.placeGrass(new Grass(this.innerOasisPositionHashMap.get(this.innerOasisPositionList.get(potentialPositionIndex))));
                 break;
             }
         }
-        if (day % 200 == 0) {
+        if (day % 500 == 0) {
             Collections.shuffle(this.getInnerOasisPositionList());
         }
     }
@@ -225,7 +225,7 @@ public class Oasis {
         }
     }
 
-    boolean doesInnerOasisExistsAtGivenPosition(Vector2d position) {
+    public boolean doesInnerOasisExistsAtGivenPosition(Vector2d position) {
         return innerOasisPositionHashMap.containsKey(position);
     }
 

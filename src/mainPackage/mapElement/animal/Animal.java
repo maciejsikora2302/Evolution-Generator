@@ -97,7 +97,6 @@ public class Animal {
         StringBuilder stringBuilder = new StringBuilder();
         ArrayList<Integer> values = new ArrayList<>(genesMap.values());
         for(int i=0;i<genesMap.keySet().size();i++){
-            //"{0}: 70%"
             stringBuilder.append("{").append(i).append("}: ").append((int) (((double)values.get(i)/32) * 100)).append("% ");
             if(i==3){
                 stringBuilder.append("\n");
