@@ -24,16 +24,19 @@ public class WindowsCreator {
         this.world = world;
     }
 
-    Parent createContent(Pane rootPane, Oasis map, Pane mapPane, Pane textWithStatisticsPane) {
+    Parent createContent(Oasis map,
+                         Pane rootPane,
+                         Pane mapPane,
+                         Pane statisticsPane,
+                         Pane textWithStatisticsPane, Pane buttonsPane) {
         rootPane.setPrefSize(world.getWindowWidth()+world.getStatisticsWidth(), world.getWindowHeight());
-        rootPane.getChildren().addAll(world.getMapPane(), this.createStats());
-//        world.getUpdater().onUpdate(world.getMap1(), world.getMapPane(), world.getTextWithStatisticsPane());
+        rootPane.getChildren().addAll(mapPane, this.createStats(statisticsPane, buttonsPane, textWithStatisticsPane));
         world.getUpdater().onUpdate(map,mapPane,textWithStatisticsPane);
         return rootPane;
     }
 
-    Parent createStats() {
-        world.getStatisticsPane().setPrefSize(world.getStatisticsWidth(), world.getWindowHeight());
+    Parent createStats(Pane statisticsPane, Pane buttonsPane, Pane textWithStatisticsPane) {
+        statisticsPane.setPrefSize(world.getStatisticsWidth(), world.getWindowHeight());
 
         Button pauseButton = new Button("Pause");
         pauseButton.setOnAction(e -> {
@@ -50,12 +53,13 @@ public class WindowsCreator {
         buttonsBox.setAlignment(Pos.CENTER);
         buttonsBox.getChildren().addAll(pauseButton, resumeButton);
 
-        world.getButtonsPane().getChildren().add(buttonsBox);
-        world.getButtonsPane().setTranslateY(world.getStatisticsInnerWidowHeight());
 
-        world.getStatisticsPane().getChildren().addAll(world.getTextWithStatisticsPane(), world.getButtonsPane());
+        buttonsPane.getChildren().add(buttonsBox);
+        buttonsPane.setTranslateY(world.getStatisticsInnerWidowHeight());
 
-        return world.getStatisticsPane();
+        statisticsPane.getChildren().addAll(textWithStatisticsPane, buttonsPane);
+
+        return statisticsPane;
     }
 
     void createStartingWindow(World world) {
@@ -90,7 +94,7 @@ public class WindowsCreator {
             window.hide();
         });
 
-        boxForClosing.getChildren().addAll(textForClosing,closeButtonAndUseOneMap);
+        boxForClosing.getChildren().addAll(textForClosing,closeButtonAndUseOneMap, closeButtonAndUseTwoMaps);
 
 
         HBox boxForNDayStats = new HBox(5);

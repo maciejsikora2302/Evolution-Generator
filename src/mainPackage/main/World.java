@@ -47,7 +47,9 @@ public class World extends Application {
         @Override
         public void handle(long l) {
             updater.onUpdate(getMap1(), getMapPane(), getTextWithStatisticsPane());
-//            updater.onUpdate(getMap2(), getMAp2Pane());
+            if(canUseTwoMaps()){
+                updater.onUpdate(map2, secondMapPane, secondTextWithStatisticsPane);
+            }
         }
     };
 
@@ -98,7 +100,12 @@ public class World extends Application {
 
 
         primaryStage.setTitle("First Map");
-        primaryStage.setScene(new Scene(windowsCreator.createContent(this.root, this.map1,this.mapPane,this.textWithStatisticsPane)));
+        primaryStage.setScene(new Scene(windowsCreator.createContent(
+                this.map1,
+                this.root, this.mapPane,
+                this.statisticsPane,
+                this.textWithStatisticsPane,
+                this.buttonsPane)));
         primaryStage.show();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int dividerX = 5;
@@ -121,6 +128,15 @@ public class World extends Application {
             );
             Stage secondaryStage = new Stage();
             secondaryStage.setTitle("Second Map");
+            secondaryStage.setScene(new Scene(
+                    windowsCreator.createContent(
+                            this.map2,
+                            this.secondRoot,
+                            this.secondMapPane,
+                            this.secondsStatisticsPane,
+                            this.secondTextWithStatisticsPane,
+                            this.secondButtonsPane)));
+            secondaryStage.show();
             secondaryStage.setX(screenSize.getWidth() / dividerX);
             secondaryStage.setY(screenSize.getHeight() / dividerY - windowHeight / 2);
             secondaryStage.setX(secondaryStage.getX() + 20);
