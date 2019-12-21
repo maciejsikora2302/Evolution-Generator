@@ -47,7 +47,7 @@ public class Animal extends AbstractWorldMapElement {
 
     public void move() {
         this.map.removeAnimalFromGivenPosition(this.Position, this);
-        this.Position = this.map.proccessPositionInWrappingOasis(this.Position);
+        this.Position = this.map.wrapPosition(this.Position);
         this.Position = this.Position.add(this.Direction.toUnitVector());
         this.map.moveAnimalToGivenPosition(this.Position, this);
     }
@@ -137,24 +137,37 @@ public class Animal extends AbstractWorldMapElement {
     }
 
     public String toString() {
+        for(int i=0;i<4;i++)
+            this.Direction = this.Direction.next();
+        String directionAsString = "+";
         switch (Direction) {
             case NORTH:
-                return "N ";
+                directionAsString = "⇑";
+                break;
             case NORTHWEST:
-                return "NW";
+                directionAsString = "⇖";
+                break;
             case WEST:
-                return "W ";
+                directionAsString = "⇐";
+                break;
             case SOUTHWEST:
-                return "SW";
+                directionAsString = "⇙";
+                break;
             case SOUTH:
-                return "S ";
+                directionAsString = "⇓";
+                break;
             case SOUTHEAST:
-                return "SE";
+                directionAsString = "⇘";
+                break;
             case EAST:
-                return "E ";
+                directionAsString = "⇒";
+                break;
             case NORTHEAST:
-                return "NE";
+                directionAsString = "⇗";
+                break;
         }
-        return "+";
+        for(int i=0;i<4;i++)
+            this.Direction = this.Direction.next();
+        return directionAsString;
     }
 }

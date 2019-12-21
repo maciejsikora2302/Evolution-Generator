@@ -46,7 +46,7 @@ public class Updater {
         if(animal.getEnergy() > 0 ){
             animalAge = new Text("Age: " + animal.getAge());
         }else{
-            animalAge = new Text("Died at day: " + animal.getAge());
+            animalAge = new Text("Died at age: " + animal.getAge());
             this.updateStatsOfSelectedAnimal = false;
         }
         boxForText.getChildren().addAll(animalGenotype,

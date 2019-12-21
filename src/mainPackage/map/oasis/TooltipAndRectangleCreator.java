@@ -7,6 +7,7 @@ import mainPackage.main.Vector2d;
 import mainPackage.map.MapObject;
 import mainPackage.mapElement.Grass;
 import mainPackage.mapElement.animal.Animal;
+import mainPackage.mapElement.animal.AnimalObserver;
 import org.stjs.javascript.dom.Col;
 
 class TooltipAndRectangleCreator {
@@ -76,10 +77,10 @@ class TooltipAndRectangleCreator {
                     }else{
                         textWithStatisticsForTooltip.append("yes\n");
                     }
-                    border.setFill(Color.ORANGE);
                     int animalEnergy = animal.getEnergy();
                     if(animalEnergy<=0){
                         border.setFill(Color.BLACK);
+                        innerText = "\uD83D\uDC80";
                     }else if(animalEnergy <= 255){
                         border.setFill(Color.rgb(255,animalEnergy,0));
                     }else if(animalEnergy <= 510){
@@ -87,7 +88,9 @@ class TooltipAndRectangleCreator {
                     }else {
                         border.setFill(Color.rgb(0,255,0));
                     }
-
+                    if(animal == AnimalObserver.chosenAnimal){
+                        border.setFill(Color.BLUE);
+                    }
 
                     mapObject = MapObject.ANIMAL;
                 } else if (object instanceof Grass) {
@@ -110,6 +113,9 @@ class TooltipAndRectangleCreator {
 
         border.setStroke(null);
         text = new Text(innerText);
+        if(innerText == "\uD83D\uDC80"){
+            text.setFill(Color.WHITE);
+        }
         if (mapObject == MapObject.EMPTY) {
             if (map1.doesInnerOasisExistsAtGivenPosition(currentPosition)) {
                 textWithStatisticsForTooltip.append("This tile belongs to jungle");

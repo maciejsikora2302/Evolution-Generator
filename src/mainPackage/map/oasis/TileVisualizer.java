@@ -23,7 +23,6 @@ public class TileVisualizer extends StackPane {
     public static void setUpdater(Updater updater) {
         TileVisualizer.updater = updater;
     }
-
     private static Updater updater;
 
 

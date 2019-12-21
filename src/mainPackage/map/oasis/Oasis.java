@@ -66,7 +66,7 @@ public class Oasis {
         return height;
     }
 
-    public Vector2d proccessPositionInWrappingOasis(@NotNull Vector2d position) {
+    public Vector2d wrapPosition(@NotNull Vector2d position) {
         if (position.x < 0) {
             position = new Vector2d(this.width, position.y);
         }
