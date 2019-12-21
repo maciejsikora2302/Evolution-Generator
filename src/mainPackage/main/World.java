@@ -141,7 +141,7 @@ public class World extends Application {
         generateStatisticsAfterNDaysButton.setOnAction(actionEvent -> {
             try{
                 Integer numberOfDays = Integer.valueOf(fieldForInputOfNumberOfDaysToPass.getText());
-                if(numberOfDays == 0) throw new NumberFormatException();
+                if(numberOfDays <= 0) throw new NumberFormatException();
                 //todo nałożyć ograniczenie że tylko numerki mogą być wprowadzane
                 StatisticsGeneratorToJSONFile statisticsGeneratorToJSONFile = new StatisticsGeneratorToJSONFile(numberOfDays, this.oasisParameters);
                 try {
@@ -153,7 +153,7 @@ public class World extends Application {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Warning");
                 alert.setHeaderText(null);
-                alert.setContentText("Put an integer value different from 0 into text field");
+                alert.setContentText("Put an positive integer value different from 0 into text field");
 
                 alert.showAndWait();
             }
