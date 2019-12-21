@@ -28,7 +28,7 @@ When animals breed they pass their genotype which determines how likely they are
     - Tile
     - Jungle Tile
     - Grass
-    - Animal :smile_cat:
+    - Animal 
 
 ### Requirements:
 1. Program show animation showing position and direction of animals and position of grass.
@@ -51,5 +51,6 @@ When animals breed they pass their genotype which determines how likely they are
 6. Program should allow to write to Json file average of statistics after N days 
 
 
-###Used external resources: 
+### Used external resources:
+ Official project requirements (in Polish): https://github.com/apohllo/obiektowe-lab/tree/master/lab8  
  Img: https://www.pexels.com/photo/clouds-daylight-forest-grass-371589/
