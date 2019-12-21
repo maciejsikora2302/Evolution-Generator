@@ -3,6 +3,7 @@ package mainPackage.main;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import com.google.gson.*;
@@ -11,6 +12,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -22,6 +24,7 @@ import mainPackage.map.oasis.TileVisualizer;
 public class World extends Application {
     private final Updater updater = new Updater(this);
     private final WindowsCreator windowsCreator = new WindowsCreator(this);
+    private OasisParameters oasisParameters = new OasisParameters();
     private Oasis map1;
     private Oasis map2;
     private boolean canNormallyStartSimulation = false;
@@ -50,42 +53,42 @@ public class World extends Application {
     public void start(Stage primaryStage) throws Exception {
         TileVisualizer.setUpdater(this.updater);
 
-        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\admin\\Documents\\Studia\\Semestr III\\Programowanie obiektowe\\Evolution-Generator\\src\\mainPackage\\main\\parameters.json"));
+        BufferedReader reader = new BufferedReader(new FileReader("src\\mainPackage\\main\\parameters.json"));
         Gson gson = new Gson();
-        OasisParameters parameters = new OasisParameters();
-        parameters = gson.fromJson(reader, parameters.getClass());
+//        OasisParameters parameters = new OasisParameters();
+        this.oasisParameters = gson.fromJson(reader, this.oasisParameters.getClass());
 
-        this.windowHeight = parameters.getMapWindowHeight();
-        this.windowWidth = parameters.getMapWindowWidth();
-        this.statisticsWidth = parameters.getStatsWindowWidth();
+        this.windowHeight = this.oasisParameters.getMapWindowHeight();
+        this.windowWidth = this.oasisParameters.getMapWindowWidth();
+        this.statisticsWidth = this.oasisParameters.getStatsWindowWidth();
 
         this.statisticsInnerWidowHeight = this.windowWidth / 2;
         this.statisticsButtonsInnerWidowHeight = this.windowHeight / 2;
 
         this.map1 = new Oasis(
-                parameters.getWidth(), parameters.getHeight(),
-                parameters.getPlantEnergy(),
-                parameters.getStartEnergy(),
-                parameters.getMoveEnergy(),
-                parameters.getJungleRatio(),
-                parameters.getNumberOfStartingAnimals(),
-                parameters.getNumberOfStartingGrass(),
-                parameters.getStartingGenes(),
-                parameters.getNumberOfGrassThatGrowsPerDay());
+                this.oasisParameters.getWidth(), this.oasisParameters.getHeight(),
+                this.oasisParameters.getPlantEnergy(),
+                this.oasisParameters.getStartEnergy(),
+                this.oasisParameters.getMoveEnergy(),
+                this.oasisParameters.getJungleRatio(),
+                this.oasisParameters.getNumberOfStartingAnimals(),
+                this.oasisParameters.getNumberOfStartingGrass(),
+                this.oasisParameters.getStartingGenes(),
+                this.oasisParameters.getNumberOfGrassThatGrowsPerDay());
 
-        this.updater.setMapHeight(parameters.getHeight());
-        this.updater.setMapWidth(parameters.getWidth());
-        this.updater.setTileHeight(this.windowWidth / parameters.getWidth());
-        this.updater.setTileWidth(this.windowHeight / parameters.getHeight());
+        this.updater.setMapHeight(this.oasisParameters.getHeight());
+        this.updater.setMapWidth(this.oasisParameters.getWidth());
+        this.updater.setTileHeight(this.windowWidth / this.oasisParameters.getWidth());
+        this.updater.setTileWidth(this.windowHeight / this.oasisParameters.getHeight());
 
         createStartingWindow();
 
         if(!canNormallyStartSimulation){
-            System.out.println("Window was not closed normally.");
+            System.out.println("Window was not closed with button.");
             return;
         }
 
-        int startingDay = parameters.getSkipToGivenDay();
+        int startingDay = this.oasisParameters.getSkipToGivenDay();
         for(int i=0;i<startingDay;i++){
             map1.nextDay();
         }
@@ -129,14 +132,29 @@ public class World extends Application {
         boxForClosing.getChildren().addAll(textForClosing,closeButton);
 
 
-        HBox boxForNDayStats = new HBox();
+        HBox boxForNDayStats = new HBox(5);
         boxForNDayStats.setAlignment(Pos.CENTER);
+        Text generateStatisticsAfterNDaysText = new Text("Press here to generate stats after N days -> ");
+        TextField fieldForInputOfNumberOfDaysToPass = new TextField("0");
         Button generateStatisticsAfterNDaysButton = new Button("Generate");
         generateStatisticsAfterNDaysButton.setOnAction(actionEvent -> {
-
+            Integer numberOfDays = Integer.valueOf(fieldForInputOfNumberOfDaysToPass.getText());
+            //todo nałożyć ograniczenie że tylko numerki mogą być wprowadzane
+            StatisticsGeneratorToJSONFile statisticsGeneratorToJSONFile = new StatisticsGeneratorToJSONFile(numberOfDays, this.oasisParameters);
+            try {
+                statisticsGeneratorToJSONFile.prepareStatisticsForJSONSerialization();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
-        Text generateStatisticsAfterNDaysText = new Text("Press here to generate stats after N days -> ");
-        boxForNDayStats.getChildren().addAll(generateStatisticsAfterNDaysText,generateStatisticsAfterNDaysButton);
+
+
+
+        boxForNDayStats.getChildren().addAll(
+                generateStatisticsAfterNDaysText,
+                fieldForInputOfNumberOfDaysToPass,
+                generateStatisticsAfterNDaysButton
+        );
         boxForNDayStats.setPrefSize(startingWindowWidth,startingWindowHeight / numberOfElementsAtStartingWindow);
 
 

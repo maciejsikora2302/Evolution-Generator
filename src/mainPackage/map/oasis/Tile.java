@@ -102,6 +102,14 @@ public class Tile {
         return sum;
     }
 
+    public int getSumOfAnimalChildren(){
+        int numberOfChildren = 0;
+        for(Animal animal:animals){
+            numberOfChildren += animal.getNumberOfChildren();
+        }
+        return numberOfChildren;
+    }
+
     public int incrementAgeOfEachAnimalAndGetSumOfTheirAge(){
         int sum = 0;
         for(Animal animal:animals){

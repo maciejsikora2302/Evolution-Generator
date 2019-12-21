@@ -35,9 +35,9 @@ public class TileVisualizer extends StackPane {
 
 
         Vector2d currentPosition = new Vector2d(j, i);
-        TooltipCreator tooltipCreator = new TooltipCreator(this, width, height, map1, j, i, extraWidthVector, textWithStatisticsForTooltip, border, currentPosition).invoke();
-        mapObject = tooltipCreator.getMapObject();
-        Text text = tooltipCreator.getText();
+        TooltipAndRectangleCreator tooltipAndRectangleCreator = new TooltipAndRectangleCreator(this, width, height, map1, j, i, extraWidthVector, textWithStatisticsForTooltip, border, currentPosition).invoke();
+        mapObject = tooltipAndRectangleCreator.getMapObject();
+        Text text = tooltipAndRectangleCreator.getText();
 
         Tooltip statsOfTile = new Tooltip(textWithStatisticsForTooltip.toString());
 

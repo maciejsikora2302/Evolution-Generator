@@ -7,8 +7,9 @@ import mainPackage.main.Vector2d;
 import mainPackage.map.MapObject;
 import mainPackage.mapElement.Grass;
 import mainPackage.mapElement.animal.Animal;
+import org.stjs.javascript.dom.Col;
 
-class TooltipCreator {
+class TooltipAndRectangleCreator {
     private TileVisualizer tileVisualizer;
     private int width;
     private int height;
@@ -22,7 +23,7 @@ class TooltipCreator {
     private MapObject mapObject;
     private Text text;
 
-    public TooltipCreator(TileVisualizer tileVisualizer, int width, int height, Oasis map1, int j, int i, int extraWidthVector, StringBuilder textWithStatisticsForTooltip, Rectangle border, Vector2d currentPosition) {
+    public TooltipAndRectangleCreator(TileVisualizer tileVisualizer, int width, int height, Oasis map1, int j, int i, int extraWidthVector, StringBuilder textWithStatisticsForTooltip, Rectangle border, Vector2d currentPosition) {
         this.tileVisualizer = tileVisualizer;
         this.width = width;
         this.height = height;
@@ -43,14 +44,14 @@ class TooltipCreator {
         return text;
     }
 
-    public TooltipCreator invoke() {
+    public TooltipAndRectangleCreator invoke() {
         String innerText;
         if (map1.isOccupied(currentPosition)) {
             Object object = map1.objectAt(currentPosition);
             if (object != null) {
                 if (object instanceof Tile && ((Tile) object).getNumberOfAnimalsAtTile() > 1) {
                     innerText = "⚤"; //இ, ∰, ⛧
-                    border.setFill(Color.RED);
+                    border.setFill(Color.PINK);
                     textWithStatisticsForTooltip.append("On this tile there are multiple animals (").
                             append(((Tile) object).getNumberOfAnimalsAtTile()).append(") and are preparing to give birth to new cute animal\n").
                             append("Properties of the strongest animal:\n").
@@ -76,6 +77,18 @@ class TooltipCreator {
                         textWithStatisticsForTooltip.append("yes\n");
                     }
                     border.setFill(Color.ORANGE);
+                    int animalEnergy = animal.getEnergy();
+                    if(animalEnergy<=0){
+                        border.setFill(Color.BLACK);
+                    }else if(animalEnergy <= 255){
+                        border.setFill(Color.rgb(255,animalEnergy,0));
+                    }else if(animalEnergy <= 510){
+                        border.setFill(Color.rgb(255-(animalEnergy-255),255,0));
+                    }else {
+                        border.setFill(Color.rgb(0,255,0));
+                    }
+
+
                     mapObject = MapObject.ANIMAL;
                 } else if (object instanceof Grass) {
                     innerText = "Ӂ ";

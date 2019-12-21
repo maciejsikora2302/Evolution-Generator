@@ -24,24 +24,24 @@ class OasisInitialGenerator {
 
     void generateZones() {
         int numberOfFieldNeededToBeDeclaredAsInnerOasis = (int) (oasis.getJungleRatio() * oasis.getWidth() * oasis.getHeight());
-        int boundy = (int) Math.sqrt(numberOfFieldNeededToBeDeclaredAsInnerOasis);
+        int boundry = (int) Math.sqrt(numberOfFieldNeededToBeDeclaredAsInnerOasis);
 
         Vector2d middlePointOfInnerOasis;
         Vector2d middlePointOfMap = new Vector2d(oasis.getWidth() / 2, oasis.getHeight() / 2);
         if (!isPerfectSquare(numberOfFieldNeededToBeDeclaredAsInnerOasis)) {
-            boundy += 1;
+            boundry += 1;
         }
-        if (oasis.getHeight() < boundy) {
-            boundy += boundy - oasis.getHeight();
-            middlePointOfInnerOasis = new Vector2d(boundy / 2, oasis.getHeight() / 2);
+        if (oasis.getHeight() < boundry) {
+            boundry += boundry - oasis.getHeight();
+            middlePointOfInnerOasis = new Vector2d(boundry / 2, oasis.getHeight() / 2);
         } else {
-            middlePointOfInnerOasis = new Vector2d(boundy / 2, boundy / 2);
+            middlePointOfInnerOasis = new Vector2d(boundry / 2, boundry / 2);
         }
         Vector2d moveVector = middlePointOfMap.subtract(middlePointOfInnerOasis);
         while (numberOfFieldNeededToBeDeclaredAsInnerOasis > 0) {
-            for (int i = 0; i < oasis.getHeight() && i < boundy; i++) {
+            for (int i = 0; i < oasis.getHeight() && i < boundry; i++) {
                 Vector2d positionOfInnerOasis = new Vector2d(0, i);
-                for (int j = 0; j < boundy; j++) {
+                for (int j = 0; j < boundry; j++) {
                     oasis.getInnerOasisPositionHashMap().put(positionOfInnerOasis.add(moveVector), positionOfInnerOasis.add(moveVector));
                     positionOfInnerOasis = positionOfInnerOasis.add(new Vector2d(1, 0));
                 }
@@ -52,7 +52,7 @@ class OasisInitialGenerator {
                 .boxed().collect(Collectors.toList());
         Collections.shuffle(listOfIndex);
         oasis.setIndexList(listOfIndex);
-        oasis.setInnerOasisPositionList(new ArrayList<Vector2d>(oasis.getInnerOasisPositionHashMap().values()));
+        oasis.setInnerOasisPositionList(new ArrayList<>(oasis.getInnerOasisPositionHashMap().values()));
     }
 
     void placeInitialAnimals(int numberOfInitialAnimals, ArrayList<Integer> startingGenes) {

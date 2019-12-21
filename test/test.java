@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import mainPackage.main.OasisParameters;
 import mainPackage.map.oasis.Oasis;
 import mainPackage.map.oasis.Tile;
@@ -8,11 +9,11 @@ import mainPackage.main.Vector2d;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+
+
 
 public class test {
     private Oasis map;

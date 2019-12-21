@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 public class Oasis {
-    final int plantEnergy;
+    private final int plantEnergy;
     final int startAnimalEnergy;
     final int numberOfGrassThatGrowsPerDay;
     int averageOdAnimalsEnergy;
@@ -112,6 +112,14 @@ public class Oasis {
             numberOfAnimals += tile.getNumberOfAnimalsAtTile();
         }
         return numberOfAnimals;
+    }
+
+    public float getAverageOfNumberOfChildren(){
+        int sumOfChildren = 0;
+        for(Tile tile: animals.values()){
+            sumOfChildren += tile.getSumOfAnimalChildren();
+        }
+        return ((float )sumOfChildren / this.getNumberOfAnimalsAtMap());
     }
 
     public int getNumberOfGrassAtMap() {

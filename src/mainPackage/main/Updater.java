@@ -72,6 +72,7 @@ public class Updater {
         Text numberOfAnimalsWithMostCommonGenotype = new Text("Number of animals with most common genotype: " + world.getMap1().getMostCommonGenotypeQuantity());
         Text averageOfAnimalsEnergy = new Text("Average of animals energy: " + world.getMap1().getAverageOdAnimalsEnergy());
         Text averageOfAnimalLifespan = new Text("Average of animals lifespan: " + world.getMap1().getAverageOfAnimalsLifespan());
+        Text averageOfAnimalChildren = new Text("Average of animals children: " + world.getMap1().getAverageOfNumberOfChildren());
         Text currentDay = new Text("Current day: " + world.getMap1().getDay());
 
         VBox statisticsBox = new VBox(20);
@@ -79,10 +80,16 @@ public class Updater {
         statisticsBox.setPrefHeight(world.getStatisticsInnerWidowHeight());
 
         statisticsBox.setAlignment(Pos.CENTER);
-        statisticsBox.getChildren().addAll(animalsOnMap, grassOnMap,
-                mostCommonGenotype, numberOfAnimalsWithMostCommonGenotype,
-                averageOfAnimalsEnergy, averageOfAnimalLifespan,
-                currentDay);
+        statisticsBox.getChildren().addAll(
+                animalsOnMap,
+                grassOnMap,
+                mostCommonGenotype,
+                numberOfAnimalsWithMostCommonGenotype,
+                averageOfAnimalsEnergy,
+                averageOfAnimalLifespan,
+                averageOfAnimalChildren,
+                currentDay
+        );
 
         world.getTextWithStatisticsPane().getChildren().add(statisticsBox);
     }
