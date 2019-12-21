@@ -48,7 +48,7 @@ public class Tile {
         return genotypes;
     }
 
-    public void turnAllAnimalsAndDecreaseTheirEnergy(int moveEnergy) {
+    public void decreaseEnergyOfAnimals(int moveEnergy) {
         for (Animal animal : animals) {
             animal.turnAccordingToGene();
             animal.decreaseEnergyByMoveValue(moveEnergy);
@@ -57,7 +57,7 @@ public class Tile {
 
     public void moveAllAnimals() {
         for (int i = 0; i < animals.size(); i++) {
-            animals.get(i).move();
+            animals.get(i).moveAndTurn();
         }
     }
 
