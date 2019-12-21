@@ -1,7 +1,7 @@
 # Evolution-Generator
 ### About:
 This is a project for visualisation of life circe of animals at oasis.
-Animals can move, eat, breed and after not feeding for a longer period of time they eventually die.
+Animals can move, eat, breed and after not eating for a longer period of time they eventually die.
 When animals breed they pass their genotype which determines how likely they are to turn (f.e animal can have 30% chance to turn by 45°  and 12% to turn by 180° etc.).
  
 ### Usage instructions:
