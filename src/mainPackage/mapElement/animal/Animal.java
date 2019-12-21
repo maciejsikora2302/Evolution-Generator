@@ -1,8 +1,5 @@
 package mainPackage.mapElement.animal;
 
-
-import mainPackage.mapElement.AbstractWorldMapElement;
-import mainPackage.moveAndDirection.MapDirection;
 import mainPackage.main.Vector2d;
 import mainPackage.map.oasis.Oasis;
 
@@ -11,7 +8,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Animal extends AbstractWorldMapElement {
+public class Animal {
+    private Vector2d Position;
     private MapDirection Direction;
     private Oasis map;
     private Integer energy;

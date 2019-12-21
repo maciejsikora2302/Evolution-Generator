@@ -1,5 +1,6 @@
 package mainPackage.map.oasis;
 
+import mainPackage.map.oasis.NextDayOperatorPackage.NextDayOperator;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.mapElement.Grass;
 import mainPackage.main.Vector2d;
@@ -24,6 +25,26 @@ public class Oasis {
     private final double jungleRatio;
     private final NextDayOperator nextDayOperator;
     private int day = 0;
+
+    public void setAverageOdAnimalsEnergy(int averageOdAnimalsEnergy) {
+        this.averageOdAnimalsEnergy = averageOdAnimalsEnergy;
+    }
+
+    public void setAverageOfAnimalsLifespan(int averageOfAnimalsLifespan) {
+        this.averageOfAnimalsLifespan = averageOfAnimalsLifespan;
+    }
+
+    public void setAnimals(HashMap<Vector2d, Tile> animals) {
+        this.animals = animals;
+    }
+
+    public void setGrasses(HashMap<Vector2d, Grass> grasses) {
+        this.grasses = grasses;
+    }
+
+    public void setDominatingGenotype(HashMap<String, Integer> dominatingGenotype) {
+        this.dominatingGenotype = dominatingGenotype;
+    }
 
     public void addGenotypeToHashMap(String genotype) {
         dominatingGenotype.merge(genotype, 1, Integer::sum);
@@ -157,26 +178,22 @@ public class Oasis {
         return this.averageOfAnimalsLifespan;
     }
 
-    void placeAnimal(@NotNull Animal animal) {
+    public void placeAnimal(@NotNull Animal animal) {
         if (!isOccupied(animal.getPosition())) {
             Tile tile = new Tile(animal);
             this.animals.put(animal.getPosition(), tile);
-//            this.addGenotypeToHashMap(animal.getGenotypeAsString());
         }
     }
 
-    void removeAnimalsWithNoEnergyAtGivenPosition(Vector2d position) {
+    public void removeAnimalsWithNoEnergyAtGivenPosition(Vector2d position) {
         Tile tile = animals.get(position);
-        ArrayList<String> genotypes = tile.removeAnimalsWithNoEnergyAndGetTheirGenotypes();
-//        for(String genotype:genotypes){
-//            this.removeGenotypeFromHashMap(genotype);
-//        }
+        tile.removeAnimalsWithNoEnergyAndGetTheirGenotypes();
         if (tile.getNumberOfAnimalsAtTile() == 0) {
             animals.remove(position);
         }
     }
 
-    void addGrassInTheOasis() {
+    public void addGrassInTheOasis() {
         //sprawdza czy losowo wybrane miejsce jest przez coś zajęte
         for (Integer index : this.indexList) {
             if (!isOccupied(this.innerOasisPositionHashMap.get(this.innerOasisPositionList.get(index)))) {
@@ -189,7 +206,7 @@ public class Oasis {
         }
     }
 
-    void addGrassOutsideOfTheOasis() {
+    public void addGrassOutsideOfTheOasis() {
         boolean grassCanBePlaced = false;
         int i = 0;
         while (!grassCanBePlaced) {
@@ -281,5 +298,21 @@ public class Oasis {
 
     public void setIndexList(List<Integer> indexList) {
         this.indexList = indexList;
+    }
+
+    public int getNumberOfGrassThatGrowsPerDay() {
+        return numberOfGrassThatGrowsPerDay;
+    }
+
+    public HashMap<Vector2d, Tile> getAnimals() {
+        return animals;
+    }
+
+    public HashMap<Vector2d, Grass> getGrasses() {
+        return grasses;
+    }
+
+    public HashMap<String, Integer> getDominatingGenotype() {
+        return dominatingGenotype;
     }
 }

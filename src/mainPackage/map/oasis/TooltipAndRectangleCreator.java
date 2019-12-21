@@ -4,11 +4,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import mainPackage.main.Vector2d;
-import mainPackage.map.MapObject;
+import mainPackage.mapElement.MapObject;
 import mainPackage.mapElement.Grass;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.mapElement.animal.AnimalObserver;
-import org.stjs.javascript.dom.Col;
 
 class TooltipAndRectangleCreator {
     private TileVisualizer tileVisualizer;

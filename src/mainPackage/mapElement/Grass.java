@@ -2,9 +2,13 @@ package mainPackage.mapElement;
 
 import mainPackage.main.Vector2d;
 
-public class Grass extends AbstractWorldMapElement {
+public class Grass{
+    private Vector2d Position;
 
-    @Override
+    public Vector2d getPosition() {
+        return Position;
+    }
+
     public String toString() {
         return "* ";
     }

@@ -66,7 +66,6 @@ public class test {
     @Test
     public void testArrayHashing(){
         ArrayList<Integer> genotype = new ArrayList<>(this.parameters.getStartingGenes());
-//        map.addGenotypeToHashMap();
         genotype.sort(Integer::compareTo);
         System.out.println(genotype);
     }
