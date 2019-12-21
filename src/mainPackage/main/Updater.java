@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import mainPackage.map.oasis.Oasis;
 import mainPackage.map.oasis.tile.TileVisualizer;
 import mainPackage.mapElement.animal.Animal;
 import mainPackage.mapElement.animal.AnimalObserver;
@@ -15,15 +16,71 @@ public class Updater {
     private int tileWidth;
     private int tileHeight;
     private Pane updatePane = null;
-    private boolean updateStatsOfSelectedAnimal = false;
+    private boolean canUpdateStatsOfSelectedAnimal = false;
+
+    public Updater(World world) {
+        this.world = world;
+    }
+
+    void onUpdate(Oasis map, Pane mapPane, Pane textStatisticsPane) {
+        map.nextDay();
+
+        mapPane.getChildren().clear();
+
+        statsUpdate(textStatisticsPane, map);
+        if(canUpdateStatsOfSelectedAnimal){
+            updateStatsOfSelectedAnimal();
+        }
+
+
+
+        for (int i = 0; i < mapWidth; i++) {
+            for (int j = 0; j < mapHeight; j++) {
+                TileVisualizer tile = new TileVisualizer(tileWidth, tileHeight, map, j, i, world.getStatisticsWidth());
+                mapPane.getChildren().add(tile);
+            }
+        }
+    }
+
+    void statsUpdate(Pane statsPane, Oasis map) {
+        statsPane.getChildren().clear();
+
+        Text animalsOnMap = new Text("Animals currently alive: " + map.getNumberOfAnimalsAtMap());
+        Text grassOnMap = new Text("Current amount of grass: " + map.getNumberOfGrassAtMap());
+        Text mostCommonGenotype = new Text("Most common genotype: " + map.getMostCommonGenotype());
+        Text numberOfAnimalsWithMostCommonGenotype = new Text("Number of animals with most common genotype: " + map.getMostCommonGenotypeQuantity());
+        Text averageOfAnimalsEnergy = new Text("Average of animals energy: " + map.getAverageOdAnimalsEnergy());
+        Text averageOfAnimalLifespan = new Text("Average of animals lifespan: " + map.getAverageOfAnimalsLifespan());
+        Text averageOfAnimalChildren = new Text("Average of animals children: " + map.getAverageOfNumberOfChildren());
+        Text currentDay = new Text("Current day: " + map.getDay());
+
+        VBox statisticsBox = new VBox(20);
+        statisticsBox.setPrefWidth(world.getStatisticsWidth());
+        statisticsBox.setPrefHeight(world.getStatisticsInnerWidowHeight());
+
+        statisticsBox.setAlignment(Pos.CENTER);
+        statisticsBox.getChildren().addAll(
+                animalsOnMap,
+                grassOnMap,
+                mostCommonGenotype,
+                numberOfAnimalsWithMostCommonGenotype,
+                averageOfAnimalsEnergy,
+                averageOfAnimalLifespan,
+                averageOfAnimalChildren,
+                currentDay
+        );
+
+
+        statsPane.getChildren().add(statisticsBox);
+    }
 
     public void startUpdatingStatsOfSelectedAnimal(Pane updatePane){
-        this.updateStatsOfSelectedAnimal = true;
+        this.canUpdateStatsOfSelectedAnimal = true;
         this.updatePane = updatePane;
     }
 
     public void stopUpdatingStatsOfSelectedAnimal(){
-        this.updateStatsOfSelectedAnimal = false;
+        this.canUpdateStatsOfSelectedAnimal = false;
         this.updatePane = null;
     }
 
@@ -47,7 +104,7 @@ public class Updater {
             animalAge = new Text("Age: " + animal.getAge());
         }else{
             animalAge = new Text("Died at age: " + animal.getAge());
-            this.updateStatsOfSelectedAnimal = false;
+            this.canUpdateStatsOfSelectedAnimal = false;
         }
         boxForText.getChildren().addAll(animalGenotype,
                 animalGenotypeStatistically,
@@ -57,62 +114,6 @@ public class Updater {
                 animalEnergy
         );
         this.updatePane.getChildren().addAll(boxForText);
-    }
-
-    public Updater(World world) {
-        this.world = world;
-    }
-
-    void statsUpdate() {
-        world.getTextWithStatisticsPane().getChildren().clear();
-
-        Text animalsOnMap = new Text("Animals currently alive: " + world.getMap1().getNumberOfAnimalsAtMap());
-        Text grassOnMap = new Text("Current amount of grass: " + world.getMap1().getNumberOfGrassAtMap());
-        Text mostCommonGenotype = new Text("Most common genotype: " + world.getMap1().getMostCommonGenotype());
-        Text numberOfAnimalsWithMostCommonGenotype = new Text("Number of animals with most common genotype: " + world.getMap1().getMostCommonGenotypeQuantity());
-        Text averageOfAnimalsEnergy = new Text("Average of animals energy: " + world.getMap1().getAverageOdAnimalsEnergy());
-        Text averageOfAnimalLifespan = new Text("Average of animals lifespan: " + world.getMap1().getAverageOfAnimalsLifespan());
-        Text averageOfAnimalChildren = new Text("Average of animals children: " + world.getMap1().getAverageOfNumberOfChildren());
-        Text currentDay = new Text("Current day: " + world.getMap1().getDay());
-
-        VBox statisticsBox = new VBox(20);
-        statisticsBox.setPrefWidth(world.getStatisticsWidth());
-        statisticsBox.setPrefHeight(world.getStatisticsInnerWidowHeight());
-
-        statisticsBox.setAlignment(Pos.CENTER);
-        statisticsBox.getChildren().addAll(
-                animalsOnMap,
-                grassOnMap,
-                mostCommonGenotype,
-                numberOfAnimalsWithMostCommonGenotype,
-                averageOfAnimalsEnergy,
-                averageOfAnimalLifespan,
-                averageOfAnimalChildren,
-                currentDay
-        );
-
-        world.getTextWithStatisticsPane().getChildren().add(statisticsBox);
-    }
-
-    void onUpdate() {
-        world.getMap1().nextDay();
-
-        world.getMapPane().getChildren().clear();
-
-        statsUpdate();
-        if(updateStatsOfSelectedAnimal){
-            updateStatsOfSelectedAnimal();
-        }
-
-
-
-        for (int i = 0; i < mapWidth; i++) {
-            for (int j = 0; j < mapHeight; j++) {
-                TileVisualizer tile = new TileVisualizer(tileWidth, tileHeight, world.getMap1(), j, i, world.getStatisticsWidth());
-
-                world.getMapPane().getChildren().add(tile);
-            }
-        }
     }
 
     public void setTileHeight(int tileHeight) {

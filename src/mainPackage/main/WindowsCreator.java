@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import mainPackage.main.json.StatisticsGeneratorToJSONFile;
+import mainPackage.map.oasis.Oasis;
 
 import java.io.IOException;
 
@@ -23,11 +24,12 @@ public class WindowsCreator {
         this.world = world;
     }
 
-    Parent createContent() {
-        world.getRoot().setPrefSize(world.getWindowWidth()+world.getStatisticsWidth(), world.getWindowHeight());
-        world.getRoot().getChildren().addAll(world.getMapPane(), this.createStats());
-        world.getUpdater().onUpdate();
-        return world.getRoot();
+    Parent createContent(Pane rootPane, Oasis map, Pane mapPane, Pane textWithStatisticsPane) {
+        rootPane.setPrefSize(world.getWindowWidth()+world.getStatisticsWidth(), world.getWindowHeight());
+        rootPane.getChildren().addAll(world.getMapPane(), this.createStats());
+//        world.getUpdater().onUpdate(world.getMap1(), world.getMapPane(), world.getTextWithStatisticsPane());
+        world.getUpdater().onUpdate(map,mapPane,textWithStatisticsPane);
+        return rootPane;
     }
 
     Parent createStats() {
@@ -66,7 +68,7 @@ public class WindowsCreator {
         int numberOfElementsAtStartingWindow = 2;
 
         startingWindowPane.setPrefSize(startingWindowWidth,startingWindowHeight);
-        HBox horizontalButtons = new HBox();
+        //HBox horizontalButtons = new HBox();
 
 
 
@@ -74,13 +76,21 @@ public class WindowsCreator {
         boxForClosing.setAlignment(Pos.CENTER);
         boxForClosing.setPrefSize(startingWindowWidth,startingWindowHeight/numberOfElementsAtStartingWindow);
         Text textForClosing = new Text("Click here to close this window and start simulation -> ");
-        Button closeButton = new Button("Close");
-        closeButton.setOnAction(event ->{
-            Window window = closeButton.getScene().getWindow();
+        Button closeButtonAndUseOneMap = new Button("Use One Map");
+        closeButtonAndUseOneMap.setOnAction(event ->{
+            Window window = closeButtonAndUseOneMap.getScene().getWindow();
             world.setCanNormallyStartSimulation(true);
             window.hide();
         });
-        boxForClosing.getChildren().addAll(textForClosing,closeButton);
+        Button closeButtonAndUseTwoMaps = new Button("Use Two Maps");
+        closeButtonAndUseTwoMaps.setOnAction(event ->{
+            Window window = closeButtonAndUseTwoMaps.getScene().getWindow();
+            world.setCanNormallyStartSimulation(true);
+            world.setUseTwoMaps(true);
+            window.hide();
+        });
+
+        boxForClosing.getChildren().addAll(textForClosing,closeButtonAndUseOneMap);
 
 
         HBox boxForNDayStats = new HBox(5);
