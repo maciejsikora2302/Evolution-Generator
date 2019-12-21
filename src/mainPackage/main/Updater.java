@@ -131,4 +131,20 @@ public class Updater {
     public void setTileWidth(int tileWidth) {
         this.tileWidth = tileWidth;
     }
+
+    public int getTileWidth() {
+        return tileWidth;
+    }
+
+    public int getTileHeight() {
+        return tileHeight;
+    }
+
+    public int getMapWidth() {
+        return mapWidth;
+    }
+
+    public int getMapHeight() {
+        return mapHeight;
+    }
 }

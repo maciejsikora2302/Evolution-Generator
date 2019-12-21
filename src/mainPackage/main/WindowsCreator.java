@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import mainPackage.main.json.StatisticsGeneratorToJSONFile;
 import mainPackage.map.oasis.Oasis;
+import mainPackage.map.oasis.tile.TileVisualizer;
 
 
 import java.io.IOException;
@@ -34,12 +35,12 @@ public class WindowsCreator {
                          Pane statisticsPane,
                          Pane textWithStatisticsPane, Pane buttonsPane) {
         rootPane.setPrefSize(world.getWindowWidth()+world.getStatisticsWidth(), world.getWindowHeight());
-        rootPane.getChildren().addAll(mapPane, this.createStats(statisticsPane, buttonsPane, textWithStatisticsPane));
+        rootPane.getChildren().addAll(mapPane, this.createStats(statisticsPane, buttonsPane, textWithStatisticsPane, mapPane, map));
         world.getUpdater().onUpdate(map,mapPane,textWithStatisticsPane);
         return rootPane;
     }
 
-    Parent createStats(Pane statisticsPane, Pane buttonsPane, Pane textWithStatisticsPane) {
+    Parent createStats(Pane statisticsPane, Pane buttonsPane, Pane textWithStatisticsPane, Pane mapPane, Oasis map) {
         statisticsPane.setPrefSize(world.getStatisticsWidth(), world.getWindowHeight());
 
         Button pauseButton = new Button("Pause");
@@ -50,15 +51,37 @@ public class WindowsCreator {
         resumeButton.setOnAction(e -> {
             world.getAnimationTimer().start();
         });
+        Button showAnimalsWithMostCommonGenotypeButton = new Button("Highlight animals with most common genotype");
+        showAnimalsWithMostCommonGenotypeButton.setOnAction(event -> {
+            TileVisualizer.setHighlightAnimalsWithMostCommonGenotype(true);
+            for (int i = 0; i < world.getUpdater().getMapWidth(); i++) {
+                for (int j = 0; j < world.getUpdater().getMapHeight(); j++) {
+                    TileVisualizer tile = new TileVisualizer(world.getUpdater().getTileWidth(), world.getUpdater().getTileHeight(), map, j, i, world.getStatisticsWidth());
+                    mapPane.getChildren().add(tile);
+                }
+            }
+        });
+        Button stopHighlighting = new Button("Stop Highlighting");
+        stopHighlighting.setOnAction(event ->{
+            TileVisualizer.setHighlightAnimalsWithMostCommonGenotype(false);
+        });
 
-        HBox buttonsBox = new HBox(10);
-        buttonsBox.setPrefWidth(world.getStatisticsWidth());
-        buttonsBox.setPrefHeight(world.getStatisticsButtonsInnerWidowHeight());
-        buttonsBox.setAlignment(Pos.CENTER);
-        buttonsBox.getChildren().addAll(pauseButton, resumeButton);
+        HBox stopResumeButtonsBox = new HBox(10);
+        stopResumeButtonsBox.setPrefWidth(world.getStatisticsWidth());
+        stopResumeButtonsBox.setAlignment(Pos.CENTER);
+        stopResumeButtonsBox.getChildren().addAll(pauseButton,resumeButton);
+        HBox highlightButtonsBox = new HBox(10);
+        highlightButtonsBox.setPrefWidth(world.getStatisticsWidth());
+        highlightButtonsBox.setAlignment(Pos.CENTER);
+        highlightButtonsBox.getChildren().addAll(showAnimalsWithMostCommonGenotypeButton, stopHighlighting);
+        VBox moreButtonsBox = new VBox(10);
+        moreButtonsBox.setPrefWidth(world.getStatisticsWidth());
+        moreButtonsBox.setPrefHeight(world.getStatisticsButtonsInnerWidowHeight());
+        moreButtonsBox.setAlignment(Pos.CENTER);
+        moreButtonsBox.getChildren().addAll(stopResumeButtonsBox,highlightButtonsBox);
 
 
-        buttonsPane.getChildren().add(buttonsBox);
+        buttonsPane.getChildren().add(moreButtonsBox);
         buttonsPane.setTranslateY(world.getStatisticsInnerWidowHeight());
 
         statisticsPane.getChildren().addAll(textWithStatisticsPane, buttonsPane);

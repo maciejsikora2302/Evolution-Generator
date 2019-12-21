@@ -14,7 +14,7 @@ class TooltipAndRectangleCreator {
     private TileVisualizer tileVisualizer;
     private int width;
     private int height;
-    private Oasis map1;
+    private Oasis map;
     private int j;
     private int i;
     private int extraWidthVector;
@@ -23,18 +23,20 @@ class TooltipAndRectangleCreator {
     private Vector2d currentPosition;
     private MapObject mapObject;
     private Text text;
+    private boolean highlightAnimalsWithMostCommonGenotype;
 
-    public TooltipAndRectangleCreator(TileVisualizer tileVisualizer, int width, int height, Oasis map1, int j, int i, int extraWidthVector, StringBuilder textWithStatisticsForTooltip, Rectangle border, Vector2d currentPosition) {
+    public TooltipAndRectangleCreator(TileVisualizer tileVisualizer, int width, int height, Oasis map, int j, int i, int extraWidthVector, StringBuilder textWithStatisticsForTooltip, Rectangle border, Vector2d currentPosition, boolean highlightAnimalsWithMostCommonGenotype) {
         this.tileVisualizer = tileVisualizer;
         this.width = width;
         this.height = height;
-        this.map1 = map1;
+        this.map = map;
         this.j = j;
         this.i = i;
         this.extraWidthVector = extraWidthVector;
         this.textWithStatisticsForTooltip = textWithStatisticsForTooltip;
         this.border = border;
         this.currentPosition = currentPosition;
+        this.highlightAnimalsWithMostCommonGenotype = highlightAnimalsWithMostCommonGenotype;
     }
 
     public MapObject getMapObject() {
@@ -47,8 +49,8 @@ class TooltipAndRectangleCreator {
 
     public TooltipAndRectangleCreator invoke() {
         String innerText;
-        if (map1.isOccupied(currentPosition)) {
-            Object object = map1.objectAt(currentPosition);
+        if (map.isOccupied(currentPosition)) {
+            Object object = map.objectAt(currentPosition);
             if (object != null) {
                 if (object instanceof Tile && ((Tile) object).getNumberOfAnimalsAtTile() > 1) {
                     innerText = "⚤";
@@ -92,6 +94,10 @@ class TooltipAndRectangleCreator {
                         border.setFill(Color.BLUE);
                     }
 
+                    if(highlightAnimalsWithMostCommonGenotype && animal.getGenotypeAsString().equals(map.getMostCommonGenotype())){
+                        border.setFill(Color.VIOLET);
+                    }
+
                     mapObject = MapObject.ANIMAL;
                 } else if (object instanceof Grass) {
                     innerText = "Ӂ ";
@@ -117,7 +123,7 @@ class TooltipAndRectangleCreator {
             text.setFill(Color.WHITE);
         }
         if (mapObject == MapObject.EMPTY) {
-            if (map1.doesInnerOasisExistsAtGivenPosition(currentPosition)) {
+            if (map.doesInnerOasisExistsAtGivenPosition(currentPosition)) {
                 textWithStatisticsForTooltip.append("This tile belongs to jungle");
                 border.setFill(Color.LIGHTGREEN);
             } else {

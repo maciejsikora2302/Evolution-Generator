@@ -20,11 +20,8 @@ import mainPackage.main.Vector2d;
 import mainPackage.mapElement.animal.AnimalObserver;
 
 public class TileVisualizer extends StackPane {
-    public static void setUpdater(Updater updater) {
-        TileVisualizer.updater = updater;
-    }
     private static Updater updater;
-
+    private static boolean highlightAnimalsWithMostCommonGenotype;
 
     public TileVisualizer(int width, int height, Oasis map1, int j, int i, int extraWidthVector) {
 
@@ -35,7 +32,7 @@ public class TileVisualizer extends StackPane {
 
 
         Vector2d currentPosition = new Vector2d(j, i);
-        TooltipAndRectangleCreator tooltipAndRectangleCreator = new TooltipAndRectangleCreator(this, width, height, map1, j, i, extraWidthVector, textWithStatisticsForTooltip, border, currentPosition).invoke();
+        TooltipAndRectangleCreator tooltipAndRectangleCreator = new TooltipAndRectangleCreator(this, width, height, map1, j, i, extraWidthVector, textWithStatisticsForTooltip, border, currentPosition, highlightAnimalsWithMostCommonGenotype).invoke();
         mapObject = tooltipAndRectangleCreator.getMapObject();
         Text text = tooltipAndRectangleCreator.getText();
 
@@ -128,4 +125,15 @@ public class TileVisualizer extends StackPane {
         windowToFollowChosenAnimal.show();
     }
 
+    public static void setUpdater(Updater updater) {
+        TileVisualizer.updater = updater;
+    }
+
+    public static boolean isHighlightAnimalsWithMostCommonGenotype() {
+        return highlightAnimalsWithMostCommonGenotype;
+    }
+
+    public static void setHighlightAnimalsWithMostCommonGenotype(boolean highlightAnimalsWithMostCommonGenotype) {
+        TileVisualizer.highlightAnimalsWithMostCommonGenotype = highlightAnimalsWithMostCommonGenotype;
+    }
 }
