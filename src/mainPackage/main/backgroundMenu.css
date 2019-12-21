@@ -1,0 +1,13 @@
+#menu{
+    -fx-background-image: url("backgroundMenu.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 900 600;
+    -fx-background-position: center center;
+}
+
+#text{
+    -fx-background-color: white;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100 100;
+    -fx-background-position: center center;
+}

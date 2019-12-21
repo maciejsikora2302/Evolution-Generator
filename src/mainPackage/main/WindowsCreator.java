@@ -5,15 +5,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import mainPackage.main.json.StatisticsGeneratorToJSONFile;
 import mainPackage.map.oasis.Oasis;
+
 
 import java.io.IOException;
 
@@ -66,8 +70,10 @@ public class WindowsCreator {
         Stage startingWindow = new Stage();
         startingWindow.setTitle("Main menu");
         Pane startingWindowPane = new Pane();
+        startingWindowPane.setId("menu");
 
-        int startingWindowWidth = 500;
+
+        int startingWindowWidth = 900;
         int startingWindowHeight = 600;
         int numberOfElementsAtStartingWindow = 2;
 
@@ -79,7 +85,8 @@ public class WindowsCreator {
         HBox boxForClosing = new HBox();
         boxForClosing.setAlignment(Pos.CENTER);
         boxForClosing.setPrefSize(startingWindowWidth,startingWindowHeight/numberOfElementsAtStartingWindow);
-        Text textForClosing = new Text("Click here to close this window and start simulation -> ");
+        Label textForClosing = new Label("Click here to close this window and start simulation -> ");
+        textForClosing.setId("text");
         Button closeButtonAndUseOneMap = new Button("Use One Map");
         closeButtonAndUseOneMap.setOnAction(event ->{
             Window window = closeButtonAndUseOneMap.getScene().getWindow();
@@ -99,7 +106,8 @@ public class WindowsCreator {
 
         HBox boxForNDayStats = new HBox(5);
         boxForNDayStats.setAlignment(Pos.CENTER);
-        Text generateStatisticsAfterNDaysText = new Text("Press here to generate stats after N days -> ");
+        Label generateStatisticsAfterNDaysText = new Label("Input number of days and press \"Generate\"\nto get JSON file with average statistics after given number of days ");
+        generateStatisticsAfterNDaysText.setId("text");
         TextField fieldForInputOfNumberOfDaysToPass = new TextField("0");
         Button generateStatisticsAfterNDaysButton = new Button("Generate");
         generateStatisticsAfterNDaysButton.setOnAction(actionEvent -> {
@@ -143,6 +151,7 @@ public class WindowsCreator {
 
         startingWindowPane.getChildren().add(allElements);
         Scene startingWindowScene = new Scene(startingWindowPane);
+        startingWindowScene.getStylesheets().addAll(this.getClass().getResource("backgroundMenu.css").toExternalForm());
         startingWindow.setScene(startingWindowScene);
         startingWindow.showAndWait();
     }
